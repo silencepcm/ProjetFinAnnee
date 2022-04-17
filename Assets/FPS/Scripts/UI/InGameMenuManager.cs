@@ -20,14 +20,14 @@ namespace Unity.FPS.UI
         [Tooltip("Toggle component for shadows")]
         public Toggle ShadowsToggle;
 
-        [Tooltip("Toggle component for invincibility")]
-        public Toggle InvincibilityToggle;
 
         [Tooltip("Toggle component for framerate display")]
         public Toggle FramerateToggle;
 
         [Tooltip("GameObject for the controls")]
         public GameObject ControlImage;
+
+        public GameObject InventairePanel;
 
         PlayerInputHandler m_PlayerInputsHandler;
         Health m_PlayerHealth;
@@ -53,9 +53,6 @@ namespace Unity.FPS.UI
             ShadowsToggle.isOn = QualitySettings.shadows != ShadowQuality.Disable;
             ShadowsToggle.onValueChanged.AddListener(OnShadowsChanged);
 
-            InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
-            InvincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
-
             FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
             FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);
         }
@@ -63,7 +60,7 @@ namespace Unity.FPS.UI
         void Update()
         {
             // Lock cursor when clicking outside of menu
-            if (!MenuRoot.activeSelf && Input.GetMouseButtonDown(0))
+            if (!MenuRoot.activeSelf && Input.GetMouseButtonDown(0)&&(!InventairePanel.activeSelf))
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -83,8 +80,22 @@ namespace Unity.FPS.UI
                     ControlImage.SetActive(false);
                     return;
                 }
-
+                if (InventairePanel.activeSelf)
+                {
+                    SetInventaireMenuActivation();
+                }
                 SetPauseMenuActivation(!MenuRoot.activeSelf);
+
+            }
+            if (m_PlayerInputsHandler.GetCanOpenInventaire() && !MenuRoot.activeSelf && (Input.GetButtonDown(GameConstants.k_ButtonNameInventaire)))
+            {
+                if (ControlImage.activeSelf)
+                {
+                    ControlImage.SetActive(false);
+                    return;
+                }
+
+                SetInventaireMenuActivation();
 
             }
 
@@ -97,7 +108,6 @@ namespace Unity.FPS.UI
                 }
             }
         }
-
         public void ClosePauseMenu()
         {
             SetPauseMenuActivation(false);
@@ -125,7 +135,28 @@ namespace Unity.FPS.UI
             }
 
         }
+        public void SetInventaireMenuActivation()
+        {
+            InventairePanel.SetActive(!InventairePanel.activeSelf);
 
+            if (InventairePanel.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Time.timeScale = 0f;
+                AudioUtility.SetMasterVolume(VolumeWhenMenuOpen);
+
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                Time.timeScale = 1f;
+                AudioUtility.SetMasterVolume(1);
+            }
+
+        }
         void OnMouseSensitivityChanged(float newValue)
         {
             m_PlayerInputsHandler.LookSensitivity = newValue;

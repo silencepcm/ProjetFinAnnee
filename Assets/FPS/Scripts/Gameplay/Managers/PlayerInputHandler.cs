@@ -1,8 +1,7 @@
 ﻿using Unity.FPS.Game;
 using UnityEngine;
-
-namespace Unity.FPS.Gameplay
-{
+using UnityEngine.UI;
+namespace Unity.FPS.Gameplay {
     public class PlayerInputHandler : MonoBehaviour
     {
         [Tooltip("Sensitivity multiplier for moving the camera around")]
@@ -25,6 +24,7 @@ namespace Unity.FPS.Gameplay
         bool m_FireInputWasHeld;
         private bool canMove;
         private bool canJump;
+        private bool canOpenInventaire;
         void Start()
         {
             canMove = false;
@@ -51,7 +51,7 @@ namespace Unity.FPS.Gameplay
 
         public Vector3 GetMoveInput()
         {
-            if (CanProcessInput()&&canMove)
+            if (CanProcessInput() && canMove)
             {
                 Vector3 move = new Vector3(Input.GetAxisRaw(GameConstants.k_AxisNameHorizontal), 0f,
                     Input.GetAxisRaw(GameConstants.k_AxisNameVertical));
@@ -75,6 +75,7 @@ namespace Unity.FPS.Gameplay
                     canJump = can;
                     break;
                 case "Inventaire":
+                    canOpenInventaire = can;
                     break;
                 default:
                     break;
@@ -95,7 +96,16 @@ namespace Unity.FPS.Gameplay
 
         public bool GetJumpInputDown()
         {
-            if (CanProcessInput()&& canJump)
+            if (CanProcessInput() && canJump)
+            {
+                return Input.GetButtonDown(GameConstants.k_ButtonNameJump);
+            }
+
+            return false;
+        }
+        public bool GetInventaireInputDown()
+        {
+            if (CanProcessInput() && canOpenInventaire)
             {
                 return Input.GetButtonDown(GameConstants.k_ButtonNameJump);
             }
@@ -105,7 +115,7 @@ namespace Unity.FPS.Gameplay
 
         public bool GetJumpInputHeld()
         {
-            if (CanProcessInput()&&canJump)
+            if (CanProcessInput() && canJump)
             {
                 return Input.GetButton(GameConstants.k_ButtonNameJump);
             }
@@ -246,7 +256,10 @@ namespace Unity.FPS.Gameplay
 
             return 0;
         }
-
+        public bool GetCanOpenInventaire()
+        {
+            return canOpenInventaire;
+        }
         float GetMouseOrStickLookAxis(string mouseInputName, string stickInputName)
         {
             if (CanProcessInput())

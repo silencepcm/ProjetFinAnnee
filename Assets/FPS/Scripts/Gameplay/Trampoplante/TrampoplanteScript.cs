@@ -13,7 +13,6 @@ namespace Unity.FPS.Gameplay
             [Tooltip("Distance the item will move up and down")]
             public float BobbingAmount = 1f;
 
-            [Tooltip("Rotation angle per second")] public float RotatingSpeed = 360f;
 
             [Tooltip("Sound played on pickup")] public AudioClip PickupSfx;
             [Tooltip("VFX spawned on pickup")] public GameObject PickupVfxPrefab;
@@ -21,7 +20,6 @@ namespace Unity.FPS.Gameplay
             public Rigidbody PickupRigidbody { get; private set; }
 
             Collider m_Collider;
-            Vector3 m_StartPosition;
             bool m_HasPlayedFeedback;
 
             protected virtual void Start()
@@ -35,9 +33,8 @@ namespace Unity.FPS.Gameplay
                 PickupRigidbody.isKinematic = true;
                 m_Collider.isTrigger = true;
 
-                // Remember start position for animation
-                m_StartPosition = transform.position;
             }
+
 
             void OnTriggerEnter(Collider other)
             {
