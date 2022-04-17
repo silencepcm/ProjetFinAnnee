@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class JetpackPickup : MonoBehaviour
+﻿namespace Unity.FPS.Gameplay
 {
-    // Start is called before the first frame update
-    void Start()
+    public class JetpackPickup : Pickup
     {
-        
-    }
+        protected override void OnPicked(PlayerCharacterController byPlayer)
+        {
+            var jetpack = byPlayer.GetComponent<Jetpack>();
+            if (!jetpack)
+                return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            if (jetpack.TryUnlock())
+            {
+                PlayPickupFeedback();
+                Destroy(gameObject);
+            }
+        }
     }
 }

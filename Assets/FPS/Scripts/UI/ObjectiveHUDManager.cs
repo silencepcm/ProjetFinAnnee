@@ -38,7 +38,7 @@ namespace Unity.FPS.UI
 
             ObjectiveToast toast = objectiveUIInstance.GetComponent<ObjectiveToast>();
             DebugUtility.HandleErrorIfNullGetComponent<ObjectiveToast, ObjectiveHUDManager>(toast, this,
-                objectiveUIInstance.gameObject);
+                objectiveUIInstance);
 
             // initialize the element and give it the objective description
             toast.Initialize(objective.Title, objective.Description, "", objective.IsOptional, objective.DelayVisible);

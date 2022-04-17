@@ -14,7 +14,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 
 public class Outline : MonoBehaviour {
-  private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
+  private static readonly HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 
   public enum Mode {
     OutlineAll,
@@ -66,13 +66,13 @@ public class Outline : MonoBehaviour {
 
   [SerializeField, Tooltip("Precompute enabled: Per-vertex calculations are performed in the editor and serialized with the object. "
   + "Precompute disabled: Per-vertex calculations are performed at runtime in Awake(). This may cause a pause for large meshes.")]
-  private bool precomputeOutline;
+  private readonly bool precomputeOutline;
 
   [SerializeField, HideInInspector]
-  private List<Mesh> bakeKeys = new List<Mesh>();
+  private readonly List<Mesh> bakeKeys = new List<Mesh>();
 
   [SerializeField, HideInInspector]
-  private List<ListVector3> bakeValues = new List<ListVector3>();
+  private readonly List<ListVector3> bakeValues = new List<ListVector3>();
 
   private Renderer[] renderers;
   private Material outlineMaskMaterial;

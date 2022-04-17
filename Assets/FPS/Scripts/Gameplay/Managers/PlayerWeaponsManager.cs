@@ -361,15 +361,7 @@ namespace Unity.FPS.Gameplay
         void UpdateWeaponSwitching()
         {
             // Calculate the time ratio (0 to 1) since weapon switch was triggered
-            float switchingTimeFactor;
-            if (WeaponSwitchDelay == 0f)
-            {
-                switchingTimeFactor = 1f;
-            }
-            else
-            {
-                switchingTimeFactor = Mathf.Clamp01((Time.time - m_TimeStartedWeaponSwitch) / WeaponSwitchDelay);
-            }
+            float switchingTimeFactor = WeaponSwitchDelay == 0f ?  1f : Mathf.Clamp01((Time.time - m_TimeStartedWeaponSwitch) / WeaponSwitchDelay);
 
             // Handle transiting to new switch state
             if (switchingTimeFactor >= 1f)

@@ -5,8 +5,7 @@ using UnityEngine;
 public class MagnetScript : MonoBehaviour
 {
     public float magnetForce = 100;
-
-    List<Rigidbody> caughtRigidbodies = new List<Rigidbody>();
+    readonly List<Rigidbody> caughtRigidbodies = new List<Rigidbody>();
 
     void FixedUpdate()
     {

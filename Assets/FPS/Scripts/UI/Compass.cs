@@ -17,7 +17,7 @@ namespace Unity.FPS.UI
         public GameObject MarkerDirectionPrefab;
 
         Transform m_PlayerTransform;
-        Dictionary<Transform, CompassMarker> m_ElementsDictionnary = new Dictionary<Transform, CompassMarker>();
+        readonly Dictionary<Transform, CompassMarker> m_ElementsDictionnary = new Dictionary<Transform, CompassMarker>();
 
         float m_WidthMultiplier;
         float m_HeightOffset;

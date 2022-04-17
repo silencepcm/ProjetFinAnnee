@@ -10,7 +10,7 @@ namespace Unity.FPS.EditorExt
     // Simple example of stripping of a debug build configuration
     class ShaderBuildStripping : IPreprocessShaders
     {
-        List<ShaderKeyword> m_ExcludedKeywords;
+        readonly List<ShaderKeyword> m_ExcludedKeywords;
 
         public ShaderBuildStripping()
         {

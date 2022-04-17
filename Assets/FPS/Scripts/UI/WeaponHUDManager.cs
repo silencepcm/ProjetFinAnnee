@@ -14,7 +14,7 @@ namespace Unity.FPS.UI
         public GameObject AmmoCounterPrefab;
 
         PlayerWeaponsManager m_PlayerWeaponsManager;
-        List<AmmoCounter> m_AmmoCounters = new List<AmmoCounter>();
+        readonly List<AmmoCounter> m_AmmoCounters = new List<AmmoCounter>();
 
         void Start()
         {

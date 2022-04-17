@@ -30,9 +30,9 @@ namespace Unity.FPS.EditorExt
         float m_CellTransparency = 0.9f;
         float m_CellThreshold = 0f;
         string m_LevelAnalysisString = "";
-        List<string> m_SuggestionStrings = new List<string>();
+        readonly List<string> m_SuggestionStrings = new List<string>();
 
-        static List<CellData> s_CellDatas = new List<CellData>();
+        static readonly List<CellData> s_CellDatas = new List<CellData>();
 
         const float k_CellSize = 10;
         const string k_NewLine = "\n";

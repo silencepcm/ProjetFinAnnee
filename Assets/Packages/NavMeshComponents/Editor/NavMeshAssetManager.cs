@@ -16,7 +16,7 @@ namespace UnityEditor.AI
             public AsyncOperation BakeOperation;
         }
 
-        List<AsyncBakeOperation> m_BakeOperations = new List<AsyncBakeOperation>();
+        readonly List<AsyncBakeOperation> m_BakeOperations = new List<AsyncBakeOperation>();
         internal List<AsyncBakeOperation> GetBakeOperations() { return m_BakeOperations; }
 
         struct SavedPrefabNavMeshData
@@ -25,7 +25,7 @@ namespace UnityEditor.AI
             public NavMeshData NavMeshData;
         }
 
-        List<SavedPrefabNavMeshData> m_PrefabNavMeshDataAssets = new List<SavedPrefabNavMeshData>();
+        readonly List<SavedPrefabNavMeshData> m_PrefabNavMeshDataAssets = new List<SavedPrefabNavMeshData>();
 
         static string GetAndEnsureTargetPath(NavMeshSurface surface)
         {

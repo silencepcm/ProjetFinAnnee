@@ -54,7 +54,7 @@ namespace Unity.FPS.UI
         bool m_IsMovingIn;
         bool m_IsMovingOut;
         AudioSource m_AudioSource;
-        RectTransform m_RectTransform;
+        readonly RectTransform m_RectTransform;
 
         public void Initialize(string titleText, string descText, string counterText, bool isOptionnal, float delay)
         {

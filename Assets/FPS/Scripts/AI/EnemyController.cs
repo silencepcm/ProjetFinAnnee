@@ -88,8 +88,7 @@ namespace Unity.FPS.AI
         public UnityAction onDetectedTarget;
         public UnityAction onLostTarget;
         public UnityAction onDamaged;
-
-        List<RendererIndexData> m_BodyRenderers = new List<RendererIndexData>();
+        readonly List<RendererIndexData> m_BodyRenderers = new List<RendererIndexData>();
         MaterialPropertyBlock m_BodyFlashMaterialPropertyBlock;
         float m_LastTimeDamaged = float.NegativeInfinity;
 
