@@ -2739,6 +2739,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 736916277}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &758518569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8200220640316782922, guid: d771f03a2656e194fba5a444d5a3d9e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 950687819}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &758781537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3841,6 +3847,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trampoplante
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200220640316782922, guid: d771f03a2656e194fba5a444d5a3d9e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8200220640316782925, guid: d771f03a2656e194fba5a444d5a3d9e7,
         type: 3}
@@ -10399,6 +10410,16 @@ PrefabInstance:
       propertyPath: InventaireUIFeedBack
       value: 
       objectReference: {fileID: 1498678619}
+    - target: {fileID: 856450443184354634, guid: c996b53e9f849234393d1e90f68d1679,
+        type: 3}
+      propertyPath: trampolantes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 856450443184354634, guid: c996b53e9f849234393d1e90f68d1679,
+        type: 3}
+      propertyPath: trampolantes.Array.data[0]
+      value: 
+      objectReference: {fileID: 758518569}
     - target: {fileID: 1060811841030696497, guid: c996b53e9f849234393d1e90f68d1679,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -11208,6 +11229,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102523655100408723, guid: c996b53e9f849234393d1e90f68d1679,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8250413824482692630, guid: c996b53e9f849234393d1e90f68d1679,
         type: 3}

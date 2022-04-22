@@ -8,12 +8,13 @@ namespace Unity.FPS.Gameplay
 {
     public class ToyboxScript : MonoBehaviour
     {
-
         private PlayerInputHandler playerInput;
         private PlayerCharacterController playerCharacterController;
         public List<GameObject> activators;
         public List<GameObject> jumpUIObjects;
         public List<GameObject> tirUIObjects;
+        public List<GameObject> trampolantes;
+        public List<GameObject> trampolanteUIParams;
         public GameObject movementUISpeedOnGround;
         public GameObject InventaireUIFeedBack;
         WeaponController playerWeaponsController;
@@ -69,6 +70,30 @@ namespace Unity.FPS.Gameplay
                         break;
                     case "BulletsPerShot":
                         tirUIObjects[i].GetComponent<TMP_InputField>().text = playerWeaponsController.BulletsPerShot.ToString();
+                        break;
+                    case "WeaponType":
+                        tirUIObjects[i].transform.Find("Label").GetComponent<TextMeshProUGUI>().text = playerWeaponsController.ShootType.ToString();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+
+        public void SetTrampoplantes(Toggle toggle)
+        {
+            foreach (var obj in trampolantes)
+            {
+                obj.SetActive(toggle.isOn);
+            }
+            for (int i = 0; i < trampolanteUIParams.Count; ++i)
+            {
+                trampolanteUIParams[i].SetActive(toggle.isOn);
+                switch (trampolanteUIParams[i].name)
+                {
+                    case "TrampoplanteForce":
+                        trampolanteUIParams[i].GetComponent<TMP_InputField>().text = playerCharacterController.TrampoplanteForce.ToString();
                         break;
                     default:
                         break;
@@ -157,6 +182,13 @@ namespace Unity.FPS.Gameplay
         public void SetWeaponsManager()
         {
             playerWeaponsController = playerCharacterController.GetComponent<PlayerWeaponsManager>().WeaponParentSocket.GetChild(0).GetComponent<WeaponController>();
+        }
+        public void SetTrampoplanteForce(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                playerCharacterController.TrampoplanteForce = f;
+            }
         }
     }
 }
