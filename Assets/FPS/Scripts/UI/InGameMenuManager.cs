@@ -3,7 +3,6 @@ using Unity.FPS.Gameplay;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 namespace Unity.FPS.UI
 {
     public class InGameMenuManager : MonoBehaviour
@@ -33,6 +32,7 @@ namespace Unity.FPS.UI
         Health m_PlayerHealth;
         FramerateCounter m_FramerateCounter;
 
+        public ToyboxScript toybox;
         void Start()
         {
             m_PlayerInputsHandler = FindObjectOfType<PlayerInputHandler>();
@@ -119,6 +119,7 @@ namespace Unity.FPS.UI
 
             if (MenuRoot.activeSelf)
             {
+                toybox.SetWeaponsManager();
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 Time.timeScale = 0f;
@@ -150,6 +151,7 @@ namespace Unity.FPS.UI
             }
             else
             {
+                
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 Time.timeScale = 1f;

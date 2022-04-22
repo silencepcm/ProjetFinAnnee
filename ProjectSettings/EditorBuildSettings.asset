@@ -21,5 +21,7 @@ EditorBuildSettings:
     path: Assets/FPS/Scenes/ToyBox.unity
     guid: e60e9145506baf64ebb22ecdcae90eb6
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: f2bf9b861531c9745a23355ae9424a33,
+      type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 0952ef3254a99064aa17091cfa357dac, type: 2}

@@ -162,7 +162,6 @@ namespace Unity.FPS.Game
         const string k_AnimAttackParameter = "Attack";
 
         private Queue<Rigidbody> m_PhysicalAmmoPool;
-
         void Awake()
         {
             m_CurrentAmmo = MaxAmmo;
@@ -283,7 +282,7 @@ namespace Unity.FPS.Game
                     float chargeLeft = 1f - CurrentCharge;
 
                     // Calculate how much charge ratio to add this frame
-                    float chargeAdded = 0f;
+                    float chargeAdded;
                     if (MaxChargeDuration <= 0f)
                     {
                         chargeAdded = chargeLeft;

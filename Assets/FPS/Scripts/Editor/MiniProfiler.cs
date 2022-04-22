@@ -313,9 +313,11 @@ namespace Unity.FPS.EditorExt
                     MeshFilter mf = r.GetComponent<MeshFilter>();
                     if (mf && mf.sharedMesh != null)
                     {
-                        BoundsAndCount b = new BoundsAndCount();
-                        b.Bounds = r.bounds;
-                        b.Count = mf.sharedMesh.triangles.Length / 3;
+                        BoundsAndCount b = new BoundsAndCount
+                        {
+                            Bounds = r.bounds,
+                            Count = mf.sharedMesh.triangles.Length / 3
+                        };
 
                         meshBoundsAndCount.Add(b);
                     }
@@ -327,9 +329,11 @@ namespace Unity.FPS.EditorExt
                     {
                         if (smr.sharedMesh != null)
                         {
-                            BoundsAndCount b = new BoundsAndCount();
-                            b.Bounds = r.bounds;
-                            b.Count = smr.sharedMesh.triangles.Length / 3;
+                            BoundsAndCount b = new BoundsAndCount
+                            {
+                                Bounds = r.bounds,
+                                Count = smr.sharedMesh.triangles.Length / 3
+                            };
 
                             meshBoundsAndCount.Add(b);
                         }
@@ -352,7 +356,7 @@ namespace Unity.FPS.EditorExt
                         CellData cellData = new CellData();
 
                         Vector3 cellCenter = boundsBottomCorner + (new Vector3(x, y, z) * k_CellSize) +
-                                             (Vector3.one * k_CellSize * 0.5f);
+                                             (0.5f * k_CellSize * Vector3.one);
                         cellData.Bounds = new Bounds(cellCenter, Vector3.one * k_CellSize);
                         for (int i = 0; i < meshBoundsAndCount.Count; i++)
                         {

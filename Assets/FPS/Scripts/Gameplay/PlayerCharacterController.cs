@@ -307,7 +307,7 @@ namespace Unity.FPS.Gameplay
                 if (IsGrounded)
                 {
                     // calculate the desired velocity from inputs, max speed, and current slope
-                    Vector3 targetVelocity = worldspaceMoveInput * MaxSpeedOnGround * speedModifier;
+                    Vector3 targetVelocity = MaxSpeedOnGround * speedModifier * worldspaceMoveInput;
                     // reduce speed if crouching by crouch speed ratio
                     if (IsCrouching)
                         targetVelocity *= MaxSpeedCrouchedRatio;
@@ -359,7 +359,7 @@ namespace Unity.FPS.Gameplay
                 else
                 {
                     // add air acceleration
-                    CharacterVelocity += worldspaceMoveInput * AccelerationSpeedInAir * Time.deltaTime;
+                    CharacterVelocity += AccelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput;
 
                     // limit air speed to a maximum, but only horizontally
                     float verticalVelocity = CharacterVelocity.y;
@@ -368,7 +368,7 @@ namespace Unity.FPS.Gameplay
                     CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
                     // apply the gravity to the velocity
-                    CharacterVelocity += Vector3.down * GravityDownForce * Time.deltaTime;
+                    CharacterVelocity += GravityDownForce * Time.deltaTime * Vector3.down;
                 }
             }
 

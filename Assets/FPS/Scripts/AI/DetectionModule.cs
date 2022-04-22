@@ -66,8 +66,10 @@ namespace Unity.FPS.AI
                         RaycastHit[] hits = Physics.RaycastAll(DetectionSourcePoint.position,
                             (otherActor.AimPoint.position - DetectionSourcePoint.position).normalized, DetectionRange,
                             -1, QueryTriggerInteraction.Ignore);
-                        RaycastHit closestValidHit = new RaycastHit();
-                        closestValidHit.distance = Mathf.Infinity;
+                        RaycastHit closestValidHit = new RaycastHit
+                        {
+                            distance = Mathf.Infinity
+                        };
                         bool foundValidHit = false;
                         foreach (var hit in hits)
                         {
