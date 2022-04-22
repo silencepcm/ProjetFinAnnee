@@ -67,6 +67,9 @@ namespace Unity.FPS.Gameplay
                     case "BulletSpreadAngle":
                         tirUIObjects[i].GetComponent<TMP_InputField>().text = playerWeaponsController.BulletSpreadAngle.ToString();
                         break;
+                    case "BulletsPerShot":
+                        tirUIObjects[i].GetComponent<TMP_InputField>().text = playerWeaponsController.BulletsPerShot.ToString();
+                        break;
                     default:
                         break;
                 }
@@ -87,8 +90,7 @@ namespace Unity.FPS.Gameplay
 
         public void SetMovementSpeedOnGround(TMP_InputField textObj)
         {
-            float f;
-            if (float.TryParse(textObj.text, out f))
+            if (float.TryParse(textObj.text, out float f))
             {
                 playerCharacterController.MaxSpeedOnGround = f;
             }
@@ -96,8 +98,7 @@ namespace Unity.FPS.Gameplay
 
         public void SetMovementSpeedInAir(TMP_InputField textObj)
         {
-            float f;
-            if (float.TryParse(textObj.text, out f))
+            if (float.TryParse(textObj.text, out float f))
             {
                 playerCharacterController.MaxSpeedInAir = f;
             }
@@ -105,34 +106,37 @@ namespace Unity.FPS.Gameplay
 
         public void SetJumpForce(TMP_InputField textObj)
         {
-            float f;
-            if (float.TryParse(textObj.text, out f))
+            if (float.TryParse(textObj.text, out float f))
             {
                 playerCharacterController.JumpForce = f;
             }
         }
         public void SetMaxAmmo(TMP_InputField textObj)
         {
-            int f;
-            if (int.TryParse(textObj.text, out f))
+            if (int.TryParse(textObj.text, out int f))
             {
                 playerWeaponsController.MaxAmmo = f;
             }
         }
         public void SetMaxChargeDuration(TMP_InputField textObj)
         {
-            float f;
-            if (float.TryParse(textObj.text, out f))
+            if (float.TryParse(textObj.text, out float f))
             {
                 playerWeaponsController.MaxChargeDuration = f;
             }
         }
         public void SetSpreadAngle(TMP_InputField textObj)
         {
-            float f;
-            if (float.TryParse(textObj.text, out f))
+            if (float.TryParse(textObj.text, out float f))
             {
                 playerWeaponsController.BulletSpreadAngle = f;
+            }
+        }
+        public void SetBulletsPerShot(TMP_InputField textObj)
+        {
+            if (int.TryParse(textObj.text, out int f))
+            {
+                playerWeaponsController.BulletsPerShot = f;
             }
         }
         public void setToggleSettingsTypeWeapon(TMP_Dropdown dropdown)

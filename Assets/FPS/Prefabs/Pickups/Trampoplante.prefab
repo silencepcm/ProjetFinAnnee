@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8200220640316782925}
   - component: {fileID: 8200220640316782927}
   - component: {fileID: 6542017458133010674}
-  - component: {fileID: -2114830837203817681}
   m_Layer: 0
   m_Name: Trampoplante
   m_TagString: Untagged
@@ -64,22 +63,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: -0.44, z: 0}
---- !u!114 &-2114830837203817681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8200220640316782922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a12b1fe915306804ab7a9f42ccb57690, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VerticalBobFrequency: 1
-  BobbingAmount: 0.3
-  PickupSfx: {fileID: 8300000, guid: 9c793d7183ca03e4fbf328175291cee4, type: 3}
-  PickupVfxPrefab: {fileID: 0}
 --- !u!1 &8432620309589233292
 GameObject:
   m_ObjectHideFlags: 0
