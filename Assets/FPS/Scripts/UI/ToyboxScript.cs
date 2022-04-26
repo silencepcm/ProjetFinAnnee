@@ -16,6 +16,10 @@ namespace Unity.FPS.Gameplay
         public List<GameObject> trampolantes;
         public List<GameObject> trampolanteUIParams;
         public GameObject movementUISpeedOnGround;
+        public GameObject MinSpeedFallDamage;
+        public GameObject MaxSpeedFallDamage;
+        public GameObject FallDamageVALEURatMinSpeed;
+        public GameObject FallDamageVALEURatMaxSpeed;
         public GameObject InventaireUIFeedBack;
         WeaponController playerWeaponsController;
         void Start()
@@ -30,7 +34,18 @@ namespace Unity.FPS.Gameplay
             movementUISpeedOnGround.GetComponent<TMP_InputField>().text = playerCharacterController.MaxSpeedOnGround.ToString();
             playerInput.SetCanDo(toggle.isOn, "MovementSpeed");
         }
-
+        public void FallDamageActivate(Toggle toggle)
+        {
+            playerCharacterController.RecievesFallDamage = toggle.isOn;
+            MinSpeedFallDamage.SetActive(toggle.isOn);
+            MaxSpeedFallDamage.SetActive(toggle.isOn);
+            FallDamageVALEURatMinSpeed.SetActive(toggle.isOn);
+            FallDamageVALEURatMaxSpeed.SetActive(toggle.isOn);
+            MinSpeedFallDamage.GetComponent<TMP_InputField>().text = playerCharacterController.MinSpeedForFallDamage.ToString();
+            MaxSpeedFallDamage.GetComponent<TMP_InputField>().text = playerCharacterController.MaxSpeedForFallDamage.ToString();
+            FallDamageVALEURatMinSpeed.GetComponent<TMP_InputField>().text = playerCharacterController.FallDamageAtMinSpeed.ToString();
+            FallDamageVALEURatMaxSpeed.GetComponent<TMP_InputField>().text = playerCharacterController.FallDamageAtMaxSpeed.ToString();
+        }
         public void JumpActivate(Toggle toggle)
         {
             playerInput.SetCanDo(toggle.isOn, "JumpForce");
@@ -188,6 +203,36 @@ namespace Unity.FPS.Gameplay
             if (float.TryParse(textObj.text, out float f))
             {
                 playerCharacterController.TrampoplanteForce = f;
+            }
+        }
+
+
+        public void SetMinSpeedFallDamage(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                playerCharacterController.MinSpeedForFallDamage = f;
+            }
+        }
+        public void SetMaxSpeedFallDamage(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                playerCharacterController.MaxSpeedForFallDamage = f;
+            }
+        }
+        public void SetMinFallDamage(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                playerCharacterController.FallDamageAtMinSpeed = f;
+            }
+        }
+        public void SetMaxFallDamage(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                playerCharacterController.FallDamageAtMaxSpeed = f;
             }
         }
     }
