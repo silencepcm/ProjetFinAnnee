@@ -16,6 +16,7 @@ namespace Unity.FPS.Gameplay
         public List<GameObject> trampolantes;
         public List<GameObject> trampolanteUIParams;
         public GameObject movementUISpeedOnGround;
+        public GameObject movementUISpeedInAir;
         public GameObject InventaireUIFeedBack;
         WeaponController playerWeaponsController;
         void Start()
@@ -29,6 +30,9 @@ namespace Unity.FPS.Gameplay
                 movementUISpeedOnGround.SetActive(toggle.isOn);
             movementUISpeedOnGround.GetComponent<TMP_InputField>().text = playerCharacterController.MaxSpeedOnGround.ToString();
             playerInput.SetCanDo(toggle.isOn, "MovementSpeed");
+
+            movementUISpeedInAir.SetActive(toggle.isOn);
+            movementUISpeedInAir.GetComponent<TMP_InputField>().text = playerCharacterController.MaxSpeedInAir.ToString();
         }
 
         public void JumpActivate(Toggle toggle)
