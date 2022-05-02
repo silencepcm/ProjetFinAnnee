@@ -1,44 +1,46 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Unity.FPS.Game
 {
-    public class Health : MonoBehaviour
+    public class Soif : MonoBehaviour
     {
-        [Tooltip("Maximum amount of health")] public float MaxHealth = 10f;
+        [Tooltip("Maximum amount of litres")] public float MaxLitresEstomac = 10f;
 
-        [Tooltip("Health ratio at which the critical health vignette starts appearing")]
-        public float CriticalHealthRatio = 0.3f;
 
         public UnityAction<float, GameObject> OnDamaged;
         public UnityAction<float> OnHealed;
         public UnityAction OnDie;
 
-        public float CurrentHealth { get; set; }
+        public float CurrentWater { get; set; }
         public bool Invincible { get; set; }
-        public bool CanPickup() => CurrentHealth < MaxHealth;
+        public bool CanPickup() => CurrentWater < MaxLitresEstomac;
 
-        public float GetRatio() => CurrentHealth / MaxHealth;
+        public float GetRatio() => CurrentWater / MaxLitresEstomac;
+
+        [Tooltip("Critical Health Ratio")] public float CriticalHealthRatio = 1f;
         public bool IsCritical() => GetRatio() <= CriticalHealthRatio;
 
         bool m_IsDead;
 
         void Start()
         {
-            CurrentHealth = MaxHealth;
+            CurrentWater = MaxLitresEstomac;
         }
 
         public void Heal(float healAmount)
         {
-            float healthBefore = CurrentHealth;
-            CurrentHealth += healAmount;
-            CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, MaxHealth);
+            float WaterBefore = CurrentWater;
+            CurrentWater += healAmount;
+            CurrentWater = Mathf.Clamp(CurrentWater, 0f, MaxLitresEstomac);
 
             // call OnHeal action
-            float trueHealthAmount = CurrentHealth - healthBefore;
-            if (trueHealthAmount > 0f)
+            float trueHealAmount = CurrentWater - WaterBefore;
+            if (trueHealAmount > 0f)
             {
-                OnHealed?.Invoke(trueHealthAmount);
+                OnHealed?.Invoke(trueHealAmount);
             }
         }
 
@@ -47,12 +49,12 @@ namespace Unity.FPS.Game
             if (Invincible)
                 return;
 
-            float healthBefore = CurrentHealth;
-            CurrentHealth -= damage;
-            CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, MaxHealth);
+            float WaterBefore = CurrentWater;
+            CurrentWater -= damage;
+            CurrentWater = Mathf.Clamp(CurrentWater, 0f, MaxLitresEstomac);
 
             // call OnDamage action
-            float trueDamageAmount = healthBefore - CurrentHealth;
+            float trueDamageAmount = WaterBefore - CurrentWater;
             if (trueDamageAmount > 0f)
             {
                 OnDamaged?.Invoke(trueDamageAmount, damageSource);
@@ -63,10 +65,10 @@ namespace Unity.FPS.Game
 
         public void Kill()
         {
-            CurrentHealth = 0f;
+            CurrentWater = 0f;
 
             // call OnDamage action
-            OnDamaged?.Invoke(MaxHealth, null);
+            OnDamaged?.Invoke(MaxLitresEstomac, null);
 
             HandleDeath();
         }
@@ -77,7 +79,7 @@ namespace Unity.FPS.Game
                 return;
 
             // call OnDie action
-            if (CurrentHealth <= 0f)
+            if (CurrentWater <= 0f)
             {
                 m_IsDead = true;
                 OnDie?.Invoke();

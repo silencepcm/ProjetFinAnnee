@@ -92,7 +92,7 @@ namespace Unity.FPS.Game
         public float AmmoReloadDelay = 2f;
 
         [Tooltip("Maximum amount of ammo in the gun")]
-        public int MaxAmmo = 8;
+        public int MaxAmmo;
 
         [Header("Charging parameters (charging weapons only)")]
         [Tooltip("Trigger a shot when maximum charge is reached")]
@@ -164,6 +164,10 @@ namespace Unity.FPS.Game
         private Queue<Rigidbody> m_PhysicalAmmoPool;
         void Awake()
         {
+            MaxChargeDuration = GameManager.Instance.MaxChargeDuration;
+            MaxAmmo = GameManager.Instance.MaxAmmo;
+            BulletSpreadAngle = GameManager.Instance.BulletSpreadAngle;
+            BulletsPerShot = GameManager.Instance.BulletsPerShot;
             m_CurrentAmmo = MaxAmmo;
             m_CarriedPhysicalBullets = HasPhysicalBullets ? ClipSize : 0;
             m_LastMuzzlePosition = WeaponMuzzle.position;
