@@ -23,7 +23,7 @@ namespace Unity.FPS.Gameplay
         public float GroundCheckDistance = 0.05f;
 
         [Header("Movement")] [Tooltip("Max movement speed when grounded (when not sprinting)")]
-        public float MaxSpeedOnGround = 10f;
+        public float MaxSpeedOnGround;
 
         [Tooltip(
             "Sharpness for the movement when grounded, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")]
@@ -172,6 +172,18 @@ namespace Unity.FPS.Gameplay
             // force the crouch state to false when starting
             SetCrouchingState(false, true);
             UpdateCharacterHeight(true);
+
+
+
+            MaxSpeedOnGround = GameManager.Instance.MaxSpeedOnGround;
+            JumpForce = GameManager.Instance.JumpForce;
+            GravityDownForce = GameManager.Instance.GravityForce;
+            MinSpeedForFallDamage = GameManager.Instance.MinSpeedFallDamage;
+            MaxSpeedForFallDamage = GameManager.Instance.MaxSpeedFallDamage;
+            FallDamageAtMinSpeed = GameManager.Instance.FallDamageValeurAtMinSpeed;
+            FallDamageAtMaxSpeed = GameManager.Instance.FallDamageValeurAtMaxSpeed;
+            TrampoplanteForce = GameManager.Instance.TrampoplanteForce;
+            RecievesFallDamage = GameManager.Instance.FallDamage;
         }
 
         void Update()

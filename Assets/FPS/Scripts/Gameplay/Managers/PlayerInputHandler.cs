@@ -27,8 +27,6 @@ namespace Unity.FPS.Gameplay {
         private bool canOpenInventaire;
         void Start()
         {
-            canMove = false;
-            canJump = false;
             m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
             DebugUtility.HandleErrorIfNullGetComponent<PlayerCharacterController, PlayerInputHandler>(
                 m_PlayerCharacterController, this, gameObject);
@@ -37,6 +35,10 @@ namespace Unity.FPS.Gameplay {
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            canMove = GameManager.Instance.Movement;
+            canJump = GameManager.Instance.Saut;
+            canOpenInventaire = GameManager.Instance.Inventaire;
         }
 
         void LateUpdate()
@@ -68,10 +70,10 @@ namespace Unity.FPS.Gameplay {
         {
             switch (name)
             {
-                case "MovementSpeed":
+                case "Movement":
                     canMove = can;
                     break;
-                case "JumpForce":
+                case "Jump":
                     canJump = can;
                     break;
                 case "Inventaire":
