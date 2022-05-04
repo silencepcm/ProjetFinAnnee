@@ -21,9 +21,8 @@ public class tronc : MonoBehaviour
     public void OnTriggerStay(Collider coll)
     {
         Debug.Log("bob");
-        if (coll.gameObject.tag == "Munition")
+        if (coll.CompareTag("Munition"))
         {
-            
             anim.SetBool("start", true);
         }
     }
