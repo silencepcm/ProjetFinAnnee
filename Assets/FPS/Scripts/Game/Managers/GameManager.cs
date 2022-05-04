@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public bool FallDamage;
     public bool Inventaire;
     public float MaxSpeedOnGround;
+    public float MaxSpeedInAir;
     public float JumpForce;
     public float GravityForce;
     public float MaxChargeDuration;
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
             FallDamage = data.FallDamage;
             Inventaire = data.Inventaire;
             MaxSpeedOnGround = data.MovementSpeed;
+            MaxSpeedInAir = data.MovementSpeed;
             JumpForce = data.JumpForce;
             GravityForce = data.GravityForce;
             MaxChargeDuration = data.MaxChargeDuration;
@@ -82,6 +84,7 @@ public class GameManager : MonoBehaviour
             FallDamage = true;
             Inventaire = true;
             MaxSpeedOnGround = 1;
+            MaxSpeedInAir = 1;
             JumpForce = 1;
             GravityForce = 1;
             MaxChargeDuration = 1;

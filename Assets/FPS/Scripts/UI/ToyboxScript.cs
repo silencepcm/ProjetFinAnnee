@@ -15,6 +15,7 @@ namespace Unity.FPS.Gameplay
         public List<GameObject> trampolantes;
         public List<GameObject> trampolanteUIParams;
         public GameObject movementUISpeedOnGround;
+        public GameObject movementUISpeedInAir;
         public GameObject MinSpeedFallDamage;
         public GameObject MaxSpeedFallDamage;
         public GameObject FallDamageVALEURatMinSpeed;
@@ -43,7 +44,10 @@ namespace Unity.FPS.Gameplay
                     case "CanMove":
                         toggle.isOn = GameManager.Instance.Movement;
                         movementUISpeedOnGround.SetActive(toggle.isOn);
+                        movementUISpeedInAir.SetActive(toggle.isOn);
                         playerInput.SetCanDo(toggle.isOn, "Movement");
+                        
+
                         break;
                     case "CanJump":
                         toggle.isOn = GameManager.Instance.Saut;
@@ -111,6 +115,9 @@ namespace Unity.FPS.Gameplay
                     case "MovementSpeedOnGround":
                         text.text = GameManager.Instance.MaxSpeedOnGround.ToString();
                         break;
+                    case "MovementSpeedInAir":
+                        text.text = GameManager.Instance.MaxSpeedInAir.ToString();
+                        break;
                     case "JumpForce":
                         text.text  = GameManager.Instance.JumpForce.ToString();
                         break;
@@ -152,6 +159,8 @@ namespace Unity.FPS.Gameplay
 
             movementUISpeedOnGround.SetActive(toggle.isOn);
             movementUISpeedOnGround.GetComponent<TMP_InputField>().text = GameManager.Instance.MaxSpeedOnGround.ToString();
+            movementUISpeedInAir.SetActive(toggle.isOn);
+            movementUISpeedInAir.GetComponent<TMP_InputField>().text = GameManager.Instance.MaxSpeedInAir.ToString();
             playerInput.SetCanDo(toggle.isOn, "Movement");
             GameManager.Instance.Movement = toggle.isOn;
         }
