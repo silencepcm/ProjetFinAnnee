@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.FPS.Game;
 
-public class tronc : MonoBehaviour
+public class Tronc : Damageable
 {
     static Animator anim;
     // Start is called before the first frame update
@@ -25,5 +26,9 @@ public class tronc : MonoBehaviour
         {
             anim.SetBool("start", true);
         }
+    }
+    public override void InflictDamage(float damage, bool isExplosionDamage, GameObject damageSource)
+    {
+        anim.SetBool("start", true);
     }
 }
