@@ -51,6 +51,7 @@ namespace Unity.FPS.Game
         public WeaponShootType ShootType;
 
         [Tooltip("The projectile prefab")] public ProjectileBase ProjectilePrefab;
+        [Tooltip("The projectile prefab")] public ProjectileBase ProjectileObliquePrefab;
 
         [Tooltip("Minimum duration between two shots")]
         public float DelayBetweenShots = 0.5f;
@@ -135,6 +136,7 @@ namespace Unity.FPS.Game
 
         int m_CarriedPhysicalBullets;
         float m_CurrentAmmo;
+        float m_CurrentAmmoOblique = 10f;
         float m_LastTimeShot = Mathf.NegativeInfinity;
         public float LastChargeTriggerTimestamp { get; private set; }
         Vector3 m_LastMuzzlePosition;
@@ -247,6 +249,8 @@ namespace Unity.FPS.Game
                 MuzzleWorldVelocity = (WeaponMuzzle.position - m_LastMuzzlePosition) / Time.deltaTime;
                 m_LastMuzzlePosition = WeaponMuzzle.position;
             }
+
+            
         }
 
         void UpdateAmmo()
@@ -354,6 +358,13 @@ namespace Unity.FPS.Game
 
         public bool HandleShootInputs(bool inputDown, bool inputHeld, bool inputUp)
         {
+            
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                
+                TryShootOblique();
+            }
+
             m_WantsToShoot = inputDown || inputHeld;
             switch (ShootType)
             {
@@ -406,6 +417,20 @@ namespace Unity.FPS.Game
             return false;
         }
 
+        bool TryShootOblique()
+        {
+            if (m_CurrentAmmoOblique >= 1f
+                && m_LastTimeShot + DelayBetweenShots < Time.time)
+            {
+                HandleShootOblique();
+                m_CurrentAmmoOblique -= 1f;
+
+                return true;
+            }
+
+            return false;
+        }
+
         bool TryBeginCharge()
         {
             if (!IsCharging
@@ -450,6 +475,59 @@ namespace Unity.FPS.Game
             {
                 Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
                 ProjectileBase newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
+                    Quaternion.LookRotation(shotDirection));
+                newProjectile.Shoot(this);
+            }
+
+            // muzzle flash
+            if (MuzzleFlashPrefab != null)
+            {
+                GameObject muzzleFlashInstance = Instantiate(MuzzleFlashPrefab, WeaponMuzzle.position,
+                    WeaponMuzzle.rotation, WeaponMuzzle.transform);
+                // Unparent the muzzleFlashInstance
+                if (UnparentMuzzleFlash)
+                {
+                    muzzleFlashInstance.transform.SetParent(null);
+                }
+
+                Destroy(muzzleFlashInstance, 2f);
+            }
+
+            if (HasPhysicalBullets)
+            {
+                ShootShell();
+                m_CarriedPhysicalBullets--;
+            }
+
+            m_LastTimeShot = Time.time;
+
+            // play shoot SFX
+            if (ShootSfx && !UseContinuousShootSound)
+            {
+                m_ShootAudioSource.PlayOneShot(ShootSfx);
+            }
+
+            // Trigger attack animation if there is any
+            if (WeaponAnimator)
+            {
+                WeaponAnimator.SetTrigger(k_AnimAttackParameter);
+            }
+
+            OnShoot?.Invoke();
+            OnShootProcessed?.Invoke();
+        }
+
+        void HandleShootOblique()
+        {
+            int bulletsPerShotFinal = ShootType == WeaponShootType.Charge
+                ? Mathf.CeilToInt(CurrentCharge * BulletsPerShot)
+                : BulletsPerShot;
+
+            // spawn all bullets with random direction
+            for (int i = 0; i < bulletsPerShotFinal; i++)
+            {
+                Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
+                ProjectileBase newProjectile = Instantiate(ProjectileObliquePrefab, WeaponMuzzle.position,
                     Quaternion.LookRotation(shotDirection));
                 newProjectile.Shoot(this);
             }

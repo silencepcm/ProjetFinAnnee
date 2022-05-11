@@ -130,6 +130,7 @@ namespace Unity.FPS.Gameplay {
             return GetFireInputHeld() && !m_FireInputWasHeld;
         }
 
+
         public bool GetFireInputReleased()
         {
             return !GetFireInputHeld() && m_FireInputWasHeld;
