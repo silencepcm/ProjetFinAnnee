@@ -20,8 +20,6 @@ namespace Unity.FPS.UI
         public Toggle ShadowsToggle;
 
 
-        [Tooltip("Toggle component for framerate display")]
-        public Toggle FramerateToggle;
 
         [Tooltip("GameObject for the controls")]
         public GameObject ControlImage;
@@ -29,8 +27,6 @@ namespace Unity.FPS.UI
         public GameObject InventairePanel;
 
         PlayerInputHandler m_PlayerInputsHandler;
-        Health m_PlayerHealth;
-        FramerateCounter m_FramerateCounter;
 
         public ToyboxScript toybox;
         void Start()
@@ -39,11 +35,6 @@ namespace Unity.FPS.UI
             DebugUtility.HandleErrorIfNullFindObject<PlayerInputHandler, InGameMenuManager>(m_PlayerInputsHandler,
                 this);
 
-            m_PlayerHealth = m_PlayerInputsHandler.GetComponent<Health>();
-            DebugUtility.HandleErrorIfNullGetComponent<Health, InGameMenuManager>(m_PlayerHealth, this, gameObject);
-
-            m_FramerateCounter = FindObjectOfType<FramerateCounter>();
-            DebugUtility.HandleErrorIfNullFindObject<FramerateCounter, InGameMenuManager>(m_FramerateCounter, this);
 
             MenuRoot.SetActive(false);
 
@@ -53,8 +44,6 @@ namespace Unity.FPS.UI
             ShadowsToggle.isOn = QualitySettings.shadows != ShadowQuality.Disable;
             ShadowsToggle.onValueChanged.AddListener(OnShadowsChanged);
 
-            FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
-            FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);
         }
 
         void Update()
@@ -119,7 +108,7 @@ namespace Unity.FPS.UI
 
             if (MenuRoot.activeSelf)
             {
-                toybox.SetWeaponsManager();
+                toybox.LoadValues();
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 Time.timeScale = 0f;
@@ -171,13 +160,9 @@ namespace Unity.FPS.UI
 
         void OnInvincibilityChanged(bool newValue)
         {
-            m_PlayerHealth.Invincible = newValue;
+            //m_PlayerHealth.Invincible = newValue;
         }
 
-        void OnFramerateCounterChanged(bool newValue)
-        {
-            m_FramerateCounter.UIText.gameObject.SetActive(newValue);
-        }
 
         public void OnShowControlButtonClicked(bool show)
         {

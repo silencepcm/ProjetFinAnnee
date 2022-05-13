@@ -12,10 +12,10 @@ namespace Unity.FPS.Gameplay
         {
             base.Start();
 
-            EventManager.AddListener<PickupEvent>(OnPickupEvent);
+            EventManager.AddListener<CollectEvent>(OnCollectEvent);
         }
 
-        void OnPickupEvent(PickupEvent evt)
+        void OnCollectEvent(CollectEvent evt)
         {
             if (IsCompleted || ItemToPickup != evt.Pickup)
                 return;
@@ -32,7 +32,7 @@ namespace Unity.FPS.Gameplay
 
         void OnDestroy()
         {
-            EventManager.RemoveListener<PickupEvent>(OnPickupEvent);
+            EventManager.RemoveListener<CollectEvent>(OnCollectEvent);
         }
     }
 }

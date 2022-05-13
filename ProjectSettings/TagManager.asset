@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Weapon
   - GameManager
+  - Collect
+  - Trampoplante
+  - Drinker
   layers:
   - Default
   - TransparentFX

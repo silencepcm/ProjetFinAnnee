@@ -198,13 +198,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1315839542190839937}
   - component: {fileID: 1315839542190839936}
-  - component: {fileID: 1315839542190839938}
-  - component: {fileID: 556685733}
-  - component: {fileID: 3244674540524639750}
   - component: {fileID: 1065074375515001679}
   - component: {fileID: 4160549848294572208}
-  - component: {fileID: 1615079986}
-  - component: {fileID: 6895327427570354697}
+  - component: {fileID: 5175549185731880683}
   m_Layer: 5
   m_Name: GameManager
   m_TagString: Untagged
@@ -249,42 +245,6 @@ MonoBehaviour:
   DelayBeforeWinMessage: 2
   VictorySound: {fileID: 8300000, guid: a533219934975884e81c1add37af9930, type: 3}
   LoseSceneName: LoseScene
---- !u!114 &1315839542190839938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315839542190839943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888c7d8f8f69c6b42a086589b6f01bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &556685733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315839542190839943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf10145f6bd13744c8fd10972a92ac61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3244674540524639750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315839542190839943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5174b5e414847cf4a9dca6e207326c8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1065074375515001679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +356,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1615079986
+--- !u!114 &5175549185731880683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -405,25 +365,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 1315839542190839943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55cca505d6267e94fbd3796f4f059ec8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c547c7f171cbfd4f82edf1433420858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwitchOrder: 0
-  Replacements: []
---- !u!114 &6895327427570354697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315839542190839943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55cca505d6267e94fbd3796f4f059ec8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SwitchOrder: 0
-  Replacements: []
+  Movement: 0
+  Saut: 0
+  Tir: 0
+  Trampoplante: 0
+  FallDamage: 0
+  Inventaire: 0
+  MaxSpeedOnGround: 0
+  JumpForce: 0
+  GravityForce: 0
+  MaxChargeDuration: 0
+  MaxAmmo: 0
+  BulletSpreadAngle: 0
+  BulletsPerShot: 0
+  TrampoplanteForce: 0
+  MinSpeedFallDamage: 0
+  FallDamageValeurAtMinSpeed: 0
+  MaxSpeedFallDamage: 0
+  FallDamageValeurAtMaxSpeed: 0
+  WeaponType: 0
+  MaxSoif: 0
+  MinSoif: 0
+  MaxGourde: 0
+  MinGourde: 0
+  MaxNourriture: 0
+  MinNourriture: 0
+  Collect: 0
+  Eat: 0
+  DelaySoif: 0
+  DelayNourriture: 0
+  DegatsNourriture: 0
+  DegatsSoif: 0
 --- !u!1001 &3235725121163771830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -431,6 +406,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1315839542190839937}
     m_Modifications:
+    - target: {fileID: 794598564136276121, guid: 7ff14361843237d43afc85e1cb16e295,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1872655124774159947, guid: 7ff14361843237d43afc85e1cb16e295,
         type: 3}
       propertyPath: m_text
@@ -464,6 +444,16 @@ PrefabInstance:
     - target: {fileID: 2920967930101488164, guid: 7ff14361843237d43afc85e1cb16e295,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3340109250429149198, guid: 7ff14361843237d43afc85e1cb16e295,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785769451674882779, guid: 7ff14361843237d43afc85e1cb16e295,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3872878727614772150, guid: 7ff14361843237d43afc85e1cb16e295,
@@ -528,10 +518,20 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4980864910780461173, guid: 7ff14361843237d43afc85e1cb16e295,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5370829164664997906, guid: 7ff14361843237d43afc85e1cb16e295,
         type: 3}
       propertyPath: m_Name
       value: InventaireButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5402922221009362063, guid: 7ff14361843237d43afc85e1cb16e295,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5413294659218134590, guid: 7ff14361843237d43afc85e1cb16e295,
         type: 3}
@@ -616,6 +616,11 @@ PrefabInstance:
     - target: {fileID: 7730855410354769530, guid: 7ff14361843237d43afc85e1cb16e295,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854894015825971700, guid: 7ff14361843237d43afc85e1cb16e295,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8575229168663245305, guid: 7ff14361843237d43afc85e1cb16e295,

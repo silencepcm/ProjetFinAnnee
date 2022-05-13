@@ -49,8 +49,6 @@ namespace Unity.FPS.Gameplay
         [Header("Damage")] [Tooltip("Damage of the projectile")]
         public float Damage = 40f;
 
-        [Tooltip("Area of damage. Keep empty if you don<t want area damage")]
-        public DamageArea AreaOfDamage;
 
         [Header("Debug")] [Tooltip("Color of the projectile radius debug view")]
         public Color RadiusColor = Color.cyan * 0.2f;
@@ -205,39 +203,17 @@ namespace Unity.FPS.Gameplay
                 return false;
             }
 
-            // ignore hits with triggers that don't have a Damageable component
-            if (hit.collider.isTrigger && hit.collider.GetComponent<Damageable>() == null)
-            {
-                return false;
-            }
 
             // ignore hits with specific ignored colliders (self colliders, by default)
             if (m_IgnoredColliders != null && m_IgnoredColliders.Contains(hit.collider))
             {
                 return false;
             }
-
             return true;
         }
 
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
-            // damage
-            if (AreaOfDamage)
-            {
-                // area damage
-                AreaOfDamage.InflictDamageInArea(Damage, point, HittableLayers, k_TriggerInteraction,
-                    m_ProjectileBase.Owner);
-            }
-            else
-            {
-                // point damage
-                Damageable damageable = collider.GetComponent<Damageable>();
-                if (damageable)
-                {
-                    damageable.InflictDamage(Damage, false, m_ProjectileBase.Owner);
-                }
-            }
 
             // impact vfx
             if (ImpactVfx)

@@ -7,9 +7,7 @@ namespace Unity.FPS.Game
 {
     public enum WeaponShootType
     {
-        Manual,
-        Automatic,
-        Charge,
+        Manual
     }
 
     [System.Serializable]
@@ -50,7 +48,7 @@ namespace Unity.FPS.Game
         [Header("Shoot Parameters")] [Tooltip("The type of weapon wil affect how it shoots")]
         public WeaponShootType ShootType;
 
-        [Tooltip("The projectile prefab")] public ProjectileBase ProjectilePrefab;
+        [Tooltip("The projectile prefab")] public GameObject ProjectilePrefab;
 
         [Tooltip("Minimum duration between two shots")]
         public float DelayBetweenShots = 0.5f;
@@ -134,7 +132,7 @@ namespace Unity.FPS.Game
         public event Action OnShootProcessed;
 
         int m_CarriedPhysicalBullets;
-        float m_CurrentAmmo;
+        public float m_CurrentAmmo;
         float m_LastTimeShot = Mathf.NegativeInfinity;
         public float LastChargeTriggerTimestamp { get; private set; }
         Vector3 m_LastMuzzlePosition;
@@ -142,14 +140,13 @@ namespace Unity.FPS.Game
         public GameObject Owner { get; set; }
         public GameObject SourcePrefab { get; set; }
         public bool IsCharging { get; private set; }
-        public float CurrentAmmoRatio { get; private set; }
         public bool IsWeaponActive { get; private set; }
         public bool IsCooling { get; private set; }
         public float CurrentCharge { get; private set; }
         public Vector3 MuzzleWorldVelocity { get; private set; }
 
         public float GetAmmoNeededToShoot() =>
-            (ShootType != WeaponShootType.Charge ? 1f : Mathf.Max(1f, AmmoUsedOnStartCharge)) /
+            (1f) /
             (MaxAmmo * BulletsPerShot);
 
         public int GetCarriedPhysicalBullets() => m_CarriedPhysicalBullets;
@@ -162,7 +159,19 @@ namespace Unity.FPS.Game
         const string k_AnimAttackParameter = "Attack";
 
         private Queue<Rigidbody> m_PhysicalAmmoPool;
-        void Awake()
+
+
+        public Camera WeaponCamera;
+
+        public Transform WeaponParentSocket;
+
+        public Transform DefaultWeaponPosition;
+
+        public Transform AimingWeaponPosition;
+
+        public Transform DownWeaponPosition;
+
+        public void Start()
         {
             MaxChargeDuration = GameManager.Instance.MaxChargeDuration;
             MaxAmmo = GameManager.Instance.MaxAmmo;
@@ -231,27 +240,42 @@ namespace Unity.FPS.Game
         {
             if (m_CurrentAmmo < m_CarriedPhysicalBullets)
             {
-                GetComponent<Animator>().SetTrigger("Reload");
+                //GetComponent<Animator>().SetTrigger("Reload");
+                Debug.Log("Reload");
                 IsReloading = true;
             }
         }
 
+
+        float timerReload;
         void Update()
         {
             UpdateAmmo();
             UpdateCharge();
             UpdateContinuousShootSound();
-
+            
             if (Time.deltaTime > 0)
             {
                 MuzzleWorldVelocity = (WeaponMuzzle.position - m_LastMuzzlePosition) / Time.deltaTime;
                 m_LastMuzzlePosition = WeaponMuzzle.position;
             }
+            if (IsReloading)
+            {
+                if (timerReload > AmmoReloadDelay)
+                {
+                    IsReloading = false;
+                    timerReload = 0f;
+                }
+                else
+                {
+                    timerReload += Time.deltaTime;
+                }
+            }
         }
 
         void UpdateAmmo()
         {
-            if (AutomaticReload && m_LastTimeShot + AmmoReloadDelay < Time.time && m_CurrentAmmo < MaxAmmo && !IsCharging)
+           /* if (AutomaticReload && m_LastTimeShot + AmmoReloadDelay < Time.time && m_CurrentAmmo < MaxAmmo && !IsCharging)
             {
                 // reloads weapon over time
                 m_CurrentAmmo += AmmoReloadRate * Time.deltaTime;
@@ -262,18 +286,10 @@ namespace Unity.FPS.Game
                 IsCooling = true;
             }
             else
-            {
+            {*/
                 IsCooling = false;
-            }
+          //  }
 
-            if (MaxAmmo == Mathf.Infinity)
-            {
-                CurrentAmmoRatio = 1f;
-            }
-            else
-            {
-                CurrentAmmoRatio = m_CurrentAmmo / MaxAmmo;
-            }
         }
 
         void UpdateCharge()
@@ -352,44 +368,21 @@ namespace Unity.FPS.Game
             m_LastTimeShot = Time.time;
         }
 
-        public bool HandleShootInputs(bool inputDown, bool inputHeld, bool inputUp)
+        public bool HandleShootInputs(bool inputDown, bool inputUp)
         {
-            m_WantsToShoot = inputDown || inputHeld;
-            switch (ShootType)
-            {
-                case WeaponShootType.Manual:
+            bool tryTir = false;
+            bool tryTirOblique = false;
+            m_WantsToShoot = inputDown;
                     if (inputDown)
                     {
-                        return TryShoot();
+                        tryTir =  TryShoot();
                     }
-
-                    return false;
-
-                case WeaponShootType.Automatic:
-                    if (inputHeld)
-                    {
-                        return TryShoot();
-                    }
-
-                    return false;
-
-                case WeaponShootType.Charge:
-                    if (inputHeld)
-                    {
-                        TryBeginCharge();
-                    }
-
-                    // Check if we released charge or if the weapon shoot autmatically when it's fully charged
-                    if (inputUp || (AutomaticReleaseOnCharged && CurrentCharge >= 1f))
-                    {
-                        return TryReleaseCharge();
-                    }
-
-                    return false;
-
-                default:
-                    return false;
+            if (inputUp)
+            {
+                tryTirOblique = TryShoot();
             }
+            return tryTir||tryTirOblique;
+
         }
 
         bool TryShoot()
@@ -405,53 +398,17 @@ namespace Unity.FPS.Game
 
             return false;
         }
-
-        bool TryBeginCharge()
-        {
-            if (!IsCharging
-                && m_CurrentAmmo >= AmmoUsedOnStartCharge
-                && Mathf.FloorToInt((m_CurrentAmmo - AmmoUsedOnStartCharge) * BulletsPerShot) > 0
-                && m_LastTimeShot + DelayBetweenShots < Time.time)
-            {
-                UseAmmo(AmmoUsedOnStartCharge);
-
-                LastChargeTriggerTimestamp = Time.time;
-                IsCharging = true;
-
-                return true;
-            }
-
-            return false;
-        }
-
-        bool TryReleaseCharge()
-        {
-            if (IsCharging)
-            {
-                HandleShoot();
-
-                CurrentCharge = 0f;
-                IsCharging = false;
-
-                return true;
-            }
-
-            return false;
-        }
-
         void HandleShoot()
         {
-            int bulletsPerShotFinal = ShootType == WeaponShootType.Charge
-                ? Mathf.CeilToInt(CurrentCharge * BulletsPerShot)
-                : BulletsPerShot;
+            int bulletsPerShotFinal = BulletsPerShot;
 
             // spawn all bullets with random direction
             for (int i = 0; i < bulletsPerShotFinal; i++)
             {
                 Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
-                ProjectileBase newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
+                GameObject newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
                     Quaternion.LookRotation(shotDirection));
-                newProjectile.Shoot(this);
+                newProjectile.GetComponent<ProjectileBase>().Shoot(this);
             }
 
             // muzzle flash

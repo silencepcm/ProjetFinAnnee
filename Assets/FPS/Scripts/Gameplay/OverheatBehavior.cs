@@ -72,9 +72,9 @@ namespace Unity.FPS.Gameplay
             m_AudioSource.outputAudioMixerGroup = AudioUtility.GetAudioGroup(AudioUtility.AudioGroups.WeaponOverheat);
         }
 
-        void Update()
-        {
-            // visual smoke shooting out of the gun
+        /*void Update()
+        {*//*
+            // visual smoke shooting out of the gun/*
             float currentAmmoRatio = m_Weapon.CurrentAmmoRatio;
             if (currentAmmoRatio != m_LastAmmoRatio)
             {
@@ -110,6 +110,6 @@ namespace Unity.FPS.Gameplay
             }
 
             m_LastAmmoRatio = currentAmmoRatio;
-        }
+        }*/
     }
 }

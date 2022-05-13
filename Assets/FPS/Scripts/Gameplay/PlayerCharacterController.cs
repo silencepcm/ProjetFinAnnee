@@ -121,11 +121,9 @@ namespace Unity.FPS.Gameplay
             }
         }
 
-        Health m_Health;
         PlayerInputHandler m_InputHandler;
         CharacterController m_Controller;
         PlayerWeaponsManager m_WeaponsManager;
-        Actor m_Actor;
         Vector3 m_GroundNormal;
         Vector3 m_CharacterVelocity;
         Vector3 m_LatestImpactSpeed;
@@ -137,15 +135,16 @@ namespace Unity.FPS.Gameplay
         const float k_JumpGroundingPreventionTime = 0.2f;
         const float k_GroundCheckDistanceInAir = 0.07f;
 
-        void Awake()
-        {
-            ActorsManager actorsManager = FindObjectOfType<ActorsManager>();
-            if (actorsManager != null)
-                actorsManager.SetPlayer(gameObject);
-        }
+        GameObject canDrink;
+        GameObject canCollect;
+
+        PlayerStatsScript player;
+       
 
         void Start()
         {
+
+            player = FindObjectOfType<PlayerStatsScript>();
             // fetch components on the same gameObject
             m_Controller = GetComponent<CharacterController>();
             DebugUtility.HandleErrorIfNullGetComponent<CharacterController, PlayerCharacterController>(m_Controller,
@@ -159,15 +158,10 @@ namespace Unity.FPS.Gameplay
             DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerCharacterController>(
                 m_WeaponsManager, this, gameObject);
 
-            m_Health = GetComponent<Health>();
-            DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerCharacterController>(m_Health, this, gameObject);
-
-            m_Actor = GetComponent<Actor>();
-            DebugUtility.HandleErrorIfNullGetComponent<Actor, PlayerCharacterController>(m_Actor, this, gameObject);
 
             m_Controller.enableOverlapRecovery = true;
 
-            m_Health.OnDie += OnDie;
+            //m_Health.OnDie += OnDie;
 
             // force the crouch state to false when starting
             SetCrouchingState(false, true);
@@ -191,7 +185,8 @@ namespace Unity.FPS.Gameplay
             // check for Y kill
             if (!IsDead && transform.position.y < KillHeight)
             {
-                m_Health.Kill();
+                player.Kill();
+                OnDie();
             }
 
             HasJumpedThisFrame = false;
@@ -208,8 +203,8 @@ namespace Unity.FPS.Gameplay
                                        (MaxSpeedForFallDamage - MinSpeedForFallDamage);
                 if (RecievesFallDamage && fallSpeedRatio > 0f)
                 {
-                    float dmgFromFall = Mathf.Lerp(FallDamageAtMinSpeed, FallDamageAtMaxSpeed, fallSpeedRatio);
-                    m_Health.TakeDamage(dmgFromFall, null);
+                     Mathf.Lerp(FallDamageAtMinSpeed, FallDamageAtMaxSpeed, fallSpeedRatio);
+                    //m_Health.TakeDamage(dmgFromFall, null);
 
                     // fall damage SFX
                     AudioSource.PlayOneShot(FallDamageSfx);
@@ -227,17 +222,29 @@ namespace Unity.FPS.Gameplay
                 SetCrouchingState(!IsCrouching, false);
             }
 
+
+            if ((canCollect != null)&&(m_InputHandler.GetCollectInputDown()))
+            {
+                //canCollect.GetComponent<Collect>().
+                Destroy(canCollect);
+            }
+
+
             UpdateCharacterHeight(false);
 
             HandleCharacterMovement();
         }
-
+        public void SetCanDrink(GameObject can)
+        {
+            canDrink = can;
+        }
+        public void SetCanCollect(GameObject can)
+        {
+            canCollect = can;
+        }
         void OnDie()
         {
             IsDead = true;
-
-            // Tell the weapons manager to switch to a non-existing weapon in order to lower the weapon
-            m_WeaponsManager.SwitchToWeaponIndex(-1, true);
 
             EventManager.Broadcast(Events.PlayerDeathEvent);
         }
@@ -458,7 +465,6 @@ namespace Unity.FPS.Gameplay
                 m_Controller.height = m_TargetCharacterHeight;
                 m_Controller.center = 0.5f * m_Controller.height * Vector3.up;
                 PlayerCamera.transform.localPosition = CameraHeightRatio * m_TargetCharacterHeight * Vector3.up;
-                m_Actor.AimPoint.transform.localPosition = m_Controller.center;
             }
             // Update smooth height
             else if (m_Controller.height != m_TargetCharacterHeight)
@@ -469,7 +475,6 @@ namespace Unity.FPS.Gameplay
                 m_Controller.center = 0.5f * m_Controller.height * Vector3.up;
                 PlayerCamera.transform.localPosition = Vector3.Lerp(PlayerCamera.transform.localPosition,
                     CameraHeightRatio * m_TargetCharacterHeight * Vector3.up, CrouchingSharpness * Time.deltaTime);
-                m_Actor.AimPoint.transform.localPosition = m_Controller.center;
             }
         }
 

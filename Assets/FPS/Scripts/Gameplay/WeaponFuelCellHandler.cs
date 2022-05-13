@@ -34,9 +34,9 @@ namespace Unity.FPS.Gameplay
             }
         }
 
-        void Update()
+        /*void Update()
         {
-            if (SimultaneousFuelCellsUsage)
+          /*  if (SimultaneousFuelCellsUsage)
             {
                 for (int i = 0; i < FuelCells.Length; i++)
                 {
@@ -60,6 +60,6 @@ namespace Unity.FPS.Gameplay
                         Vector3.Lerp(FuelCellUsedPosition, FuelCellUnusedPosition, value);
                 }
             }
-        }
+        }*/
     }
 }

@@ -43,10 +43,6 @@ namespace Unity.FPS.Gameplay
                 if (pickingPlayer != null)
                 {
                     OnTriggered(pickingPlayer);
-
-                    PickupEvent evt = Events.PickupEvent;
-                    evt.Pickup = gameObject;
-                    EventManager.Broadcast(evt);
                 }
             }
 

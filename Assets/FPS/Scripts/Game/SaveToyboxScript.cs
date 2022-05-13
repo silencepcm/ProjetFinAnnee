@@ -12,7 +12,6 @@ namespace Unity.FPS.Game
             {
                 string loaded_data = File.ReadAllText(file_path());
                 SaveData lod = JsonUtility.FromJson<SaveData>(loaded_data);
-                Debug.Log("lod.player_health");//just to just if the data is correct
                 return lod;
             }
             else
@@ -31,7 +30,8 @@ namespace Unity.FPS.Game
             data.Trampoplante = GameManager.Instance.Trampoplante;
             data.FallDamage = GameManager.Instance.FallDamage;
             data.Inventaire = GameManager.Instance.Inventaire;
-            data.MovementSpeed = GameManager.Instance.MaxSpeedOnGround;
+            data.MovementSpeedOnGround = GameManager.Instance.MaxSpeedOnGround;
+            data.MovementSpeedInAir = GameManager.Instance.MaxSpeedInAir;
             data.JumpForce = GameManager.Instance.JumpForce;
             data.GravityForce = GameManager.Instance.GravityForce;
             data.MaxChargeDuration = GameManager.Instance.MaxChargeDuration;

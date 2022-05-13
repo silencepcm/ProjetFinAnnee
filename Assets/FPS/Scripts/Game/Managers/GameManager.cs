@@ -17,10 +17,8 @@ public class GameManager : MonoBehaviour
 
                 if (_instance == null)
                 {
-                    GameObject container = new GameObject("GameManager");
-                    _instance = container.AddComponent<GameManager>();
+                    Resources.Load<GameObject>("GameManager");
                     _instance.Start();
-                    container.tag = "GameManager";
                 }
             }
 
@@ -35,6 +33,7 @@ public class GameManager : MonoBehaviour
     public bool FallDamage;
     public bool Inventaire;
     public float MaxSpeedOnGround;
+    public float MaxSpeedInAir;
     public float JumpForce;
     public float GravityForce;
     public float MaxChargeDuration;
@@ -46,8 +45,26 @@ public class GameManager : MonoBehaviour
     public float FallDamageValeurAtMinSpeed;
     public float MaxSpeedFallDamage;
     public float FallDamageValeurAtMaxSpeed;
-    public WeaponShootType WeaponType;
 
+
+    public float MaxSoif;
+    public float MinSoif;
+
+    public float MaxGourde;
+    public float MinGourde;
+
+    public float MaxNourriture;
+    public float MinNourriture;
+
+
+    public bool Collect;
+    public bool Eat;
+
+
+    public float DelaySoif;
+    public float DelayNourriture;
+    public float DegatsNourriture;
+    public float DegatsSoif;
     private void Start()
     {
         SaveData data = SaveToyboxScript.LoadData();
@@ -59,7 +76,8 @@ public class GameManager : MonoBehaviour
             Trampoplante = data.Trampoplante;
             FallDamage = data.FallDamage;
             Inventaire = data.Inventaire;
-            MaxSpeedOnGround = data.MovementSpeed;
+            MaxSpeedOnGround = data.MovementSpeedOnGround;
+            MaxSpeedInAir = data.MovementSpeedInAir;
             JumpForce = data.JumpForce;
             GravityForce = data.GravityForce;
             MaxChargeDuration = data.MaxChargeDuration;
@@ -71,7 +89,23 @@ public class GameManager : MonoBehaviour
             FallDamageValeurAtMinSpeed = data.FallDamageValeurAtMinSpeed;
             MaxSpeedFallDamage = data.MaxSpeedFallDamage;
             FallDamageValeurAtMaxSpeed = data.FallDamageValeurAtMaxSpeed;
-            WeaponType = data.WeaponType;
+
+
+            MaxSoif = data.maxThirst;
+            MinSoif = data.minThirst;
+            MaxGourde = data.maxGourde;
+            MinGourde = data.minGourde;
+            MaxNourriture = data.maxNourriture;
+            MinNourriture = data.minNourriture;
+
+            Collect = data.Collect;
+            Eat = data.Eat;
+
+
+            DelaySoif = data.DelaySoif;
+            DelayNourriture = data.DelayNourriture;
+            DegatsSoif = data.DegatsSoif;
+            DegatsNourriture = data.DegatsNourriture;
         }
         else
         {
@@ -81,7 +115,8 @@ public class GameManager : MonoBehaviour
             Trampoplante = true;
             FallDamage = true;
             Inventaire = true;
-            MaxSpeedOnGround = 1;
+            MaxSpeedOnGround = 5;
+            MaxSpeedInAir = 5;
             JumpForce = 1;
             GravityForce = 1;
             MaxChargeDuration = 1;
@@ -93,7 +128,20 @@ public class GameManager : MonoBehaviour
             FallDamageValeurAtMinSpeed = 1;
             MaxSpeedFallDamage = 1;
             FallDamageValeurAtMaxSpeed = 1;
-            WeaponType = WeaponShootType.Automatic;
+
+
+            MaxSoif = 100f;
+            MinSoif = 0f;
+            MaxGourde = 100f;
+            MinGourde = 0f;
+            MaxNourriture = 100f;
+            MinNourriture = 0f;
+
+
+            DelaySoif = 3f;
+            DelayNourriture = 3f;
+            DegatsSoif = 10f;
+            DegatsNourriture = 10f;
         }
     }
 }

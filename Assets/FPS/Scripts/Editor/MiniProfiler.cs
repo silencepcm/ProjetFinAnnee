@@ -243,7 +243,6 @@ namespace Unity.FPS.EditorExt
                 {
                     if (!(mf.GetComponentInParent<PlayerCharacterController>() ||
                           mf.GetComponentInParent<EnemyController>() ||
-                          mf.GetComponentInParent<Pickup>() ||
                           mf.GetComponentInParent<Objective>()))
                     {
                         nonCombinedMeshCount++;

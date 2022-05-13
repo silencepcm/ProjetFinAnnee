@@ -20,12 +20,9 @@ namespace Unity.FPS.UI
 
         void Start()
         {
-            m_WeaponsManager = GameObject.FindObjectOfType<PlayerWeaponsManager>();
+            m_WeaponsManager = FindObjectOfType<PlayerWeaponsManager>();
             DebugUtility.HandleErrorIfNullFindObject<PlayerWeaponsManager, CrosshairManager>(m_WeaponsManager, this);
 
-            OnWeaponChanged(m_WeaponsManager.GetActiveWeapon());
-
-            m_WeaponsManager.OnSwitchedToWeapon += OnWeaponChanged;
         }
 
         void Update()
@@ -60,30 +57,5 @@ namespace Unity.FPS.UI
                 Time.deltaTime * CrosshairUpdateshrpness) * Vector2.one;
         }
 
-        void OnWeaponChanged(WeaponController newWeapon)
-        {
-            if (newWeapon)
-            {
-                CrosshairImage.enabled = true;
-                m_CrosshairDataDefault = newWeapon.CrosshairDataDefault;
-                m_CrosshairDataTarget = newWeapon.CrosshairDataTargetInSight;
-                m_CrosshairRectTransform = CrosshairImage.GetComponent<RectTransform>();
-                DebugUtility.HandleErrorIfNullGetComponent<RectTransform, CrosshairManager>(m_CrosshairRectTransform,
-                    this, CrosshairImage.gameObject);
-            }
-            else
-            {
-                if (NullCrosshairSprite)
-                {
-                    CrosshairImage.sprite = NullCrosshairSprite;
-                }
-                else
-                {
-                    CrosshairImage.enabled = false;
-                }
-            }
-
-            UpdateCrosshairPointingAtEnemy(true);
-        }
     }
 }

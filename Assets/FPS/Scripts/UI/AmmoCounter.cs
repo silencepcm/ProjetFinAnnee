@@ -82,13 +82,13 @@ namespace Unity.FPS.UI
 
         void Update()
         {
-            float currenFillRatio = m_Weapon.CurrentAmmoRatio;
+            float currenFillRatio = m_Weapon.GetCurrentAmmo() / m_Weapon.MaxAmmo;
             AmmoFillImage.fillAmount = Mathf.Lerp(AmmoFillImage.fillAmount, currenFillRatio,
                 Time.deltaTime * AmmoFillMovementSharpness);
 
             BulletCounter.text = m_Weapon.GetCarriedPhysicalBullets().ToString();
 
-            bool isActiveWeapon = m_Weapon == m_PlayerWeaponsManager.GetActiveWeapon();
+            bool isActiveWeapon = m_Weapon == m_PlayerWeaponsManager.Weapon;
 
             CanvasGroup.alpha = Mathf.Lerp(CanvasGroup.alpha, isActiveWeapon ? 1f : UnselectedOpacity,
                 Time.deltaTime * 10);

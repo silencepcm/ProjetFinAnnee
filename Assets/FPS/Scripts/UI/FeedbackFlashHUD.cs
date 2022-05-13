@@ -42,35 +42,23 @@ namespace Unity.FPS.UI
 
         bool m_FlashActive;
         float m_LastTimeFlashStarted = Mathf.NegativeInfinity;
-        Health m_PlayerHealth;
         GameFlowManager m_GameFlowManager;
-
         void Start()
         {
-            // Subscribe to player damage events
-            PlayerCharacterController playerCharacterController = FindObjectOfType<PlayerCharacterController>();
-            DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, FeedbackFlashHUD>(
-                playerCharacterController, this);
-
-            m_PlayerHealth = playerCharacterController.GetComponent<Health>();
-            DebugUtility.HandleErrorIfNullGetComponent<Health, FeedbackFlashHUD>(m_PlayerHealth, this,
-                playerCharacterController.gameObject);
 
             m_GameFlowManager = FindObjectOfType<GameFlowManager>();
             DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, FeedbackFlashHUD>(m_GameFlowManager, this);
 
-            m_PlayerHealth.OnDamaged += OnTakeDamage;
-            m_PlayerHealth.OnHealed += OnHealed;
         }
 
         void Update()
         {
-            if (m_PlayerHealth.IsCritical())
+            if (PlayerStatsScript.Instance.IsCritical())
             {
                 VignetteCanvasGroup.gameObject.SetActive(true);
                 float vignetteAlpha =
-                    (1 - (m_PlayerHealth.CurrentHealth / m_PlayerHealth.MaxHealth /
-                          m_PlayerHealth.CriticalHealthRatio)) * CriticaHealthVignetteMaxAlpha;
+                    (1 - (PlayerStatsScript.Instance.Vie/ PlayerStatsScript.Instance.Vie /
+                          PlayerStatsScript.Instance.CriticalVie)) * CriticaHealthVignetteMaxAlpha;
 
                 if (m_GameFlowManager.GameIsEnding)
                     VignetteCanvasGroup.alpha = vignetteAlpha;

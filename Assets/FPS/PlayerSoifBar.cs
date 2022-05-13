@@ -10,23 +10,15 @@ public class PlayerSoifBar : MonoBehaviour
         [Tooltip("Image component dispplaying current health")]
         public Image HealthFillImage;
 
-        Health m_PlayerHealth;
-
+    PlayerStatsScript player;
         void Start()
         {
-            PlayerCharacterController playerCharacterController =
-                GameObject.FindObjectOfType<PlayerCharacterController>();
-            DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, PlayerSoifBar>(
-                playerCharacterController, this);
-
-            m_PlayerHealth = playerCharacterController.GetComponent<Health>();
-            DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerSoifBar>(m_PlayerHealth, this,
-                playerCharacterController.gameObject);
+        player = FindObjectOfType<PlayerStatsScript>();
         }
 
         void Update()
         {
             // update health bar value
-            HealthFillImage.fillAmount = m_PlayerHealth.CurrentHealth / m_PlayerHealth.MaxHealth;
+            HealthFillImage.fillAmount = player.Vie / player.MaxVie;
         }
 }

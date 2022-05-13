@@ -6,7 +6,6 @@ namespace Unity.FPS.UI
 {
     public class WorldspaceHealthBar : MonoBehaviour
     {
-        [Tooltip("Health component to track")] public Health Health;
 
         [Tooltip("Image component displaying health left")]
         public Image HealthBarImage;
@@ -20,7 +19,7 @@ namespace Unity.FPS.UI
         void Update()
         {
             // update health bar value
-            HealthBarImage.fillAmount = Health.CurrentHealth / Health.MaxHealth;
+            HealthBarImage.fillAmount = PlayerStatsScript.Instance.Vie / PlayerStatsScript.Instance.MaxVie;
 
             // rotate health bar to face the camera/player
             HealthBarPivot.LookAt(Camera.main.transform.position);

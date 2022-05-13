@@ -24,15 +24,15 @@ namespace Unity.FPS.UI
 
         void Awake()
         {
-            PlayerCharacterController playerCharacterController = FindObjectOfType<PlayerCharacterController>();
-            DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, Compass>(playerCharacterController,
-                this);
-            m_PlayerTransform = playerCharacterController.transform;
 
             m_WidthMultiplier = CompasRect.rect.width / VisibilityAngle;
             m_HeightOffset = -CompasRect.rect.height / 2;
         }
-
+        private void Start()
+        {
+            PlayerCharacterController playerCharacterController = FindObjectOfType<PlayerCharacterController>();
+            m_PlayerTransform = playerCharacterController.transform;
+        }
         void Update()
         {
             // this is all very WIP, and needs to be reworked

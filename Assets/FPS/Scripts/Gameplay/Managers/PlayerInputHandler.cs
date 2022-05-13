@@ -7,9 +7,6 @@ namespace Unity.FPS.Gameplay {
         [Tooltip("Sensitivity multiplier for moving the camera around")]
         public float LookSensitivity = 1f;
 
-        [Tooltip("Additional sensitivity multiplier for WebGL")]
-        public float WebglLookSensitivityMultiplier = 0.25f;
-
         [Tooltip("Limit to consider an input when using a trigger on a controller")]
         public float TriggerAxisThreshold = 0.4f;
 
@@ -20,16 +17,19 @@ namespace Unity.FPS.Gameplay {
         public bool InvertXAxis = false;
 
         GameFlowManager m_GameFlowManager;
-        PlayerCharacterController m_PlayerCharacterController;
-        bool m_FireInputWasHeld;
+        PlayerCharacterController playerPhysx;
+        bool m_TirInputWasHeld;
+        bool m_TirObliqueInputWasHeld;
         private bool canMove;
         private bool canJump;
+        private bool canEat;
+        private bool canCollect;
         private bool canOpenInventaire;
         void Start()
         {
-            m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
+            playerPhysx = GetComponent<PlayerCharacterController>();
             DebugUtility.HandleErrorIfNullGetComponent<PlayerCharacterController, PlayerInputHandler>(
-                m_PlayerCharacterController, this, gameObject);
+                playerPhysx, this, gameObject);
             m_GameFlowManager = FindObjectOfType<GameFlowManager>();
             DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, PlayerInputHandler>(m_GameFlowManager, this);
 
@@ -39,11 +39,15 @@ namespace Unity.FPS.Gameplay {
             canMove = GameManager.Instance.Movement;
             canJump = GameManager.Instance.Saut;
             canOpenInventaire = GameManager.Instance.Inventaire;
+            canCollect = GameManager.Instance.Collect;
+            canEat = GameManager.Instance.Eat;
+
         }
 
         void LateUpdate()
         {
-            m_FireInputWasHeld = GetFireInputHeld();
+            m_TirInputWasHeld = GetTirInputHeld();
+            m_TirObliqueInputWasHeld = GetTirObliqueInputHeld();
         }
 
         public bool CanProcessInput()
@@ -79,6 +83,12 @@ namespace Unity.FPS.Gameplay {
                 case "Inventaire":
                     canOpenInventaire = can;
                     break;
+                case "Collect":
+                    canCollect = can;
+                    break;
+                case "Eat":
+                    canEat = can;
+                    break;
                 default:
                     break;
 
@@ -105,11 +115,33 @@ namespace Unity.FPS.Gameplay {
 
             return false;
         }
+
+        public bool GetCollectInputDown()
+        {
+            if (CanProcessInput() && canCollect)
+            {
+                return Input.GetButtonDown(GameConstants.k_ButtonNameCollect);
+            }
+
+            return false;
+        }
+
+        public bool GetEatInputDown()
+        {
+            if (CanProcessInput() && canEat)
+            {
+                return Input.GetButtonDown(GameConstants.k_ButtonNameEat);
+            }
+
+            return false;
+        }
+
+
         public bool GetInventaireInputDown()
         {
             if (CanProcessInput() && canOpenInventaire)
             {
-                return Input.GetButtonDown(GameConstants.k_ButtonNameJump);
+                return Input.GetButtonDown(GameConstants.k_ButtonNameInventaire);
             }
 
             return false;
@@ -125,17 +157,15 @@ namespace Unity.FPS.Gameplay {
             return false;
         }
 
-        public bool GetFireInputDown()
+        public bool GetTirInputDown()
         {
-            return GetFireInputHeld() && !m_FireInputWasHeld;
+            return GetTirInputHeld() && !m_TirInputWasHeld;
         }
-
-        public bool GetFireInputReleased()
+        public bool GetTirObliqueInputDown()
         {
-            return !GetFireInputHeld() && m_FireInputWasHeld;
+            return GetTirObliqueInputHeld() && !m_TirObliqueInputWasHeld;
         }
-
-        public bool GetFireInputHeld()
+        public bool GetTirInputHeld()
         {
             if (CanProcessInput())
             {
@@ -146,8 +176,25 @@ namespace Unity.FPS.Gameplay {
                 }
                 else
                 {
-                    return Input.GetButton(GameConstants.k_ButtonNameFire);
+                    return Input.GetButton(GameConstants.k_ButtonNameTir);
                 }
+            }
+
+            return false;
+        }
+        public bool GetTirObliqueInputHeld()
+        {
+            if (CanProcessInput())
+            {
+               // bool isGamepad = Input.GetAxis(GameConstants.k_ButtonNameGamepadFire) != 0f;
+               /* if (isGamepad)
+                {
+                    return Input.GetAxis(GameConstants.k_ButtonNameGamepadFire) >= TriggerAxisThreshold;
+                }
+                else
+                {*/
+                    return Input.GetButton(GameConstants.k_ButtonNameTirOblique);
+               //}
             }
 
             return false;

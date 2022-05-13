@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Events;
 namespace Unity.FPS.Game
 {
     public class GameFlowManager : MonoBehaviour
     {
-        [Header("Parameters")] [Tooltip("Duration of the fade-to-black at the end of the game")]
+        [Header("Parameters")]
+        [Tooltip("Duration of the fade-to-black at the end of the game")]
         public float EndSceneLoadDelay = 3f;
 
         [Tooltip("The canvas group of the fade-to-black screen")]
         public CanvasGroup EndGameFadeCanvasGroup;
 
-        [Header("Win")] [Tooltip("This string has to be the name of the scene you want to load when winning")]
+        [Header("Win")]
+        [Tooltip("This string has to be the name of the scene you want to load when winning")]
         public string WinSceneName = "WinScene";
 
         [Tooltip("Duration of delay before the fade-to-black, if winning")]
@@ -24,9 +26,9 @@ namespace Unity.FPS.Game
 
         [Tooltip("Sound played on win")] public AudioClip VictorySound;
 
-        [Header("Lose")] [Tooltip("This string has to be the name of the scene you want to load when losing")]
+        [Header("Lose")]
+        [Tooltip("This string has to be the name of the scene you want to load when losing")]
         public string LoseSceneName = "LoseScene";
-
 
         public bool GameIsEnding { get; private set; }
 
@@ -35,13 +37,14 @@ namespace Unity.FPS.Game
 
         void Awake()
         {
-            EventManager.AddListener<AllObjectivesCompletedEvent>(OnAllObjectivesCompleted);
             EventManager.AddListener<PlayerDeathEvent>(OnPlayerDeath);
         }
 
         void Start()
         {
+
             AudioUtility.SetMasterVolume(1);
+            StartGame();
         }
 
         void Update()
@@ -62,7 +65,6 @@ namespace Unity.FPS.Game
             }
         }
 
-        void OnAllObjectivesCompleted(AllObjectivesCompletedEvent evt) => EndGame(true);
         void OnPlayerDeath(PlayerDeathEvent evt) => EndGame(false);
 
         void EndGame(bool win)
@@ -94,10 +96,6 @@ namespace Unity.FPS.Game
                 //    message.GetComponent<Transform>().SetAsLastSibling();
                 //}
 
-                DisplayMessageEvent displayMessage = Events.DisplayMessageEvent;
-                displayMessage.Message = WinGameMessage;
-                displayMessage.DelayBeforeDisplay = DelayBeforeWinMessage;
-                EventManager.Broadcast(displayMessage);
             }
             else
             {
@@ -106,10 +104,11 @@ namespace Unity.FPS.Game
             }
         }
 
-        void OnDestroy()
+        void StartGame()
         {
-            EventManager.RemoveListener<AllObjectivesCompletedEvent>(OnAllObjectivesCompleted);
-            EventManager.RemoveListener<PlayerDeathEvent>(OnPlayerDeath);
+
         }
+
+
     }
 }

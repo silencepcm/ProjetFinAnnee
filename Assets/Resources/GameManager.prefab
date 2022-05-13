@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3182763651228131676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3182763651228131674}
+  - component: {fileID: 8771465242247208752}
+  m_Layer: 5
+  m_Name: GameManager
+  m_TagString: GameManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3182763651228131674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182763651228131676}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8771465242247208752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182763651228131676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c547c7f171cbfd4f82edf1433420858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Movement: 0
+  Saut: 0
+  Tir: 0
+  Trampoplante: 0
+  FallDamage: 0
+  Inventaire: 0
+  MaxSpeedOnGround: 0
+  JumpForce: 0
+  GravityForce: 0
+  MaxChargeDuration: 0
+  MaxAmmo: 0
+  BulletSpreadAngle: 0
+  BulletsPerShot: 0
+  TrampoplanteForce: 0
+  MinSpeedFallDamage: 0
+  FallDamageValeurAtMinSpeed: 0
+  MaxSpeedFallDamage: 0
+  FallDamageValeurAtMaxSpeed: 0
+  MaxSoif: 0
+  MinSoif: 0
+  MaxGourde: 0
+  MinGourde: 0
+  MaxNourriture: 0
+  MinNourriture: 0
+  Collect: 0
+  Eat: 0
+  DelaySoif: 0
+  DelayNourriture: 0
+  DegatsNourriture: 0
+  DegatsSoif: 0

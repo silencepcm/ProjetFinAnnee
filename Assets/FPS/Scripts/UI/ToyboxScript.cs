@@ -15,6 +15,7 @@ namespace Unity.FPS.Gameplay
         public List<GameObject> trampolantes;
         public List<GameObject> trampolanteUIParams;
         public GameObject movementUISpeedOnGround;
+        public GameObject movementUISpeedInAir;
         public GameObject MinSpeedFallDamage;
         public GameObject MaxSpeedFallDamage;
         public GameObject FallDamageVALEURatMinSpeed;
@@ -24,15 +25,15 @@ namespace Unity.FPS.Gameplay
         public GameObject InnerPanel;
         WeaponController playerWeaponsController;
         public List<Transform> toggleUI;
-        public List<Transform> typeUI;
         public List<Transform> valeurUI;
         void Start()
         {
             playerInput = FindObjectOfType<PlayerInputHandler>();
             playerCharacterController = FindObjectOfType<PlayerCharacterController>();
+            playerWeaponsController = playerCharacterController.GetComponent<PlayerWeaponsManager>().Weapon;
             LoadValues();
         }
-        void LoadValues()
+        public void LoadValues()
         {
 
             foreach (Transform element in toggleUI)
@@ -43,6 +44,7 @@ namespace Unity.FPS.Gameplay
                     case "CanMove":
                         toggle.isOn = GameManager.Instance.Movement;
                         movementUISpeedOnGround.SetActive(toggle.isOn);
+                        movementUISpeedInAir.SetActive(toggle.isOn);    
                         playerInput.SetCanDo(toggle.isOn, "Movement");
                         break;
                     case "CanJump":
@@ -95,14 +97,6 @@ namespace Unity.FPS.Gameplay
                         break;
                 }
             }
-            foreach (Transform element in typeUI)
-            {
-                if (element.name == "WeaponType")
-                {
-                    element.GetComponent<TMP_Dropdown>().value = (int)GameManager.Instance.WeaponType;
-                    break;
-                }
-            }
             foreach (Transform element in valeurUI)
             {
                 TMP_InputField text = element.GetComponent<TMP_InputField>();
@@ -110,6 +104,9 @@ namespace Unity.FPS.Gameplay
                 {
                     case "MovementSpeedOnGround":
                         text.text = GameManager.Instance.MaxSpeedOnGround.ToString();
+                        break;
+                    case "MovementSpeedInAir":
+                        text.text = GameManager.Instance.MaxSpeedInAir.ToString();
                         break;
                     case "JumpForce":
                         text.text  = GameManager.Instance.JumpForce.ToString();
@@ -206,9 +203,6 @@ namespace Unity.FPS.Gameplay
                     case "BulletsPerShot":
                         tirUIObjects[i].GetComponent<TMP_InputField>().text = GameManager.Instance.BulletsPerShot.ToString();
                         break;
-                    case "WeaponType":
-                        tirUIObjects[i].GetComponent<TMP_Dropdown>().value = (int)GameManager.Instance.WeaponType;
-                        break;
                     default:
                         break;
                 }
@@ -267,6 +261,7 @@ namespace Unity.FPS.Gameplay
             if (float.TryParse(textObj.text, out float f))
             {
                 playerCharacterController.MaxSpeedInAir = f;
+                GameManager.Instance.MaxSpeedInAir = f;
             }
         }
 
@@ -315,28 +310,9 @@ namespace Unity.FPS.Gameplay
 
             }
         }
-        public void setToggleSettingsTypeWeapon(TMP_Dropdown dropdown)
-        {
-            if (playerWeaponsController != null)
-            {
-                switch (dropdown.options[dropdown.value].text)
-                {
-                    case "Handle":
-                        playerWeaponsController.ShootType = WeaponShootType.Manual;
-                        break;
-                    case "Automatic":
-                        playerWeaponsController.ShootType = WeaponShootType.Automatic;
-                        break;
-                    case "Charge":
-                        playerWeaponsController.ShootType = WeaponShootType.Charge;
-                        break;
-                }
-                GameManager.Instance.WeaponType = playerWeaponsController.ShootType;
-            }
-        }
         public void SetWeaponsManager()
         {
-            playerWeaponsController = playerCharacterController.GetComponent<PlayerWeaponsManager>().WeaponParentSocket.GetChild(0).GetComponent<WeaponController>();
+            playerWeaponsController = GameObject.Find("Player").GetComponent<WeaponController>();
         }
         public void SetTrampoplanteForce(TMP_InputField textObj)
         {
