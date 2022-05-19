@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6959484483805884644}
-  - component: {fileID: 6959484483805884667}
   m_Layer: 0
   m_Name: Spawner IngredientA
   m_TagString: Untagged
@@ -31,19 +30,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6959484483805884667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6959484483805884666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b33f0f4e715c24389363503a715916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabIngredient: {fileID: 523883205445342058, guid: fa4e280216c2fb74aa3f8a72f266abdf,
-    type: 3}
-  gestionDingredient: {fileID: 1315839542190839943, guid: c996b53e9f849234393d1e90f68d1679,
-    type: 3}

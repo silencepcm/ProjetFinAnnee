@@ -118,7 +118,7 @@ namespace Unity.FPS.Gameplay {
 
         public bool GetCollectInputDown()
         {
-            if (CanProcessInput() && canCollect)
+            if (CanProcessInput())
             {
                 return Input.GetButtonDown(GameConstants.k_ButtonNameCollect);
             }

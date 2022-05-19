@@ -65,6 +65,21 @@ public class GameManager : MonoBehaviour
     public float DelayNourriture;
     public float DegatsNourriture;
     public float DegatsSoif;
+
+    public int NbIngredientA;
+    public int NbIngredientB;
+    public int NbIngredientC;
+    public int NbIngredientD;
+    public int NbIngredientE;
+    public int NbIngredientF;
+    public int NbIngredientG;
+
+    public int NbRecette1;
+    public int NbRecette2;
+    public int NbRecette3;
+    public int NbRecette4;
+    public int NbRecette5;
+
     private void Start()
     {
         SaveData data = SaveToyboxScript.LoadData();
@@ -106,6 +121,20 @@ public class GameManager : MonoBehaviour
             DelayNourriture = data.DelayNourriture;
             DegatsSoif = data.DegatsSoif;
             DegatsNourriture = data.DegatsNourriture;
+
+            NbIngredientA = data.NbIngredientA;
+            NbIngredientB = data.NbIngredientB;
+            NbIngredientC = data.NbIngredientC;
+            NbIngredientD = data.NbIngredientD;
+            NbIngredientE = data.NbIngredientE;
+            NbIngredientF = data.NbIngredientF;
+            NbIngredientG = data.NbIngredientG;
+
+            NbRecette1 = data.NbRecette1;
+            NbRecette2 = data.NbRecette2;
+            NbRecette3 = data.NbRecette3;
+            NbRecette4 = data.NbRecette4;
+            NbRecette5 = data.NbRecette5;
         }
         else
         {
@@ -142,6 +171,20 @@ public class GameManager : MonoBehaviour
             DelayNourriture = 3f;
             DegatsSoif = 10f;
             DegatsNourriture = 10f;
+
+            NbIngredientA = 0;
+            NbIngredientB = 0;
+            NbIngredientC = 0;
+            NbIngredientD = 0;
+            NbIngredientE = 0;
+            NbIngredientF = 0;
+            NbIngredientG = 0;
+
+            NbRecette1 = 0;
+            NbRecette2 = 0;
+            NbRecette3 = 0;
+            NbRecette4 = 0;
+            NbRecette5 = 0;
         }
     }
 }

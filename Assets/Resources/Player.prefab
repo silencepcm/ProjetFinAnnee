@@ -537,8 +537,8 @@ GameObject:
   - component: {fileID: 6212564562455127622}
   - component: {fileID: 2542991623303267893}
   - component: {fileID: 7625046929129098591}
-  - component: {fileID: 2979367388718802942}
-  - component: {fileID: 6212564562289074838}
+  - component: {fileID: 3049996759604613630}
+  - component: {fileID: 1979855725041463373}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!65 &2979367388718802942
+--- !u!65 &3049996759604613630
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -657,21 +657,24 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 6.696739}
-  m_Center: {x: -0.0000000030543756, y: 2.2006678e-14, z: 2.8483658}
---- !u!65 &6212564562289074838
-BoxCollider:
+  m_Size: {x: 1, y: 1, z: 5.69}
+  m_Center: {x: 0, y: 0, z: 2.93}
+--- !u!54 &1979855725041463373
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3566116657486991983}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 6.696739}
-  m_Center: {x: -0.0000000030543756, y: 2.2006678e-14, z: 2.8483658}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3646831259037691368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,6 +1361,7 @@ MonoBehaviour:
   ContinuousShootStartSfx: {fileID: 0}
   ContinuousShootLoopSfx: {fileID: 0}
   ContinuousShootEndSfx: {fileID: 0}
+  m_CurrentAmmo: 0
   WeaponCamera: {fileID: 5300321114126393847}
   WeaponParentSocket: {fileID: 6933087483567839297}
   DefaultWeaponPosition: {fileID: 7663967321166757698}

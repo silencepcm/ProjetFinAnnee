@@ -41,6 +41,20 @@ public class PlayerStatsScript : Personnage
     float DegatsNourriture;
     float DegatsSoif;
 
+    int NbIngredientA;
+    int NbIngredientB;
+    int NbIngredientC;
+    int NbIngredientD;
+    int NbIngredientE;
+    int NbIngredientF;
+    int NbIngredientG;
+
+    int NbRecette1;
+    int NbRecette2;
+    int NbRecette3;
+    int NbRecette4;
+    int NbRecette5;
+
     public float CriticalVie;
 
 
@@ -77,6 +91,19 @@ public class PlayerStatsScript : Personnage
         maxNourriture = GameManager.Instance.MaxNourriture;
         minNourriture = GameManager.Instance.MinNourriture;
 
+        NbIngredientA = GameManager.Instance.NbIngredientA;
+        NbIngredientB = GameManager.Instance.NbIngredientB;
+        NbIngredientC = GameManager.Instance.NbIngredientC;
+        NbIngredientD = GameManager.Instance.NbIngredientD;
+        NbIngredientE = GameManager.Instance.NbIngredientE;
+        NbIngredientF = GameManager.Instance.NbIngredientF;
+        NbIngredientG = GameManager.Instance.NbIngredientG;
+
+        NbRecette1 = GameManager.Instance.NbRecette1;
+        NbRecette2 = GameManager.Instance.NbRecette2;
+        NbRecette3 = GameManager.Instance.NbRecette3;
+        NbRecette4 = GameManager.Instance.NbRecette4;
+        NbRecette5 = GameManager.Instance.NbRecette5;
 
     }
 

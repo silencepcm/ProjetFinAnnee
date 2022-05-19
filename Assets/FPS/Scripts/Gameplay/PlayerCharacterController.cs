@@ -1,12 +1,14 @@
 ﻿using Unity.FPS.Game;
 using UnityEngine;
 using UnityEngine.Events;
-
+using System.Collections.Generic;
+using System.Linq;
 namespace Unity.FPS.Gameplay
 {
     [RequireComponent(typeof(CharacterController), typeof(PlayerInputHandler), typeof(AudioSource))]
     public class PlayerCharacterController : MonoBehaviour
     {
+        public List<GameObject> collectObjects;
         [Header("References")] [Tooltip("Reference to the main camera used for the player")]
         public Camera PlayerCamera;
 
@@ -107,7 +109,6 @@ namespace Unity.FPS.Gameplay
         public bool HasJumpedThisFrame { get; private set; }
         public bool IsDead { get; private set; }
         public bool IsCrouching { get; private set; }
-
         public float RotationMultiplier
         {
             get
@@ -120,7 +121,6 @@ namespace Unity.FPS.Gameplay
                 return 1f;
             }
         }
-
         PlayerInputHandler m_InputHandler;
         CharacterController m_Controller;
         PlayerWeaponsManager m_WeaponsManager;
@@ -136,7 +136,6 @@ namespace Unity.FPS.Gameplay
         const float k_GroundCheckDistanceInAir = 0.07f;
 
         GameObject canDrink;
-        GameObject canCollect;
 
         PlayerStatsScript player;
        
@@ -157,7 +156,7 @@ namespace Unity.FPS.Gameplay
             m_WeaponsManager = GetComponent<PlayerWeaponsManager>();
             DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerCharacterController>(
                 m_WeaponsManager, this, gameObject);
-
+            collectObjects = new List<GameObject>();
 
             m_Controller.enableOverlapRecovery = true;
 
@@ -188,7 +187,6 @@ namespace Unity.FPS.Gameplay
                 player.Kill();
                 OnDie();
             }
-
             HasJumpedThisFrame = false;
 
             bool wasGrounded = IsGrounded;
@@ -223,10 +221,11 @@ namespace Unity.FPS.Gameplay
             }
 
 
-            if ((canCollect != null)&&(m_InputHandler.GetCollectInputDown()))
+            if ((collectObjects.Count>0)&&(m_InputHandler.GetCollectInputDown()))
             {
-                //canCollect.GetComponent<Collect>().
-                Destroy(canCollect);
+                GameObject tempCollect = collectObjects[0];
+                collectObjects.RemoveAt(0);
+                tempCollect.GetComponent<Collect>().CollectEvent();
             }
 
 
@@ -238,9 +237,17 @@ namespace Unity.FPS.Gameplay
         {
             canDrink = can;
         }
-        public void SetCanCollect(GameObject can)
+        public void SetCanCollect(GameObject can, bool entersCollider)
         {
-            canCollect = can;
+            if (entersCollider)
+            {
+                collectObjects.Add(can);
+            }
+            else
+            {
+                collectObjects.RemoveAll(obj => obj == can);
+
+            }
         }
         void OnDie()
         {
@@ -248,7 +255,6 @@ namespace Unity.FPS.Gameplay
 
             EventManager.Broadcast(Events.PlayerDeathEvent);
         }
-
         void GroundCheck()
         {
             // Make sure that the ground check distance while already in air is very small, to prevent suddenly snapping to ground

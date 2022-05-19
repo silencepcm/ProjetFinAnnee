@@ -41,5 +41,20 @@ namespace Unity.FPS.Game
         public float DelayNourriture;
         public float DegatsSoif;
         public float DegatsNourriture;
+
+
+        public int NbIngredientA;
+        public int NbIngredientB;
+        public int NbIngredientC;
+        public int NbIngredientD;
+        public int NbIngredientE;
+        public int NbIngredientF;
+        public int NbIngredientG;
+
+        public int NbRecette1;
+        public int NbRecette2;
+        public int NbRecette3;
+        public int NbRecette4;
+        public int NbRecette5;
     }
 }

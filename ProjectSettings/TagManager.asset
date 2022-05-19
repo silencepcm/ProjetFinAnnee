@@ -9,6 +9,7 @@ TagManager:
   - Collect
   - Trampoplante
   - Drinker
+  - InteractableEnv
   layers:
   - Default
   - TransparentFX

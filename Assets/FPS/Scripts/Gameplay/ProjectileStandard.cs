@@ -214,7 +214,10 @@ namespace Unity.FPS.Gameplay
 
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
-
+            if(collider.gameObject.tag == "InteractableEnv")
+            {
+                collider.GetComponent<Animator>().SetTrigger("start");
+            }
             // impact vfx
             if (ImpactVfx)
             {
