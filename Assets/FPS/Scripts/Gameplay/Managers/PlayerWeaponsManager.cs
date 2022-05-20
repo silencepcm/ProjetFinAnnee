@@ -108,9 +108,10 @@ namespace Unity.FPS.Gameplay
                     Weapon.StartReloadAnimation();
                     return;
                 }
+                /*
                 // handle aiming down sights
                 IsAiming = m_InputHandler.GetAimInputHeld();
-
+                */
                 // handle shooting
                 bool hasFired = Weapon.HandleShootInputs(
                     m_InputHandler.GetTirInputDown(),

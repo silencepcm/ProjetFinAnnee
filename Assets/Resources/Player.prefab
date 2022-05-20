@@ -743,6 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e9b849ae2755b428b23edfa9686c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectObjects: []
   PlayerCamera: {fileID: 2542991623303267893}
   AudioSource: {fileID: 5160845418528789345}
   GravityDownForce: 20
@@ -767,9 +768,9 @@ MonoBehaviour:
   CrouchingSharpness: 15
   FootstepSfxFrequency: 0.3
   FootstepSfxFrequencyWhileSprinting: 0.2
-  FootstepSfx: {fileID: 8300000, guid: f404f8d3c2a4b4f48989fb1120e78fb8, type: 3}
-  JumpSfx: {fileID: 8300000, guid: 13b59a14d34add64d84a623867546ff1, type: 3}
-  LandSfx: {fileID: 8300000, guid: d0f1afed8fa916244af6ca73579ded67, type: 3}
+  FootstepSfx: {fileID: 8300000, guid: 7739766c86ab26b4db79d25391012836, type: 3}
+  JumpSfx: {fileID: 8300000, guid: 344f17527294f924eab5d8bae8cd6b61, type: 3}
+  LandSfx: {fileID: 8300000, guid: 9c25e60972cd8724583e06bc9a41cc27, type: 3}
   FallDamageSfx: {fileID: 8300000, guid: ef980d09b569380459e609fe90ef1db2, type: 3}
   RecievesFallDamage: 1
   MinSpeedForFallDamage: 20
@@ -1355,7 +1356,7 @@ MonoBehaviour:
   MuzzleFlashPrefab: {fileID: 748781637555137343, guid: 9f671b22f25370048a18fb1f821294ec,
     type: 3}
   UnparentMuzzleFlash: 0
-  ShootSfx: {fileID: 8300000, guid: 53d2238f4c4b2aa4f8e559c7af9e0126, type: 3}
+  ShootSfx: {fileID: 8300000, guid: e18764f6be1cade46bb3d081001c8508, type: 3}
   ChangeWeaponSfx: {fileID: 8300000, guid: 7b83d61917ac1224f942a0609b1221f2, type: 3}
   UseContinuousShootSound: 0
   ContinuousShootStartSfx: {fileID: 0}

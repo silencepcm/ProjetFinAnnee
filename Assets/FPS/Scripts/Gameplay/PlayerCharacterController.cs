@@ -214,12 +214,6 @@ namespace Unity.FPS.Gameplay
                 }
             }
 
-            // crouching
-            if (m_InputHandler.GetCrouchInputDown())
-            {
-                SetCrouchingState(!IsCrouching, false);
-            }
-
 
             if ((collectObjects.Count>0)&&(m_InputHandler.GetCollectInputDown()))
             {

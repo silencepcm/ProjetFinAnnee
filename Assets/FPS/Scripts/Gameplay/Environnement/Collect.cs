@@ -65,7 +65,9 @@ namespace Unity.FPS.Gameplay
         public void CollectEvent()
         {
             PlayPickupFeedback();
+            Transform a = transform;
             Destroy(gameObject);
+            StartCoroutine(GetComponentInParent<Spawner_Ingredient>().RespawnWaiter(a));
         }
     }
 }
