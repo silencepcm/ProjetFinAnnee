@@ -176,7 +176,7 @@ namespace Unity.FPS.Game
             MaxChargeDuration = GameManager.Instance.MaxChargeDuration;
             MaxAmmo = GameManager.Instance.MaxAmmo;
             BulletSpreadAngle = GameManager.Instance.BulletSpreadAngle;
-            BulletsPerShot = GameManager.Instance.BulletsPerShot;
+            BulletsPerShot = 1;
             m_CurrentAmmo = MaxAmmo;
             m_CarriedPhysicalBullets = HasPhysicalBullets ? ClipSize : 0;
             m_LastMuzzlePosition = WeaponMuzzle.position;
@@ -201,9 +201,12 @@ namespace Unity.FPS.Game
 
                 for (int i = 0; i < ShellPoolSize; i++)
                 {
-                    GameObject shell = Instantiate(ShellCasing, transform);
-                    shell.SetActive(false);
-                    m_PhysicalAmmoPool.Enqueue(shell.GetComponent<Rigidbody>());
+                    if (ShellCasing)
+                    {
+                        GameObject shell = Instantiate(ShellCasing, transform);
+                        shell.SetActive(false);
+                        m_PhysicalAmmoPool.Enqueue(shell.GetComponent<Rigidbody>());
+                    }
                 }
             }
         }
@@ -242,7 +245,15 @@ namespace Unity.FPS.Game
             {
                 //GetComponent<Animator>().SetTrigger("Reload");
                 Debug.Log("Reload");
-                IsReloading = true;
+                if (WeaponAnimator)
+                {
+                    IsReloading = true;
+                    WeaponAnimator.SetTrigger("Reload");
+                }
+                else
+                {
+                    Reload();
+                }
             }
         }
 
@@ -275,21 +286,7 @@ namespace Unity.FPS.Game
 
         void UpdateAmmo()
         {
-           /* if (AutomaticReload && m_LastTimeShot + AmmoReloadDelay < Time.time && m_CurrentAmmo < MaxAmmo && !IsCharging)
-            {
-                // reloads weapon over time
-                m_CurrentAmmo += AmmoReloadRate * Time.deltaTime;
-
-                // limits ammo to max value
-                m_CurrentAmmo = Mathf.Clamp(m_CurrentAmmo, 0, MaxAmmo);
-
-                IsCooling = true;
-            }
-            else
-            {*/
-                IsCooling = false;
-          //  }
-
+            IsCooling = false;
         }
 
         void UpdateCharge()
@@ -427,7 +424,7 @@ namespace Unity.FPS.Game
 
             if (HasPhysicalBullets)
             {
-                ShootShell();
+               // ShootShell();
                 m_CarriedPhysicalBullets--;
             }
 

@@ -21,9 +21,6 @@ namespace Unity.FPS.UI
 
 
 
-        [Tooltip("GameObject for the controls")]
-        public GameObject ControlImage;
-
         public GameObject InventairePanel;
 
         PlayerInputHandler m_PlayerInputsHandler;
@@ -64,11 +61,6 @@ namespace Unity.FPS.UI
             if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
                 || (MenuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
             {
-                if (ControlImage.activeSelf)
-                {
-                    ControlImage.SetActive(false);
-                    return;
-                }
                 if (InventairePanel.activeSelf)
                 {
                     SetInventaireMenuActivation();
@@ -78,14 +70,7 @@ namespace Unity.FPS.UI
             }
             if (m_PlayerInputsHandler.GetCanOpenInventaire() && !MenuRoot.activeSelf && (Input.GetButtonDown(GameConstants.k_ButtonNameInventaire)))
             {
-                if (ControlImage.activeSelf)
-                {
-                    ControlImage.SetActive(false);
-                    return;
-                }
-
                 SetInventaireMenuActivation();
-
             }
 
             if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
@@ -164,9 +149,5 @@ namespace Unity.FPS.UI
         }
 
 
-        public void OnShowControlButtonClicked(bool show)
-        {
-            ControlImage.SetActive(show);
-        }
     }
 }

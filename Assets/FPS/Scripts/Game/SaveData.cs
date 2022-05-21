@@ -3,12 +3,7 @@ namespace Unity.FPS.Game
     [System.Serializable]
     public class SaveData
     {
-        public bool Movement;
-        public bool Saut;
-        public bool Tir;
-        public bool Trampoplante;
         public bool FallDamage;
-        public bool Inventaire;
         public float MovementSpeedOnGround;
         public float MovementSpeedInAir;
         public float JumpForce;
@@ -16,7 +11,6 @@ namespace Unity.FPS.Game
         public float MaxChargeDuration;
         public int MaxAmmo;
         public float BulletSpreadAngle;
-        public int BulletsPerShot;
         public float TrampoplanteForce;
         public float MinSpeedFallDamage;
         public float FallDamageValeurAtMinSpeed;

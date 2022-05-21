@@ -10,6 +10,7 @@ TagManager:
   - Trampoplante
   - Drinker
   - InteractableEnv
+  - Water
   layers:
   - Default
   - TransparentFX

@@ -15,7 +15,6 @@
         public const string k_ButtonNameTirOblique = "TirOblique";
         public const string k_ButtonNameSprint = "Sprint";
         public const string k_ButtonNameJump = "Jump";
-        public const string k_ButtonNameCrouch = "Crouch";
         public const string k_ButtonNameEat = "Eat";
         public const string k_ButtonNameCollect = "Collect";
         public const string k_ButtonNameInventaire = "Inventaire";

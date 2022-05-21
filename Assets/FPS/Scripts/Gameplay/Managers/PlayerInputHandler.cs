@@ -36,11 +36,11 @@ namespace Unity.FPS.Gameplay {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            canMove = GameManager.Instance.Movement;
-            canJump = GameManager.Instance.Saut;
-            canOpenInventaire = GameManager.Instance.Inventaire;
-            canCollect = GameManager.Instance.Collect;
-            canEat = GameManager.Instance.Eat;
+            canMove = true;
+            canJump = true;
+            canOpenInventaire = true;
+            canCollect = true;
+            canEat = true;
 
         }
 
@@ -70,30 +70,7 @@ namespace Unity.FPS.Gameplay {
 
             return Vector3.zero;
         }
-        public void SetCanDo(bool can, string name)
-        {
-            switch (name)
-            {
-                case "Movement":
-                    canMove = can;
-                    break;
-                case "Jump":
-                    canJump = can;
-                    break;
-                case "Inventaire":
-                    canOpenInventaire = can;
-                    break;
-                case "Collect":
-                    canCollect = can;
-                    break;
-                case "Eat":
-                    canEat = can;
-                    break;
-                default:
-                    break;
-
-            }
-        }
+       
         public float GetLookInputsHorizontal()
         {
             return GetMouseOrStickLookAxis(GameConstants.k_MouseAxisNameHorizontal,

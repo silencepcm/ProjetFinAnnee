@@ -26,71 +26,59 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-    public bool Movement;
-    public bool Saut;
-    public bool Tir;
-    public bool Trampoplante;
-    public bool FallDamage;
-    public bool Inventaire;
-    public float MaxSpeedOnGround;
-    public float MaxSpeedInAir;
-    public float JumpForce;
-    public float GravityForce;
-    public float MaxChargeDuration;
-    public int MaxAmmo;
-    public float BulletSpreadAngle;
-    public int BulletsPerShot;
-    public float TrampoplanteForce;
-    public float MinSpeedFallDamage;
-    public float FallDamageValeurAtMinSpeed;
-    public float MaxSpeedFallDamage;
-    public float FallDamageValeurAtMaxSpeed;
+    [HideInInspector] public bool FallDamage;
+    [HideInInspector] public float MaxSpeedOnGround;
+    [HideInInspector] public float MaxSpeedInAir;
+    [HideInInspector] public float JumpForce;
+    [HideInInspector] public float GravityForce;
+    [HideInInspector] public float MaxChargeDuration;
+    [HideInInspector] public int MaxAmmo;
+    [HideInInspector] public float BulletSpreadAngle;
+    [HideInInspector] public float TrampoplanteForce;
+    [HideInInspector] public float MinSpeedFallDamage;
+    [HideInInspector] public float FallDamageValeurAtMinSpeed;
+    [HideInInspector] public float MaxSpeedFallDamage;
+    [HideInInspector] public float FallDamageValeurAtMaxSpeed;
 
 
-    public float MaxSoif;
-    public float MinSoif;
+    [HideInInspector] public float MaxSoif;
+    [HideInInspector] public float MinSoif;
 
-    public float MaxGourde;
-    public float MinGourde;
+    [HideInInspector] public float MaxGourde;
+    [HideInInspector] public float MinGourde;
 
-    public float MaxNourriture;
-    public float MinNourriture;
-
-
-    public bool Collect;
-    public bool Eat;
+    [HideInInspector] public float MaxNourriture;
+    [HideInInspector] public float MinNourriture;
 
 
-    public float DelaySoif;
-    public float DelayNourriture;
-    public float DegatsNourriture;
-    public float DegatsSoif;
+    [HideInInspector] public bool Collect;
+    [HideInInspector] public bool Eat;
 
-    public int NbIngredientA;
-    public int NbIngredientB;
-    public int NbIngredientC;
-    public int NbIngredientD;
-    public int NbIngredientE;
-    public int NbIngredientF;
-    public int NbIngredientG;
 
-    public int NbRecette1;
-    public int NbRecette2;
-    public int NbRecette3;
-    public int NbRecette4;
-    public int NbRecette5;
+    [HideInInspector] public float DelaySoif;
+    [HideInInspector] public float DelayNourriture;
+    [HideInInspector] public float DegatsNourriture;
+    [HideInInspector] public float DegatsSoif;
 
+    [HideInInspector] public int NbIngredientA;
+    [HideInInspector] public int NbIngredientB;
+    [HideInInspector] public int NbIngredientC;
+    [HideInInspector] public int NbIngredientD;
+    [HideInInspector] public int NbIngredientE;
+    [HideInInspector] public int NbIngredientF;
+    [HideInInspector] public int NbIngredientG;
+
+    [HideInInspector] public int NbRecette1;
+    [HideInInspector] public int NbRecette2;
+    [HideInInspector] public int NbRecette3;
+    [HideInInspector] public int NbRecette4;
+    [HideInInspector] public int NbRecette5;
     private void Start()
     {
         SaveData data = SaveToyboxScript.LoadData();
         if (data != null)
         {
-            Movement = data.Movement;
-            Saut = data.Saut;
-            Tir = data.Tir;
-            Trampoplante = data.Trampoplante;
             FallDamage = data.FallDamage;
-            Inventaire = data.Inventaire;
             MaxSpeedOnGround = data.MovementSpeedOnGround;
             MaxSpeedInAir = data.MovementSpeedInAir;
             JumpForce = data.JumpForce;
@@ -98,7 +86,6 @@ public class GameManager : MonoBehaviour
             MaxChargeDuration = data.MaxChargeDuration;
             MaxAmmo = data.MaxAmmo;
             BulletSpreadAngle = data.BulletSpreadAngle;
-            BulletsPerShot = data.BulletsPerShot;
             TrampoplanteForce = data.TrampoplanteForce;
             MinSpeedFallDamage = data.MinSpeedFallDamage;
             FallDamageValeurAtMinSpeed = data.FallDamageValeurAtMinSpeed;
@@ -138,12 +125,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Movement = true;
-            Saut = true;
-            Tir = true;
-            Trampoplante = true;
             FallDamage = true;
-            Inventaire = true;
             MaxSpeedOnGround = 5;
             MaxSpeedInAir = 5;
             JumpForce = 1;
@@ -151,7 +133,6 @@ public class GameManager : MonoBehaviour
             MaxChargeDuration = 1;
             MaxAmmo = 1;
             BulletSpreadAngle = 1;
-            BulletsPerShot = 1;
             TrampoplanteForce = 1;
             MinSpeedFallDamage = 1;
             FallDamageValeurAtMinSpeed = 1;

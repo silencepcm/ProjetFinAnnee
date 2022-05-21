@@ -14,7 +14,7 @@ namespace Unity.FPS.Gameplay
 
         [Tooltip("Audio source for footsteps, jump, etc...")]
         public AudioSource AudioSource;
-
+        bool WaterDeath = false;
         [Header("General")] [Tooltip("Force applied downward when in the air")]
         public float GravityDownForce = 20f;
 
@@ -144,18 +144,11 @@ namespace Unity.FPS.Gameplay
         {
 
             player = FindObjectOfType<PlayerStatsScript>();
-            // fetch components on the same gameObject
             m_Controller = GetComponent<CharacterController>();
-            DebugUtility.HandleErrorIfNullGetComponent<CharacterController, PlayerCharacterController>(m_Controller,
-                this, gameObject);
 
             m_InputHandler = GetComponent<PlayerInputHandler>();
-            DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, PlayerCharacterController>(m_InputHandler,
-                this, gameObject);
 
             m_WeaponsManager = GetComponent<PlayerWeaponsManager>();
-            DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerCharacterController>(
-                m_WeaponsManager, this, gameObject);
             collectObjects = new List<GameObject>();
 
             m_Controller.enableOverlapRecovery = true;
@@ -233,6 +226,7 @@ namespace Unity.FPS.Gameplay
         }
         public void SetCanCollect(GameObject can, bool entersCollider)
         {
+            //if()
             if (entersCollider)
             {
                 collectObjects.Add(can);
@@ -267,42 +261,54 @@ namespace Unity.FPS.Gameplay
                     m_Controller.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, GroundCheckLayers,
                     QueryTriggerInteraction.Ignore))
                 {
-                    // storing the upward direction for the surface found
-                    m_GroundNormal = hit.normal;
 
-                    // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
-                    // and if the slope angle is lower than the character controller's limit
-                    if (Vector3.Dot(hit.normal, transform.up) > 0f &&
-                        IsNormalUnderSlopeLimit(m_GroundNormal))
+                    /*if ((!IsDead) && (hit.collider.transform.tag == "Water"))
                     {
-                        IsGrounded = true;
+                        player.Kill();
+                        OnDie();
+                        CharacterVelocity /= 2;
+                        GravityDownForce /= 2;
+                        WaterDeath = true;
+                    }
+                    else if(!WaterDeath)*/
+                    {
+                        // storing the upward direction for the surface found
+                        m_GroundNormal = hit.normal;
 
-                        // handle snapping to the ground
-                        if (hit.distance > m_Controller.skinWidth)
+                        // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
+                        // and if the slope angle is lower than the character controller's limit
+                        if (Vector3.Dot(hit.normal, transform.up) > 0f &&
+                            IsNormalUnderSlopeLimit(m_GroundNormal))
                         {
-                            m_Controller.Move(Vector3.down * hit.distance);
-                        }
-                        if(hit.collider.transform.name == "Trampoplante")
-                        {
-                            // force the crouch state to false
-                            if (SetCrouchingState(false, false))
+                            IsGrounded = true;
+
+                            // handle snapping to the ground
+                            if (hit.distance > m_Controller.skinWidth)
                             {
-                                // start by canceling out the vertical component of our velocity
-                                CharacterVelocity = new Vector3(CharacterVelocity.x, 0f, CharacterVelocity.z);
+                                m_Controller.Move(Vector3.down * hit.distance);
+                            }
+                            if (hit.collider.transform.tag == "Trampoplante")
+                            {
+                                // force the crouch state to false
+                                if (SetCrouchingState(false, false))
+                                {
+                                    // start by canceling out the vertical component of our velocity
+                                    CharacterVelocity = new Vector3(CharacterVelocity.x, 0f, CharacterVelocity.z);
 
-                                // then, add the jumpSpeed value upwards
-                                CharacterVelocity += Vector3.up * TrampoplanteForce;
+                                    // then, add the jumpSpeed value upwards
+                                    CharacterVelocity += Vector3.up * TrampoplanteForce;
 
-                                // play sound
-                                AudioSource.PlayOneShot(JumpSfx);
+                                    // play sound
+                                    AudioSource.PlayOneShot(JumpSfx);
 
-                                // remember last time we jumped because we need to prevent snapping to ground for a short time
-                                m_LastTimeJumped = Time.time;
-                                HasJumpedThisFrame = true;
+                                    // remember last time we jumped because we need to prevent snapping to ground for a short time
+                                    m_LastTimeJumped = Time.time;
+                                    HasJumpedThisFrame = true;
 
-                                // Force grounding to false
-                                IsGrounded = false;
-                                m_GroundNormal = Vector3.up;
+                                    // Force grounding to false
+                                    IsGrounded = false;
+                                    m_GroundNormal = Vector3.up;
+                                }
                             }
                         }
                     }

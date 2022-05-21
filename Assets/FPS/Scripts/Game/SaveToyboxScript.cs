@@ -24,12 +24,7 @@ namespace Unity.FPS.Game
         public static void save_game()
         {
             SaveData data = new SaveData();
-            data.Movement = GameManager.Instance.Movement;
-            data.Saut = GameManager.Instance.Saut;
-            data.Tir = GameManager.Instance.Tir;
-            data.Trampoplante = GameManager.Instance.Trampoplante;
             data.FallDamage = GameManager.Instance.FallDamage;
-            data.Inventaire = GameManager.Instance.Inventaire;
             data.MovementSpeedOnGround = GameManager.Instance.MaxSpeedOnGround;
             data.MovementSpeedInAir = GameManager.Instance.MaxSpeedInAir;
             data.JumpForce = GameManager.Instance.JumpForce;
@@ -37,7 +32,6 @@ namespace Unity.FPS.Game
             data.MaxChargeDuration = GameManager.Instance.MaxChargeDuration;
             data.MaxAmmo = GameManager.Instance.MaxAmmo;
             data.BulletSpreadAngle = GameManager.Instance.BulletSpreadAngle;
-            data.BulletsPerShot = GameManager.Instance.BulletsPerShot;
             data.TrampoplanteForce = GameManager.Instance.TrampoplanteForce;
             data.MinSpeedFallDamage = GameManager.Instance.MinSpeedFallDamage;
             data.FallDamageValeurAtMinSpeed = GameManager.Instance.FallDamageValeurAtMinSpeed;

@@ -108,10 +108,6 @@ namespace Unity.FPS.Gameplay
                     Weapon.StartReloadAnimation();
                     return;
                 }
-                /*
-                // handle aiming down sights
-                IsAiming = m_InputHandler.GetAimInputHeld();
-                */
                 // handle shooting
                 bool hasFired = Weapon.HandleShootInputs(
                     m_InputHandler.GetTirInputDown(),
@@ -148,10 +144,10 @@ namespace Unity.FPS.Gameplay
             UpdateWeaponAiming();
             UpdateWeaponBob();
             UpdateWeaponRecoil();
-            /*
+            
             // Set final weapon socket position based on all the combined animation influences
             WeaponParentSocket.localPosition =
-                m_WeaponMainLocalPosition + m_WeaponBobLocalPosition + m_WeaponRecoilLocalPosition;*/
+                m_WeaponMainLocalPosition + m_WeaponBobLocalPosition + m_WeaponRecoilLocalPosition;
         }
 
         // Sets the FOV of the main camera and the weapon camera simultaneously
