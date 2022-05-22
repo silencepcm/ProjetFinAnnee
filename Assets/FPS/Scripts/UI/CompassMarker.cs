@@ -1,7 +1,6 @@
 ﻿using Unity.FPS.AI;
 using UnityEngine;
 using UnityEngine.UI;
-
 namespace Unity.FPS.UI
 {
     public class CompassMarker : MonoBehaviour
@@ -23,7 +22,6 @@ namespace Unity.FPS.UI
         [Tooltip("Text content for the direction")]
         public TMPro.TextMeshProUGUI TextContent;
 
-        EnemyController m_EnemyController;
 
         public void Initialize(CompassElement compassElement, string textDirection)
         {
@@ -33,7 +31,7 @@ namespace Unity.FPS.UI
             }
             else
             {
-                m_EnemyController = compassElement.transform.GetComponent<EnemyController>();
+                EnemyController m_EnemyController = compassElement.transform.GetComponent<EnemyController>();
 
                 if (m_EnemyController)
                 {

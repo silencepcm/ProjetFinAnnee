@@ -25,45 +25,40 @@ namespace Unity.FPS.AI
         public UnityAction onDetectedTarget;
         public UnityAction onLostTarget;
 
-        public GameObject KnownDetectedTarget { get; private set; }
+        public GameObject Player { get; private set; }
         public bool IsTargetInAttackRange { get; private set; }
         public bool IsSeeingTarget { get; private set; }
         public bool HadKnownTarget { get; private set; }
 
         protected float TimeLastSeenTarget = Mathf.NegativeInfinity;
+        bool detected;
 
-
-        const string k_AnimAttackParameter = "Attack";
-        const string k_AnimOnDamagedParameter = "OnDamaged";
+        const string k_AnimAttackTrigger = "Attack";
+        const string k_AnimOnDamagedTrigger = "OnDamaged";
 
         private void Start()
         {
-            KnownDetectedTarget = GameObject.Find("Player");
+            Player = GameObject.FindGameObjectWithTag("Player");
         }
 
         public virtual void HandleTargetDetection(GameObject actor, Collider[] selfColliders)
         {
             // Handle known target detection timeout
-            if (KnownDetectedTarget && !IsSeeingTarget && (Time.time - TimeLastSeenTarget) > KnownTargetTimeout)
+            if (Player && !IsSeeingTarget && (Time.time - TimeLastSeenTarget) > KnownTargetTimeout)
             {
-                KnownDetectedTarget = null;
+                detected = false;
             }
 
             // Find the closest visible hostile actor
             float sqrDetectionRange = DetectionRange * DetectionRange;
             IsSeeingTarget = false;
             float closestSqrDistance = Mathf.Infinity;
-            /*
-            foreach (Actor otherActor in m_ActorsManager.Actors)
-            {
-                if (otherActor.Affiliation != actor.Affiliation)
-                {
-                    float sqrDistance = (otherActor.transform.position - DetectionSourcePoint.position).sqrMagnitude;
-                    if (sqrDistance < sqrDetectionRange && sqrDistance < closestSqrDistance)
+                    float DistanceToPlayer = Vector3.Distance(Player.transform.position, DetectionSourcePoint.position);
+                    if (DistanceToPlayer < sqrDetectionRange && DistanceToPlayer < closestSqrDistance)
                     {
                         // Check for obstructions
                         RaycastHit[] hits = Physics.RaycastAll(DetectionSourcePoint.position,
-                            (otherActor.AimPoint.position - DetectionSourcePoint.position).normalized, DetectionRange,
+                            (Player.transform.Find("AimPoint").position - DetectionSourcePoint.position).normalized, DetectionRange,
                             -1, QueryTriggerInteraction.Ignore);
                         RaycastHit closestValidHit = new RaycastHit();
                         closestValidHit.distance = Mathf.Infinity;
@@ -79,39 +74,29 @@ namespace Unity.FPS.AI
 
                         if (foundValidHit)
                         {
-                            Actor hitActor = closestValidHit.collider.GetComponentInParent<Actor>();
-                            if (hitActor == otherActor)
-                            {
                                 IsSeeingTarget = true;
-                                closestSqrDistance = sqrDistance;
+                                closestSqrDistance = DistanceToPlayer;
 
                                 TimeLastSeenTarget = Time.time;
-                                KnownDetectedTarget = otherActor.AimPoint.gameObject;
-                            }
                         }
                     }
-                }
-            }*/
 
-            IsTargetInAttackRange = KnownDetectedTarget != null &&
-                                    Vector3.Distance(transform.position, KnownDetectedTarget.transform.position) <=
+            IsTargetInAttackRange = Player != null &&
+                                    Vector3.Distance(transform.position, Player.transform.position) <=
                                     AttackRange;
 
             // Detection events
             if (!HadKnownTarget &&
-                KnownDetectedTarget != null)
+                !detected)
             {
                 OnDetect();
             }
 
             if (HadKnownTarget &&
-                KnownDetectedTarget == null)
+                Player == null)
             {
                 OnLostTarget();
             }
-
-            // Remember if we already knew a target (for next frame)
-            HadKnownTarget = KnownDetectedTarget != null;
         }
 
         public virtual void OnLostTarget() => onLostTarget?.Invoke();
@@ -121,11 +106,11 @@ namespace Unity.FPS.AI
         public virtual void OnDamaged(GameObject damageSource)
         {
             TimeLastSeenTarget = Time.time;
-            KnownDetectedTarget = damageSource;
+            Player = damageSource;
 
             if (Animator)
             {
-                Animator.SetTrigger(k_AnimOnDamagedParameter);
+                Animator.SetTrigger(k_AnimOnDamagedTrigger);
             }
         }
 
@@ -133,7 +118,7 @@ namespace Unity.FPS.AI
         {
             if (Animator)
             {
-                Animator.SetTrigger(k_AnimAttackParameter);
+                Animator.SetTrigger(k_AnimAttackTrigger);
             }
         }
     }

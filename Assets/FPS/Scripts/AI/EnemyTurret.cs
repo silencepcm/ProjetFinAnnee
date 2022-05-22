@@ -40,6 +40,7 @@ namespace Unity.FPS.AI
 
         void Start()
         {
+
             m_EnemyController = GetComponent<EnemyController>();
             DebugUtility.HandleErrorIfNullGetComponent<EnemyController, EnemyTurret>(m_EnemyController, this,
                 gameObject);
@@ -70,14 +71,14 @@ namespace Unity.FPS.AI
 
         void UpdateCurrentAiState()
         {
-          /*  // Handle logic 
+            // Handle logic 
             switch (AiState)
             {
-               /* case AIState.Attack:
+                case AIState.Attack:
                     bool mustShoot = Time.time > m_TimeStartedDetection + DetectionFireDelay;
                     // Calculate the desired rotation of our turret (aim at target)
                     Vector3 directionToTarget =
-                        (m_EnemyController.KnownDetectedTarget.transform.position - TurretAimPoint.position).normalized;
+                        (m_EnemyController.Player.transform.position - TurretAimPoint.position).normalized;
                     Quaternion offsettedTargetRotation =
                         Quaternion.LookRotation(directionToTarget) * m_RotationWeaponForwardToPivot;
                     m_PivotAimingRotation = Quaternion.Slerp(m_PreviousPivotAimingRotation, offsettedTargetRotation,
@@ -94,7 +95,7 @@ namespace Unity.FPS.AI
                     }
 
                     break;
-            }*/
+            }
         }
 
         void UpdateTurretAiming()
@@ -103,8 +104,6 @@ namespace Unity.FPS.AI
             {
                 case AIState.Attack:
                     TurretPivot.rotation = m_PivotAimingRotation;
-                    break;
-                case AIState.Idle:
                     break;
                 default:
                     // Use the turret rotation of the animation

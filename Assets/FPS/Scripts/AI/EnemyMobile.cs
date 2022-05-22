@@ -36,11 +36,9 @@ namespace Unity.FPS.AI
         const string k_AnimAttackParameter = "Attack";
         const string k_AnimAlertedParameter = "Alerted";
         const string k_AnimOnDamagedParameter = "OnDamaged";
-        DetectionModule DetectionModule;
 
         void Start()
         {
-            DetectionModule = GetComponent<DetectionModule>();
             m_EnemyController = GetComponent<EnemyController>();
             DebugUtility.HandleErrorIfNullGetComponent<EnemyController, EnemyMobile>(m_EnemyController, this,
                 gameObject);
@@ -49,7 +47,6 @@ namespace Unity.FPS.AI
             m_EnemyController.onDetectedTarget += OnDetectedTarget;
             m_EnemyController.onLostTarget += OnLostTarget;
             m_EnemyController.SetPathDestinationToClosestNode();
-            m_EnemyController.onDamaged += OnDamaged;
 
             // Start patrolling
             AiState = AIState.Patrol;
@@ -83,7 +80,7 @@ namespace Unity.FPS.AI
             {
                 case AIState.Follow:
                     // Transition to attack when there is a line of sight to the target
-                    if (m_EnemyController.IsSeeingTarget && m_EnemyController.IsTargetInAttackRange())
+                    if (m_EnemyController.IsSeeingTarget && m_EnemyController.IsTargetInAttackRange)
                     {
                         AiState = AIState.Attack;
                         m_EnemyController.SetNavDestination(transform.position);
@@ -92,7 +89,7 @@ namespace Unity.FPS.AI
                     break;
                 case AIState.Attack:
                     // Transition to follow when no longer a target in attack range
-                    if (!m_EnemyController.IsTargetInAttackRange())
+                    if (!m_EnemyController.IsTargetInAttackRange)
                     {
                         AiState = AIState.Follow;
                     }
@@ -111,24 +108,24 @@ namespace Unity.FPS.AI
                     m_EnemyController.SetNavDestination(m_EnemyController.GetDestinationOnPath());
                     break;
                 case AIState.Follow:
-                    m_EnemyController.SetNavDestination(DetectionModule.KnownDetectedTarget.transform.position);
-                    m_EnemyController.OrientTowards(DetectionModule.KnownDetectedTarget.transform.position);
-                    m_EnemyController.OrientWeaponsTowards(DetectionModule.KnownDetectedTarget.transform.position);
+                    m_EnemyController.SetNavDestination(m_EnemyController.Player.transform.position);
+                    m_EnemyController.OrientTowards(m_EnemyController.Player.transform.position);
+                    m_EnemyController.OrientWeaponsTowards(m_EnemyController.Player.transform.position);
                     break;
                 case AIState.Attack:
-                    if (Vector3.Distance(DetectionModule.KnownDetectedTarget.transform.position,
-                            DetectionModule.DetectionSourcePoint.position)
-                        >= (AttackStopDistanceRatio * DetectionModule.AttackRange))
+                    if (Vector3.Distance(m_EnemyController.Player.transform.position,
+                            m_EnemyController.DetectionModule.DetectionSourcePoint.position)
+                        >= (AttackStopDistanceRatio * m_EnemyController.DetectionModule.AttackRange))
                     {
-                        m_EnemyController.SetNavDestination(DetectionModule.KnownDetectedTarget.transform.position);
+                        m_EnemyController.SetNavDestination(m_EnemyController.Player.transform.position);
                     }
                     else
                     {
                         m_EnemyController.SetNavDestination(transform.position);
                     }
 
-                    m_EnemyController.OrientTowards(DetectionModule.KnownDetectedTarget.transform.position);
-                    m_EnemyController.TryAtack(DetectionModule.KnownDetectedTarget.transform.position);
+                    m_EnemyController.OrientTowards(m_EnemyController.Player.transform.position);
+                    m_EnemyController.TryAtack(m_EnemyController.Player.transform.position);
                     break;
             }
         }
