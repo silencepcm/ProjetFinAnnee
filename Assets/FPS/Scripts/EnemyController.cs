@@ -123,7 +123,7 @@ namespace Unity.FPS.AI
             FindAndInitializeAllWeapons();
             var weapon = GetCurrentWeapon();
             weapon.ShowWeapon(true);
-
+            /*
             var detectionModules = GetComponentsInChildren<DetectionModule>();
             DebugUtility.HandleErrorIfNoComponentFound<DetectionModule, EnemyController>(detectionModules.Length, this,
                 gameObject);
@@ -146,17 +146,18 @@ namespace Unity.FPS.AI
                 NavMeshAgent.angularSpeed = m_NavigationModule.AngularSpeed;
                 NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
             }
-
+            */
         }
 
         void Update()
         {
+            /*
             EnsureIsWithinLevelBounds();
 
             HandleTargetDetection();
 
 
-            m_WasDamagedThisFrame = false;
+            m_WasDamagedThisFrame = false;*/
         }
 
 
