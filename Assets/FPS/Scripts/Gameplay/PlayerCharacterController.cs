@@ -138,7 +138,8 @@ namespace Unity.FPS.Gameplay
         GameObject canDrink;
 
         PlayerStatsScript player;
-       
+        public delegate void CollectActivateUI(bool active);
+        public event CollectActivateUI OnCollectActivateUI;
 
         void Start()
         {
@@ -212,6 +213,10 @@ namespace Unity.FPS.Gameplay
             {
                 GameObject tempCollect = collectObjects[0];
                 collectObjects.RemoveAt(0);
+                if (collectObjects.Count == 0)
+                {
+                    OnCollectActivateUI(false);
+                }
                 tempCollect.GetComponent<Collect>().CollectEvent();
             }
 
@@ -230,10 +235,16 @@ namespace Unity.FPS.Gameplay
             if (entersCollider)
             {
                 collectObjects.Add(can);
+                if(collectObjects.Count == 1) {
+                    OnCollectActivateUI(true);
+                }
             }
             else
             {
                 collectObjects.RemoveAll(obj => obj == can);
+                if (collectObjects.Count == 0) {
+                    OnCollectActivateUI(false);
+                }
 
             }
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CollectUIScript : MonoBehaviour
 {
+    public GameObject CollectObjectUI;
     public Vector3 ActivatedPosition;
     Vector3 StartPos;
     bool activated;
@@ -12,8 +13,9 @@ public class CollectUIScript : MonoBehaviour
     public float speed;
     void Start()
     {
-        StartPos = transform.position;
-        TargetPos = transform.position;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Unity.FPS.Gameplay.PlayerCharacterController>().OnCollectActivateUI += Activate;
+        StartPos = CollectObjectUI.GetComponent<RectTransform>().localPosition;
+        TargetPos = CollectObjectUI.GetComponent<RectTransform>().localPosition;
         activated = false;
         moving = false;
     }
@@ -23,8 +25,8 @@ public class CollectUIScript : MonoBehaviour
     {
         if (moving)
         {
-            transform.position = Vector3.Lerp(transform.position, TargetPos, speed * Time.fixedDeltaTime);
-            if (Vector3.Distance(transform.position, TargetPos) < 0.1f)
+            CollectObjectUI.GetComponent<RectTransform>().localPosition = Vector3.Lerp(CollectObjectUI.GetComponent<RectTransform>().localPosition, TargetPos, speed * Time.fixedDeltaTime);
+            if (Vector3.Distance(CollectObjectUI.GetComponent<RectTransform>().localPosition, TargetPos) < 0.1f)
             {
                 moving = false;
             }
@@ -38,7 +40,7 @@ public class CollectUIScript : MonoBehaviour
             activated = active;
             if (active)
             {
-                TargetPos = new Vector3(transform.position.x, -200f, transform.position.z);
+                TargetPos = new Vector3(CollectObjectUI.GetComponent<RectTransform>().localPosition.x, -200f, CollectObjectUI.GetComponent<RectTransform>().localPosition.z);
             }
             else
             {
