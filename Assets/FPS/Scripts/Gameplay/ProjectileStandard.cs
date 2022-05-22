@@ -33,11 +33,9 @@ namespace Unity.FPS.Gameplay
         [Tooltip("Layers this projectile can collide with")]
         public LayerMask HittableLayers = -1;
 
-        [Header("Movement")] [Tooltip("Speed of the projectile")]
-        public float Speed = 20f;
+        public float Speed => GameManager.Instance.BulletSpeed;
 
-        [Tooltip("Downward acceleration from gravity")]
-        public float GravityDownAcceleration = 0f;
+        public float GravityDownAcceleration => GameManager.Instance.BulletGravity;
 
         [Tooltip(
             "Distance over which the projectile will correct its course to fit the intended trajectory (used to drift projectiles towards center of screen in First Person view). At values under 0, there is no correction")]

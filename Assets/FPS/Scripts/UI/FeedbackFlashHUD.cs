@@ -39,7 +39,6 @@ namespace Unity.FPS.UI
 
         [Tooltip("Max alpha of the heal flash")]
         public float HealFlashMaxAlpha = 1f;
-
         bool m_FlashActive;
         float m_LastTimeFlashStarted = Mathf.NegativeInfinity;
         GameFlowManager m_GameFlowManager;

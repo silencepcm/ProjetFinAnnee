@@ -50,5 +50,8 @@ namespace Unity.FPS.Game
         public int NbRecette3;
         public int NbRecette4;
         public int NbRecette5;
+
+        public float BulletGravity;
+        public float BulletSpeed;
     }
 }

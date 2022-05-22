@@ -9,8 +9,6 @@ namespace Unity.FPS.Game
         [Tooltip("Duration of the fade-to-black at the end of the game")]
         public float EndSceneLoadDelay = 3f;
 
-        [Tooltip("The canvas group of the fade-to-black screen")]
-        public CanvasGroup EndGameFadeCanvasGroup;
 
         [Header("Win")]
         [Tooltip("This string has to be the name of the scene you want to load when winning")]
@@ -39,27 +37,25 @@ namespace Unity.FPS.Game
         {
             EventManager.AddListener<PlayerDeathEvent>(OnPlayerDeath);
         }
-
         void Start()
         {
 
             AudioUtility.SetMasterVolume(1);
             StartGame();
         }
-
         void Update()
         {
             if (GameIsEnding)
             {
                 float timeRatio = 1 - (m_TimeLoadEndGameScene - Time.time) / EndSceneLoadDelay;
-                EndGameFadeCanvasGroup.alpha = timeRatio;
+                FindObjectOfType<HUDManager>().canvasGroup.alpha = timeRatio;
 
                 AudioUtility.SetMasterVolume(1 - timeRatio);
 
                 // See if it's time to load the end scene (after the delay)
                 if (Time.time >= m_TimeLoadEndGameScene)
                 {
-                    SceneManager.LoadScene(m_SceneToLoad);
+                    SceneManager.LoadScene("ToyBox");
                     GameIsEnding = false;
                 }
             }
@@ -75,7 +71,7 @@ namespace Unity.FPS.Game
 
             // Remember that we need to load the appropriate end scene after a delay
             GameIsEnding = true;
-            EndGameFadeCanvasGroup.gameObject.SetActive(true);
+            FindObjectOfType<HUDManager>().canvasGroup.gameObject.SetActive(true);
             if (win)
             {
                 m_SceneToLoad = WinSceneName;

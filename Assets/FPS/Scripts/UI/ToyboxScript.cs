@@ -90,6 +90,12 @@ namespace Unity.FPS.Gameplay
                     case "FallDamageValeurAtMaxSpeed":
                         text.text = GameManager.Instance.FallDamageValeurAtMaxSpeed.ToString();
                         break;
+                    case "BulletGravity":
+                        text.text = GameManager.Instance.BulletGravity.ToString();
+                        break;
+                    case "BulletSpeed":
+                        text.text = GameManager.Instance.BulletSpeed.ToString();
+                        break;
                 }
             }
         }
@@ -111,7 +117,20 @@ namespace Unity.FPS.Gameplay
                 GameManager.Instance.GravityForce = f;
             }
         }
-
+        public void SetBulletGravity(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BulletGravity = f;
+            }
+        }
+        public void SetBulletSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BulletSpeed = f;
+            }
+        }
         public void SetMovementSpeedOnGround(TMP_InputField textObj)
         {
             if (float.TryParse(textObj.text, out float f))

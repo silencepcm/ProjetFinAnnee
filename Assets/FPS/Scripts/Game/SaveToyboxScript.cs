@@ -39,22 +39,26 @@ namespace Unity.FPS.Game
             data.FallDamageValeurAtMaxSpeed = GameManager.Instance.FallDamageValeurAtMaxSpeed;
 
 
-        data.NbIngredientA = GameManager.Instance.NbIngredientA;
-        data.NbIngredientB = GameManager.Instance.NbIngredientB;
-        data.NbIngredientC = GameManager.Instance.NbIngredientC;
-        data.NbIngredientD = GameManager.Instance.NbIngredientD;
-        data.NbIngredientE = GameManager.Instance.NbIngredientE;
-        data.NbIngredientF = GameManager.Instance.NbIngredientF;
-        data.NbIngredientG = GameManager.Instance.NbIngredientG;
+            data.NbIngredientA = GameManager.Instance.NbIngredientA;
+            data.NbIngredientB = GameManager.Instance.NbIngredientB;
+            data.NbIngredientC = GameManager.Instance.NbIngredientC;
+            data.NbIngredientD = GameManager.Instance.NbIngredientD;
+            data.NbIngredientE = GameManager.Instance.NbIngredientE;
+            data.NbIngredientF = GameManager.Instance.NbIngredientF;
+            data.NbIngredientG = GameManager.Instance.NbIngredientG;
 
-        data.NbRecette1 = GameManager.Instance.NbRecette1;
-        data.NbRecette2 = GameManager.Instance.NbRecette2;
-        data.NbRecette3 = GameManager.Instance.NbRecette3;
-        data.NbRecette4 = GameManager.Instance.NbRecette4;
-        data.NbRecette5 = GameManager.Instance.NbRecette5;
+            data.NbRecette1 = GameManager.Instance.NbRecette1;
+            data.NbRecette2 = GameManager.Instance.NbRecette2;
+            data.NbRecette3 = GameManager.Instance.NbRecette3;
+            data.NbRecette4 = GameManager.Instance.NbRecette4;
+            data.NbRecette5 = GameManager.Instance.NbRecette5;
 
-        string json_data = JsonUtility.ToJson(data);
+            data.BulletGravity = GameManager.Instance.BulletGravity;
+            data.BulletSpeed = GameManager.Instance.BulletSpeed;
+
+
+            string json_data = JsonUtility.ToJson(data);
             File.WriteAllText(file_path(), json_data);
         }
     }
-    }
+}

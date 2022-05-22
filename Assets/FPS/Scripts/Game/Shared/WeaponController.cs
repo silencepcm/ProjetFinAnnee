@@ -116,7 +116,8 @@ namespace Unity.FPS.Game
         public bool UnparentMuzzleFlash;
 
         [Tooltip("sound played when shooting")]
-        public AudioClip ShootSfx;
+        public AudioClip TirNormalAudio;
+        public AudioClip TirObliqueAudio;
 
         [Tooltip("Sound played when changing to this weapon")]
         public AudioClip ChangeWeaponSfx;
@@ -332,7 +333,7 @@ namespace Unity.FPS.Game
                 {
                     if (!m_ContinuousShootAudioSource.isPlaying)
                     {
-                        m_ShootAudioSource.PlayOneShot(ShootSfx);
+                        m_ShootAudioSource.PlayOneShot(TirNormalAudio);
                         m_ShootAudioSource.PlayOneShot(ContinuousShootStartSfx);
                         m_ContinuousShootAudioSource.Play();
                     }
@@ -387,7 +388,7 @@ namespace Unity.FPS.Game
             if (m_CurrentAmmo >= 1f
                 && m_LastTimeShot + DelayBetweenShots < Time.time)
             {
-                HandleShoot();
+                NormalHandleShoot();
                 m_CurrentAmmo -= 1f;
 
                 return true;
@@ -395,7 +396,7 @@ namespace Unity.FPS.Game
 
             return false;
         }
-        void HandleShoot()
+        void NormalHandleShoot()
         {
             int bulletsPerShotFinal = BulletsPerShot;
 
@@ -431,9 +432,9 @@ namespace Unity.FPS.Game
             m_LastTimeShot = Time.time;
 
             // play shoot SFX
-            if (ShootSfx && !UseContinuousShootSound)
+            if (TirNormalAudio && !UseContinuousShootSound)
             {
-                m_ShootAudioSource.PlayOneShot(ShootSfx);
+                m_ShootAudioSource.PlayOneShot(TirNormalAudio);
             }
 
             // Trigger attack animation if there is any
@@ -445,7 +446,56 @@ namespace Unity.FPS.Game
             OnShoot?.Invoke();
             OnShootProcessed?.Invoke();
         }
+        void ObliqueHandleShoot()
+        {
+            int bulletsPerShotFinal = BulletsPerShot;
 
+            // spawn all bullets with random direction
+            for (int i = 0; i < bulletsPerShotFinal; i++)
+            {
+                Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
+                GameObject newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
+                    Quaternion.LookRotation(shotDirection));
+                newProjectile.GetComponent<ProjectileBase>().Shoot(this);
+            }
+
+            // muzzle flash
+            if (MuzzleFlashPrefab != null)
+            {
+                GameObject muzzleFlashInstance = Instantiate(MuzzleFlashPrefab, WeaponMuzzle.position,
+                    WeaponMuzzle.rotation, WeaponMuzzle.transform);
+                // Unparent the muzzleFlashInstance
+                if (UnparentMuzzleFlash)
+                {
+                    muzzleFlashInstance.transform.SetParent(null);
+                }
+
+                Destroy(muzzleFlashInstance, 2f);
+            }
+
+            if (HasPhysicalBullets)
+            {
+                // ShootShell();
+                m_CarriedPhysicalBullets--;
+            }
+
+            m_LastTimeShot = Time.time;
+
+            // play shoot SFX
+            if (TirObliqueAudio && !UseContinuousShootSound)
+            {
+                m_ShootAudioSource.PlayOneShot(TirObliqueAudio);
+            }
+
+            // Trigger attack animation if there is any
+            if (WeaponAnimator)
+            {
+                WeaponAnimator.SetTrigger(k_AnimAttackParameter);
+            }
+
+            OnShoot?.Invoke();
+            OnShootProcessed?.Invoke();
+        }
         public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)
         {
             float spreadAngleRatio = BulletSpreadAngle / 180f;

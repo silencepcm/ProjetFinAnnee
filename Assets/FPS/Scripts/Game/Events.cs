@@ -13,7 +13,6 @@ namespace Unity.FPS.Game
         public static PlayerDeathEvent PlayerDeathEvent = new PlayerDeathEvent();
         public static EnemyKillEvent EnemyKillEvent = new EnemyKillEvent();
         public static EnemyAttackEvent EnemyAttackEvent = new EnemyAttackEvent();
-        public static AmmoPickupEvent AmmoPickupEvent = new AmmoPickupEvent();
         public static DamageEvent DamageEvent = new DamageEvent();
         public static DisplayMessageEvent DisplayMessageEvent = new DisplayMessageEvent();
         public static CollectEvent CollectEvent = new CollectEvent();
@@ -52,11 +51,6 @@ namespace Unity.FPS.Game
     public class CollectEvent : GameEvent
     {
         public GameObject Pickup;
-    }
-
-    public class AmmoPickupEvent : GameEvent
-    {
-        public WeaponController Weapon;
     }
 
     public class DamageEvent : GameEvent

@@ -73,7 +73,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int NbRecette3;
     [HideInInspector] public int NbRecette4;
     [HideInInspector] public int NbRecette5;
-    private void Start()
+
+    [HideInInspector] public float BulletGravity;
+    [HideInInspector] public float BulletSpeed;
+
+    public void Start()
     {
         SaveData data = SaveToyboxScript.LoadData();
         if (data != null)
@@ -122,6 +126,9 @@ public class GameManager : MonoBehaviour
             NbRecette3 = data.NbRecette3;
             NbRecette4 = data.NbRecette4;
             NbRecette5 = data.NbRecette5;
+
+            BulletGravity = data.BulletGravity;
+            BulletSpeed = data.BulletSpeed;
         }
         else
         {
@@ -166,6 +173,9 @@ public class GameManager : MonoBehaviour
             NbRecette3 = 0;
             NbRecette4 = 0;
             NbRecette5 = 0;
+
+            BulletGravity = 1;
+            BulletSpeed = 3;
         }
     }
 }
