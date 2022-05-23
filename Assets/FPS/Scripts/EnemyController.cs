@@ -107,9 +107,9 @@ namespace Unity.FPS.AI
         void Start()
         {
             Player = GameObject.FindGameObjectWithTag("Player");
-            m_EnemyManager = FindObjectOfType<EnemyManager>();
+            //m_EnemyManager = FindObjectOfType<EnemyManager>();
              
-            m_EnemyManager.RegisterEnemy(this);
+            //m_EnemyManager.RegisterEnemy(this);
 
 
 
@@ -123,7 +123,7 @@ namespace Unity.FPS.AI
             FindAndInitializeAllWeapons();
             var weapon = GetCurrentWeapon();
             weapon.ShowWeapon(true);
-            /*
+            
             var detectionModules = GetComponentsInChildren<DetectionModule>();
             DebugUtility.HandleErrorIfNoComponentFound<DetectionModule, EnemyController>(detectionModules.Length, this,
                 gameObject);
@@ -146,18 +146,18 @@ namespace Unity.FPS.AI
                 NavMeshAgent.angularSpeed = m_NavigationModule.AngularSpeed;
                 NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
             }
-            */
+            
         }
 
         void Update()
         {
-            /*
+            
             EnsureIsWithinLevelBounds();
 
             HandleTargetDetection();
 
 
-            m_WasDamagedThisFrame = false;*/
+            m_WasDamagedThisFrame = false;
         }
 
 
@@ -280,7 +280,7 @@ namespace Unity.FPS.AI
 
         void OnDetectedTarget()
         {
-            onDetectedTarget.Invoke();
+            //onDetectedTarget.Invoke();
 
         }
 
@@ -377,7 +377,7 @@ namespace Unity.FPS.AI
             Destroy(vfx, 5f);
 
             // tells the game flow manager to handle the enemy destuction
-            m_EnemyManager.UnregisterEnemy(this);
+            //m_EnemyManager.UnregisterEnemy(this);
 
             // loot an object
             if (TryDropItem())

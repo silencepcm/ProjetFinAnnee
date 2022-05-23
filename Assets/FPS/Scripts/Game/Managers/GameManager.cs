@@ -133,18 +133,18 @@ public class GameManager : MonoBehaviour
         else
         {
             FallDamage = true;
-            MaxSpeedOnGround = 5;
-            MaxSpeedInAir = 5;
-            JumpForce = 1;
-            GravityForce = 1;
-            MaxChargeDuration = 1;
-            MaxAmmo = 1;
-            BulletSpreadAngle = 1;
-            TrampoplanteForce = 1;
-            MinSpeedFallDamage = 1;
-            FallDamageValeurAtMinSpeed = 1;
-            MaxSpeedFallDamage = 1;
-            FallDamageValeurAtMaxSpeed = 1;
+            MaxSpeedOnGround = 7;
+            MaxSpeedInAir = 7;
+            JumpForce = 11;
+            GravityForce = 33;
+            MaxChargeDuration = 5;
+            MaxAmmo = 5;
+            BulletSpreadAngle = 5;
+            TrampoplanteForce = 35;
+            MinSpeedFallDamage = 26;
+            FallDamageValeurAtMinSpeed = 5;
+            MaxSpeedFallDamage = 52;
+            FallDamageValeurAtMaxSpeed = 20;
 
 
             MaxSoif = 100f;
