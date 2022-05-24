@@ -38,16 +38,18 @@ public class Spawner_Ingredient : MonoBehaviour
                     removeFromList.Add(i);
                 }
             }
+            int counter = 0;
             foreach(int i in removeFromList)
             {
-                ToSpawn.RemoveAt(i);
+                ToSpawn.RemoveAt(i - counter);
+                DestroyedTime.RemoveAt(i - counter);
+                counter++;
             }
         }
     }
-    public void RespawnWaiter(Transform obj)
+    public void RespawnWaiter(GameObject obj)
     {
-        obj.gameObject.SetActive(false);
-        ToSpawn.Add(obj.gameObject);
+        ToSpawn.Add(obj);
         DestroyedTime.Add(Time.time);
 
     }
