@@ -25,9 +25,6 @@ namespace Unity.FPS.AI
         public float DeathDuration = 0f;
 
 
-        [Header("Weapons Parameters")] [Tooltip("Allow weapon swapping for this enemy")]
-        public bool SwapToNextWeapon = false;
-
         [Tooltip("Time delay between a weapon swap and the next attack")]
         public float DelayAfterWeaponSwap = 0f;
 
@@ -86,13 +83,14 @@ namespace Unity.FPS.AI
         bool m_WasDamagedThisFrame;
         float m_LastTimeWeaponSwapped = Mathf.NegativeInfinity;
         int m_CurrentWeaponIndex;
-        WeaponController m_CurrentWeapon;
-        WeaponController[] m_Weapons;
+        public WeaponController CurrentWeapon;
         NavigationModule m_NavigationModule;
         public Transform DetectionSourcePoint;
         [Tooltip("The max distance at which the enemy can see targets")]
         public float DetectionRange = 20f;
-
+        bool CanShoot;
+        public float AttackDelay;
+        float LastTimeAttack;
         [Tooltip("The max distance at which the enemy can attack its target")]
         public float AttackRange = 10f;
 
@@ -118,12 +116,6 @@ namespace Unity.FPS.AI
 
             m_GameFlowManager = FindObjectOfType<GameFlowManager>();
 
-
-            // Find and initialize all weapons
-            FindAndInitializeAllWeapons();
-            var weapon = GetCurrentWeapon();
-            weapon.ShowWeapon(true);
-            
             var detectionModules = GetComponentsInChildren<DetectionModule>();
             DebugUtility.HandleErrorIfNoComponentFound<DetectionModule, EnemyController>(detectionModules.Length, this,
                 gameObject);
@@ -407,40 +399,28 @@ namespace Unity.FPS.AI
             }
         }
 
-        public void OrientWeaponsTowards(Vector3 lookPosition)
-        {
-            for (int i = 0; i < m_Weapons.Length; i++)
-            {
-                // orient weapon towards player
-                Vector3 weaponForward = (lookPosition - m_Weapons[i].WeaponRoot.transform.position).normalized;
-                m_Weapons[i].transform.forward = weaponForward;
-            }
-        }
-
         public bool TryAtack(Vector3 enemyPosition)
         {
             if (m_GameFlowManager.GameIsEnding)
                 return false;
-
-            OrientWeaponsTowards(enemyPosition);
-
-            if ((m_LastTimeWeaponSwapped + DelayAfterWeaponSwap) >= Time.time)
-                return false;
-
-            // Shoot the weapon
-            bool didFire = GetCurrentWeapon().TryShoot();
-
-            if (didFire && onAttack != null)
+            bool didFire;
+            if (CanShoot)
             {
-                onAttack.Invoke();
-
-                if (SwapToNextWeapon && m_Weapons.Length > 1)
+                didFire = CurrentWeapon.TryShoot();
+                if (didFire && onAttack != null)
                 {
-                    int nextWeaponIndex = (m_CurrentWeaponIndex + 1) % m_Weapons.Length;
-                    SetCurrentWeapon(nextWeaponIndex);
+                    onAttack.Invoke();
                 }
             }
-
+            else
+            {
+                if (LastTimeAttack + AttackDelay < Time.time && onAttack != null)
+                {
+                    onAttack.Invoke();
+                    LastTimeAttack = Time.time;
+                    didFire = true;
+                } else didFire = false;
+            }
             return didFire;
         }
 
@@ -454,50 +434,5 @@ namespace Unity.FPS.AI
                 return (Random.value <= DropRate);
         }
 
-        void FindAndInitializeAllWeapons()
-        {
-            // Check if we already found and initialized the weapons
-            if (m_Weapons == null)
-            {
-                m_Weapons = GetComponentsInChildren<WeaponController>();
-                DebugUtility.HandleErrorIfNoComponentFound<WeaponController, EnemyController>(m_Weapons.Length, this,
-                    gameObject);
-
-                for (int i = 0; i < m_Weapons.Length; i++)
-                {
-                    m_Weapons[i].Owner = gameObject;
-                }
-            }
-        }
-
-        public WeaponController GetCurrentWeapon()
-        {
-            FindAndInitializeAllWeapons();
-            // Check if no weapon is currently selected
-            if (m_CurrentWeapon == null)
-            {
-                // Set the first weapon of the weapons list as the current weapon
-                SetCurrentWeapon(0);
-            }
-
-            DebugUtility.HandleErrorIfNullGetComponent<WeaponController, EnemyController>(m_CurrentWeapon, this,
-                gameObject);
-
-            return m_CurrentWeapon;
-        }
-
-        void SetCurrentWeapon(int index)
-        {
-            m_CurrentWeaponIndex = index;
-            m_CurrentWeapon = m_Weapons[m_CurrentWeaponIndex];
-            if (SwapToNextWeapon)
-            {
-                m_LastTimeWeaponSwapped = Time.time;
-            }
-            else
-            {
-                m_LastTimeWeaponSwapped = Mathf.NegativeInfinity;
-            }
-        }
     }
 }

@@ -110,7 +110,6 @@ namespace Unity.FPS.AI
                 case AIState.Follow:
                     m_EnemyController.SetNavDestination(m_EnemyController.Player.transform.position);
                     m_EnemyController.OrientTowards(m_EnemyController.Player.transform.position);
-                    m_EnemyController.OrientWeaponsTowards(m_EnemyController.Player.transform.position);
                     break;
                 case AIState.Attack:
                     if (Vector3.Distance(m_EnemyController.Player.transform.position,

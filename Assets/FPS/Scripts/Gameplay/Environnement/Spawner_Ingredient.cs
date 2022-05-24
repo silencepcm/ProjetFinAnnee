@@ -29,14 +29,18 @@ public class Spawner_Ingredient : MonoBehaviour
     {
         if (ToSpawn.Count > 0)
         {
-            List<GameObject> spawn = new List<GameObject>();
+            List<int> removeFromList = new List<int>();
             for (int i = 0; i < DestroyedTime.Count; ++i)
             {
                 if (Time.time > DestroyedTime[i] + timeToRespawn)
                 {
                     ToSpawn[i].SetActive(true);
-
+                    removeFromList.Add(i);
                 }
+            }
+            foreach(int i in removeFromList)
+            {
+                ToSpawn.RemoveAt(i);
             }
         }
     }
@@ -45,7 +49,6 @@ public class Spawner_Ingredient : MonoBehaviour
         obj.gameObject.SetActive(false);
         ToSpawn.Add(obj.gameObject);
         DestroyedTime.Add(Time.time);
-        obj.gameObject.SetActive(true);
 
     }
 

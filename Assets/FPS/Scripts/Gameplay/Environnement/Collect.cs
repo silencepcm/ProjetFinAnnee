@@ -65,8 +65,11 @@ namespace Unity.FPS.Gameplay
         public void CollectEvent()
         {
             PlayPickupFeedback();
-            Transform a = transform;
-            GetComponentInParent<Spawner_Ingredient>().RespawnWaiter(a);
+            if (name != "Sac")
+            {
+                Transform a = transform;
+                GetComponentInParent<Spawner_Ingredient>().RespawnWaiter(a);
+            }
         }
     }
 }
