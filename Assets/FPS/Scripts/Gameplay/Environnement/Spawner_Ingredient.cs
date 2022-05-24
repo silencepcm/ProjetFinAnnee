@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Spawner_Ingredient : MonoBehaviour
 {
-    List<Transform> DestroyedIngredients = new List<Transform>();
     float timer;
     public float timeToRespawn;
     public GameObject prefabIngredient;
-
+    List<GameObject> ToSpawn;
+    List<float> DestroyedTime;
     void Start()
     {
+        ToSpawn = new List<GameObject>();
+        DestroyedTime = new List<float>();
         List<GameObject> ListeDingredient = new List<GameObject>();
         foreach (Transform spawnCoordinates in transform)
         {
@@ -23,12 +25,28 @@ public class Spawner_Ingredient : MonoBehaviour
         }
     }
 
-    public IEnumerator RespawnWaiter(Transform obj)
+    private void Update()
     {
-        yield return new WaitForSeconds(timeToRespawn);
-        GameObject objet = Instantiate(prefabIngredient, obj.position, obj.rotation);
-        Debug.Log(objet);
-        objet.transform.SetParent(transform);
+        if (ToSpawn.Count > 0)
+        {
+            List<GameObject> spawn = new List<GameObject>();
+            for (int i = 0; i < DestroyedTime.Count; ++i)
+            {
+                if (Time.time > DestroyedTime[i] + timeToRespawn)
+                {
+                    ToSpawn[i].SetActive(true);
+
+                }
+            }
+        }
+    }
+    public void RespawnWaiter(Transform obj)
+    {
+        obj.gameObject.SetActive(false);
+        ToSpawn.Add(obj.gameObject);
+        DestroyedTime.Add(Time.time);
+        obj.gameObject.SetActive(true);
+
     }
 
 }
