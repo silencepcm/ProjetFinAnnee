@@ -279,7 +279,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4993563426132741073}
-  - component: {fileID: 617118239307458832}
   m_Layer: 0
   m_Name: ShadowProjector
   m_TagString: Untagged
@@ -301,25 +300,6 @@ Transform:
   m_Father: {fileID: 3410641038933742529}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!119 &617118239307458832
-Projector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2254535592456075737}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_NearClipPlane: 0.1
-  m_FarClipPlane: 2.5
-  m_FieldOfView: 60
-  m_AspectRatio: 1
-  m_Orthographic: 1
-  m_OrthographicSize: 0.7
-  m_Material: {fileID: 2100000, guid: 700c8e4508ea3b34999c1917db3d4424, type: 2}
-  m_IgnoreLayers:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &2513726738631161056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,7 +1336,8 @@ MonoBehaviour:
   MuzzleFlashPrefab: {fileID: 748781637555137343, guid: 9f671b22f25370048a18fb1f821294ec,
     type: 3}
   UnparentMuzzleFlash: 0
-  ShootSfx: {fileID: 8300000, guid: e18764f6be1cade46bb3d081001c8508, type: 3}
+  TirNormalAudio: {fileID: 0}
+  TirObliqueAudio: {fileID: 0}
   ChangeWeaponSfx: {fileID: 8300000, guid: 7b83d61917ac1224f942a0609b1221f2, type: 3}
   UseContinuousShootSound: 0
   ContinuousShootStartSfx: {fileID: 0}

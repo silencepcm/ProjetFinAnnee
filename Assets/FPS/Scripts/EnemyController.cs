@@ -10,7 +10,8 @@ namespace Unity.FPS.AI
     public class EnemyController : MonoBehaviour
     {
 
-
+        [Tooltip("Angle for the cone in which the bullets will be shot randomly (0 means no spread at all)")]
+        public float BulletSpreadAngle = 0f;
         [Header("Parameters")]
         [Tooltip("The Y height at which the enemy will be automatically killed (if it falls off of the level)")]
         public float SelfDestructYHeight = -20f;
@@ -43,6 +44,7 @@ namespace Unity.FPS.AI
 
         [Tooltip("The point at which the death VFX is spawned")]
         public Transform DeathVfxSpawnPoint;
+        public Transform ShootSpawnPoint;
 
         [Header("Loot")] [Tooltip("The object this enemy can drop when dying")]
         public GameObject LootPrefab;
@@ -72,7 +74,7 @@ namespace Unity.FPS.AI
         public bool HadKnownTarget;
         public NavMeshAgent NavMeshAgent { get; private set; }
         public DetectionModule DetectionModule { get; private set; }
-
+        float m_LastTimeShot;
         int m_PathDestinationNodeIndex;
         EnemyManager m_EnemyManager;
         //ActorsManager m_ActorsManager;
@@ -81,9 +83,7 @@ namespace Unity.FPS.AI
         Collider[] m_SelfColliders;
         GameFlowManager m_GameFlowManager;
         bool m_WasDamagedThisFrame;
-        float m_LastTimeWeaponSwapped = Mathf.NegativeInfinity;
-        int m_CurrentWeaponIndex;
-        public WeaponController CurrentWeapon;
+        public GameObject ProjectilePrefab;
         NavigationModule m_NavigationModule;
         public Transform DetectionSourcePoint;
         [Tooltip("The max distance at which the enemy can see targets")]
@@ -99,6 +99,8 @@ namespace Unity.FPS.AI
         protected float TimeLastSeenTarget = Mathf.NegativeInfinity;
         bool detected;
         public Animator Animator;
+        [Tooltip("Minimum duration between two shots")]
+        public float DelayBetweenShots = 0.5f;
 
         const string k_AnimAttackTrigger = "Attack";
         const string k_AnimOnDamagedTrigger = "OnDamaged";
@@ -138,7 +140,7 @@ namespace Unity.FPS.AI
                 NavMeshAgent.angularSpeed = m_NavigationModule.AngularSpeed;
                 NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
             }
-            
+            m_LastTimeShot = Time.time;
         }
 
         void Update()
@@ -368,9 +370,6 @@ namespace Unity.FPS.AI
             var vfx = Instantiate(DeathVfx, DeathVfxSpawnPoint.position, Quaternion.identity);
             Destroy(vfx, 5f);
 
-            // tells the game flow manager to handle the enemy destuction
-            //m_EnemyManager.UnregisterEnemy(this);
-
             // loot an object
             if (TryDropItem())
             {
@@ -406,7 +405,7 @@ namespace Unity.FPS.AI
             bool didFire;
             if (CanShoot)
             {
-                didFire = CurrentWeapon.TryShoot();
+                didFire = TryShoot();
                 if (didFire && onAttack != null)
                 {
                     onAttack.Invoke();
@@ -423,7 +422,27 @@ namespace Unity.FPS.AI
             }
             return didFire;
         }
+        public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)
+        {
+            float spreadAngleRatio = BulletSpreadAngle / 180f;
+            Vector3 spreadWorldDirection = Vector3.Slerp(shootTransform.forward, UnityEngine.Random.insideUnitSphere,
+                spreadAngleRatio);
 
+            return spreadWorldDirection;
+        }
+        public bool TryShoot()
+        {
+            if (m_LastTimeShot + DelayBetweenShots < Time.time)
+            {
+                Vector3 shotDirection = GetShotDirectionWithinSpread(ShootSpawnPoint);
+                GameObject newProjectile = Instantiate(ProjectilePrefab, ShootSpawnPoint.position,
+                    Quaternion.LookRotation(shotDirection));
+                newProjectile.GetComponent<ProjectileBase>().Shoot(this);
+                return true;
+            }
+
+            return false;
+        }
         public bool TryDropItem()
         {
             if (DropRate == 0 || LootPrefab == null)

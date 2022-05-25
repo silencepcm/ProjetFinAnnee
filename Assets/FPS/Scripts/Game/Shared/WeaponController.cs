@@ -214,18 +214,7 @@ namespace Unity.FPS.Game
 
         public void AddCarriablePhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxAmmo);
 
-        void ShootShell()
-        {
-            Rigidbody nextShell = m_PhysicalAmmoPool.Dequeue();
 
-            nextShell.transform.SetPositionAndRotation(EjectionPort.transform.position, EjectionPort.transform.rotation);
-            nextShell.gameObject.SetActive(true);
-            nextShell.transform.SetParent(null);
-            nextShell.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            nextShell.AddForce(nextShell.transform.up * ShellCasingEjectionForce, ForceMode.Impulse);
-
-            m_PhysicalAmmoPool.Enqueue(nextShell);
-        }
 
         void PlaySFX(AudioClip sfx) => AudioUtility.CreateSFX(sfx, transform.position, AudioUtility.AudioGroups.WeaponShoot, 0.0f);
 
