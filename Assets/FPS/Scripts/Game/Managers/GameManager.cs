@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float FallDamageValeurAtMaxSpeed;
 
 
-    [HideInInspector] public float MaxSoif;
+    [HideInInspector] public float MaxSoif =100f;
     [HideInInspector] public float MinSoif;
 
     [HideInInspector] public float MaxGourde;
@@ -50,8 +50,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float MaxNourriture;
     [HideInInspector] public float MinNourriture;
 
+    [HideInInspector] public float eau;
+    [HideInInspector] public float Nourriture;
 
-    [HideInInspector] public bool Collect;
+  [HideInInspector] public bool Collect;
     [HideInInspector] public bool Eat;
 
 
@@ -104,6 +106,9 @@ public class GameManager : MonoBehaviour
             MaxNourriture = data.maxNourriture;
             MinNourriture = data.minNourriture;
 
+            eau = data.Eau;
+            Nourriture = data.nourriture;
+
             Collect = data.Collect;
             Eat = data.Eat;
 
@@ -153,7 +158,8 @@ public class GameManager : MonoBehaviour
             MinGourde = 0f;
             MaxNourriture = 100f;
             MinNourriture = 0f;
-
+            eau = 100f;
+            Nourriture = 100f;
 
             DelaySoif = 3f;
             DelayNourriture = 3f;

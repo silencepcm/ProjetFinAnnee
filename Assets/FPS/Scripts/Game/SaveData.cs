@@ -36,6 +36,9 @@ namespace Unity.FPS.Game
         public float DegatsSoif;
         public float DegatsNourriture;
 
+        public float Eau;
+        public float nourriture;
+
 
         public int NbIngredientA;
         public int NbIngredientB;

@@ -23,8 +23,8 @@ public class PlayerStatsScript : Personnage
 
     public float DelaySoif;
     public float DelayNourriture;
-    public float Thirst;
-    public float Gourde;
+    public float Thirst = 100f;
+    public float Gourde = 100f;
     public float Nourriture;
 
     public float timer = 0f;
@@ -104,6 +104,12 @@ public class PlayerStatsScript : Personnage
         NbRecette3 = GameManager.Instance.NbRecette3;
         NbRecette4 = GameManager.Instance.NbRecette4;
         NbRecette5 = GameManager.Instance.NbRecette5;
+
+        Debug.Log(maxSoif);
+        Thirst = maxSoif;
+        Nourriture = maxNourriture;
+
+
 
     }
 

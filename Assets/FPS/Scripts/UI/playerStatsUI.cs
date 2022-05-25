@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class PlayerStatsUI : MonoBehaviour
 {
 
-
-
     public Slider ThirstSlider;
     public Slider GourdSlider;
     public Slider NourritureSlide;
-    public float vie = 0f;
+    public Slider Life;
+    public float vie = 100f;
 
     public bool verif = true;
     public bool actif = false;
@@ -26,6 +25,7 @@ public class PlayerStatsUI : MonoBehaviour
         ThirstSlider.value = player.Thirst;
         GourdSlider.value = player.Gourde;
         NourritureSlide.value = player.Nourriture;
+        Life.value = player.Vie;
     }
 
     void Update()

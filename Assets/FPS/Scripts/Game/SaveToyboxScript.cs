@@ -47,6 +47,9 @@ namespace Unity.FPS.Game
             data.NbIngredientF = GameManager.Instance.NbIngredientF;
             data.NbIngredientG = GameManager.Instance.NbIngredientG;
 
+            data.Eau = GameManager.Instance.eau;
+            data.nourriture = GameManager.Instance.Nourriture;
+
             data.NbRecette1 = GameManager.Instance.NbRecette1;
             data.NbRecette2 = GameManager.Instance.NbRecette2;
             data.NbRecette3 = GameManager.Instance.NbRecette3;

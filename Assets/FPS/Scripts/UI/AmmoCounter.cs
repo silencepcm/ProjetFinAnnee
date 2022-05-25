@@ -12,13 +12,14 @@ namespace Unity.FPS.UI
         [Tooltip("CanvasGroup to fade the ammo UI")]
         public CanvasGroup CanvasGroup;
 
-        [Tooltip("Image for the weapon icon")] public Image WeaponImage;
+        /*[Tooltip("Image for the weapon icon")] 
+        public Image WeaponImage;*/
 
         [Tooltip("Image component for the background")]
         public Image AmmoBackgroundImage;
 
-        [Tooltip("Image component to display fill ratio")]
-        public Image AmmoFillImage;
+        /*[Tooltip("Image component to display fill ratio")]
+        public Image AmmoFillImage;*/
 
         [Tooltip("Text for Weapon index")] 
         public TextMeshProUGUI WeaponIndexText;
@@ -52,7 +53,7 @@ namespace Unity.FPS.UI
         {
             m_Weapon = weapon;
             WeaponCounterIndex = weaponIndex;
-            WeaponImage.sprite = weapon.WeaponIcon;
+            //WeaponImage.sprite = weapon.WeaponIcon;
             if (!weapon.HasPhysicalBullets)
                 BulletCounter.transform.parent.gameObject.SetActive(false);
             else
@@ -70,8 +71,8 @@ namespace Unity.FPS.UI
         void Update()
         {
             float currenFillRatio = (float) m_Weapon.GetCurrentAmmo() / (float)m_Weapon.MaxAmmo;
-            AmmoFillImage.fillAmount = Mathf.Lerp(AmmoFillImage.fillAmount, currenFillRatio,
-                Time.deltaTime * AmmoFillMovementSharpness);
+            //AmmoFillImage.fillAmount = Mathf.Lerp(AmmoFillImage.fillAmount, currenFillRatio,
+                //Time.deltaTime * AmmoFillMovementSharpness);
 
             BulletCounter.text = m_Weapon.GetCarriedPhysicalBullets().ToString();
 
