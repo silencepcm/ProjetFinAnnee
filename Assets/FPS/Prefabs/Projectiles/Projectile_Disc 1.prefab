@@ -83,7 +83,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.46190453
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -93,11 +93,11 @@ TrailRenderer:
       - serializedVersion: 3
         time: 1
         value: 0
-        inSlope: -0.74361503
-        outSlope: -0.74361503
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.14573991
+        inWeight: 0.10722101
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -152,7 +152,6 @@ GameObject:
   - component: {fileID: 1179719577245841200}
   - component: {fileID: 8814218614252396482}
   - component: {fileID: 4372627369077715316}
-  - component: {fileID: 5691943391535629462}
   - component: {fileID: 2207149762999383876}
   - component: {fileID: 5778794337916240583}
   m_Layer: 0
@@ -184,7 +183,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4771170828057194958}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300002, guid: dac2420a19d8c8e46b7d36c8e3817523, type: 3}
 --- !u!23 &8814218614252396482
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -246,19 +245,6 @@ MonoBehaviour:
   Color:
     Min: {r: 0, g: 2, b: 0.08890152, a: 1}
     Max: {r: 0, g: 1.9999998, b: 0.32460728, a: 1}
---- !u!114 &5691943391535629462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4771170828057194958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1962d3d25050a4a44819b089007baf39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
 --- !u!54 &2207149762999383876
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -267,9 +253,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4771170828057194958}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -299,12 +285,10 @@ MonoBehaviour:
   HittableLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  Speed: 2
-  GravityDownAcceleration: 25
   TrajectoryCorrectionDistance: -1
   InheritWeaponVelocity: 0
   Damage: 40
-  RadiusColor: {r: 0, g: 0.2, b: 0.2, a: 0.2}
+  RadiusColor: {r: 0, g: 0.2, b: 0.2, a: 0.1764706}
 --- !u!1 &7570635031825221560
 GameObject:
   m_ObjectHideFlags: 0

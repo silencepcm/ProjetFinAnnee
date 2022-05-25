@@ -154,7 +154,7 @@ namespace Unity.FPS.Gameplay
             if (GravityDownAcceleration > 0)
             {
                 // add gravity to the projectile velocity for ballistic effect
-                m_Velocity += Vector3.down * GravityDownAcceleration * Time.deltaTime;
+               // m_Velocity += Vector3.down * GravityDownAcceleration * Time.deltaTime;
             }
 
             // Hit detection
