@@ -139,7 +139,20 @@ namespace Unity.FPS.Gameplay
                 GameManager.Instance.MaxSpeedOnGround = f;
             }
         }
-
+        public void SetVie(TMP_InputField textObj)
+        {
+            if (int.TryParse(textObj.text, out int f))
+            {
+                GameManager.Instance.Vie = f;
+            }
+        }
+        public void SetMaxVie(TMP_InputField textObj)
+        {
+            if (int.TryParse(textObj.text, out int f))
+            {
+                GameManager.Instance.MaxVie = f;
+            }
+        }
         public void SetMovementSpeedInAir(TMP_InputField textObj)
         {
             if (float.TryParse(textObj.text, out float f))

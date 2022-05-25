@@ -941,6 +941,7 @@ MonoBehaviour:
   WeaponFovMultiplier: 1
   WeaponSwitchDelay: 0.2
   Weapon: {fileID: 6881768338883274701}
+  WeaponDirect: {fileID: 0}
 --- !u!1 &3649122653518120882
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,7 +966,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3649122653518120882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6, y: -0.46500003, z: 0.073}
+  m_LocalPosition: {x: 0.84, y: -0.46, z: 0.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4376389084431934105}
@@ -1332,6 +1333,7 @@ MonoBehaviour:
   ShootType: 0
   ProjectilePrefab: {fileID: 4771170828057194958, guid: 83f877a22c61adc4b8e638b8ab9cc897,
     type: 3}
+  ProjectilePrefabOblique: {fileID: 0}
   DelayBetweenShots: 0.1
   BulletSpreadAngle: 43.21
   BulletsPerShot: 5
@@ -1356,13 +1358,15 @@ MonoBehaviour:
   MuzzleFlashPrefab: {fileID: 748781637555137343, guid: 9f671b22f25370048a18fb1f821294ec,
     type: 3}
   UnparentMuzzleFlash: 0
-  ShootSfx: {fileID: 8300000, guid: e18764f6be1cade46bb3d081001c8508, type: 3}
+  TirNormalAudio: {fileID: 0}
+  TirObliqueAudio: {fileID: 0}
   ChangeWeaponSfx: {fileID: 8300000, guid: 7b83d61917ac1224f942a0609b1221f2, type: 3}
   UseContinuousShootSound: 0
   ContinuousShootStartSfx: {fileID: 0}
   ContinuousShootLoopSfx: {fileID: 0}
   ContinuousShootEndSfx: {fileID: 0}
-  m_CurrentAmmo: 0
+  m_CurrentAmmoDirect: 0
+  m_CurrentAmmoOblique: 0
   WeaponCamera: {fileID: 5300321114126393847}
   WeaponParentSocket: {fileID: 6933087483567839297}
   DefaultWeaponPosition: {fileID: 7663967321166757698}

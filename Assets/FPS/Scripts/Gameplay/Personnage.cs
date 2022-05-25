@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Personnage : MonoBehaviour
 {
-    public float Vie { get; set; }
-    public float MaxVie { get; set; }
+    public int Vie { get; set; }
+    public int MaxVie { get; set; }
     public bool alive;
 
 
@@ -15,18 +15,18 @@ public class Personnage : MonoBehaviour
     }
 
 
-    public void Heal(float healAmount)
+    public void Heal(int healAmount)
     {
         float healthBefore = Vie;
         Vie += healAmount;
-        Vie = Mathf.Clamp(Vie, 0f, Vie);
+        Vie = Mathf.Clamp(Vie, 0, MaxVie);
     }
 
-    public void TakeDamage(float damage, GameObject damageSource)
+    public void TakeDamage(int damage, GameObject damageSource)
     {
         float healthBefore = Vie;
         Vie -= damage;
-        Vie = Mathf.Clamp(Vie, 0f, Vie);
+        Vie = Mathf.Clamp(Vie, 0, Vie);
 
         if (Vie == 0f)
         {
@@ -36,7 +36,7 @@ public class Personnage : MonoBehaviour
 
     public void Kill()
     {
-        Vie = 0f;
+        Vie = 0;
 
         HandleDeath();
     }
@@ -47,7 +47,7 @@ public class Personnage : MonoBehaviour
             return;
 
         // call OnDie action
-        if (Vie <= 0f)
+        if (Vie <= 0)
         {
             alive = false;
         }

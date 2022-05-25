@@ -18,6 +18,8 @@ namespace Unity.FPS.Game
         public float FallDamageValeurAtMaxSpeed;
         public WeaponShootType WeaponType;
 
+        public int Vie;
+        public int MaxVie;
 
         public float maxThirst;
         public float minThirst;

@@ -69,7 +69,7 @@ public class PlayerStatsScript : Personnage
     public UnityAction OnDie;
 
     public bool Invincible { get; set; }
-    public float GetRatio() => Vie / Vie;
+    public float GetRatio() => Vie / MaxVie;
     public bool IsCritical() => GetRatio() <= CriticalHealthRatio;
 
     bool m_IsDead;
@@ -80,8 +80,8 @@ public class PlayerStatsScript : Personnage
         DelayNourriture = GameManager.Instance.DelayNourriture;
         DegatsNourriture = GameManager.Instance.DegatsNourriture;
         DegatsSoif = GameManager.Instance.DegatsSoif;
-        Vie = Vie;
-
+        Vie = GameManager.Instance.Vie;
+        MaxVie = GameManager.Instance.MaxVie;
         maxSoif = GameManager.Instance.MaxSoif;
         minSoif = GameManager.Instance.MinSoif;
 

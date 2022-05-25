@@ -38,6 +38,12 @@ namespace Unity.FPS.Game
             data.MaxSpeedFallDamage = GameManager.Instance.MaxSpeedFallDamage;
             data.FallDamageValeurAtMaxSpeed = GameManager.Instance.FallDamageValeurAtMaxSpeed;
 
+            data.Vie = GameManager.Instance.Vie;
+            data.MaxVie = GameManager.Instance.MaxVie;
+            data.maxGourde = GameManager.Instance.MaxGourde;
+            data.maxNourriture = GameManager.Instance.MaxNourriture;
+            data.maxThirst = GameManager.Instance.MaxSoif;
+
 
             data.NbIngredientA = GameManager.Instance.NbIngredientA;
             data.NbIngredientB = GameManager.Instance.NbIngredientB;

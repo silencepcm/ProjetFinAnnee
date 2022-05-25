@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float FallDamageValeurAtMaxSpeed;
 
 
+    [HideInInspector] public int MaxVie;
+    [HideInInspector] public int Vie;
+
+
     [HideInInspector] public float MaxSoif;
     [HideInInspector] public float MinSoif;
 
@@ -96,11 +100,15 @@ public class GameManager : MonoBehaviour
             MaxSpeedFallDamage = data.MaxSpeedFallDamage;
             FallDamageValeurAtMaxSpeed = data.FallDamageValeurAtMaxSpeed;
 
+            Vie = data.Vie;
+            MaxVie = data.MaxVie;
 
             MaxSoif = data.maxThirst;
             MinSoif = data.minThirst;
+
             MaxGourde = data.maxGourde;
             MinGourde = data.minGourde;
+
             MaxNourriture = data.maxNourriture;
             MinNourriture = data.minNourriture;
 
@@ -147,6 +155,8 @@ public class GameManager : MonoBehaviour
             FallDamageValeurAtMaxSpeed = 20;
 
 
+            Vie = 100;
+            MaxVie = 100;
             MaxSoif = 100f;
             MinSoif = 0f;
             MaxGourde = 100f;

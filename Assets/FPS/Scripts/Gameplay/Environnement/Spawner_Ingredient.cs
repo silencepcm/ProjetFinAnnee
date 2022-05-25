@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class Spawner_Ingredient : MonoBehaviour
 {
+    List<Transform> DestroyedIngredients = new List<Transform>();
     float timer;
     public float timeToRespawn;
     public GameObject prefabIngredient;
-    List<GameObject> ToSpawn;
-    List<float> DestroyedTime;
+
     void Start()
     {
-        ToSpawn = new List<GameObject>();
-        DestroyedTime = new List<float>();
         List<GameObject> ListeDingredient = new List<GameObject>();
         foreach (Transform spawnCoordinates in transform)
         {
-           ListeDingredient.Add(Instantiate(prefabIngredient, spawnCoordinates.localPosition, spawnCoordinates.rotation));
+            ListeDingredient.Add(Instantiate(prefabIngredient, spawnCoordinates.localPosition, spawnCoordinates.rotation));
             Destroy(spawnCoordinates.gameObject);
         }
         foreach (GameObject obj in ListeDingredient)
@@ -25,31 +23,12 @@ public class Spawner_Ingredient : MonoBehaviour
         }
     }
 
-    private void Update()
+    public IEnumerator RespawnWaiter(GameObject obj)
     {
-        if (ToSpawn.Count > 0)
-        {
-            List<int> removeFromList = new List<int>();
-            for (int i = 0; i < DestroyedTime.Count; ++i)
-            {
-                if (Time.time > DestroyedTime[i] + timeToRespawn)
-                {
-                    ToSpawn[i].SetActive(true);
-                    removeFromList.Add(i);
-                }
-            }
-            foreach(int i in removeFromList)
-            {
-                ToSpawn.RemoveAt(i);
-            }
-        }
-    }
-    public void RespawnWaiter(Transform obj)
-    {
-        obj.gameObject.SetActive(false);
-        ToSpawn.Add(obj.gameObject);
-        DestroyedTime.Add(Time.time);
-
+        yield return new WaitForSeconds(timeToRespawn);
+        GameObject objet = Instantiate(prefabIngredient, obj.transform.position, obj.transform.rotation);
+        Debug.Log(objet);
+        objet.transform.SetParent(transform);
     }
 
 }
