@@ -71,6 +71,7 @@ namespace Unity.FPS.Gameplay
         public int ActiveWeaponIndex { get; private set; }
 
         public WeaponController Weapon;
+        public WeaponController WeaponDirect;
         PlayerInputHandler m_InputHandler;
         PlayerCharacterController m_PlayerCharacterController;
         float m_WeaponBobFactor;
@@ -102,7 +103,7 @@ namespace Unity.FPS.Gameplay
                 return;
             if (Weapon != null && m_WeaponSwitchState == WeaponSwitchState.Up)
             {
-                if (m_InputHandler.GetReloadButtonDown() && Weapon.GetCurrentAmmo()/Weapon.MaxAmmo < 1.0f)
+                if (m_InputHandler.GetReloadButtonDown() && Weapon.GetCurrentAmmoDirect()/Weapon.MaxAmmo < 1.0f)
                 {
                     IsAiming = false;
                     Weapon.StartReloadAnimation();
@@ -110,8 +111,8 @@ namespace Unity.FPS.Gameplay
                 }
                 // handle shooting
                 bool hasFired = Weapon.HandleShootInputs(
-                    m_InputHandler.GetTirInputDown(),
-                    m_InputHandler.GetTirObliqueInputDown());
+                    m_InputHandler.GetTirInputDown());
+                   
 
                 // Handle accumulating recoil
                 if (hasFired)
@@ -141,7 +142,7 @@ namespace Unity.FPS.Gameplay
         // Update various animated features in LateUpdate because it needs to override the animated arm position
         void LateUpdate()
         {
-            UpdateWeaponAiming();
+            //UpdateWeaponAiming();
             UpdateWeaponBob();
             UpdateWeaponRecoil();
             

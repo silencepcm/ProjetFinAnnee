@@ -49,6 +49,7 @@ namespace Unity.FPS.Game
         public WeaponShootType ShootType;
 
         [Tooltip("The projectile prefab")] public GameObject ProjectilePrefab;
+        [Tooltip("The projectile prefab")] public GameObject ProjectilePrefabOblique;
 
         [Tooltip("Minimum duration between two shots")]
         public float DelayBetweenShots = 0.5f;
@@ -133,7 +134,8 @@ namespace Unity.FPS.Game
         public event Action OnShootProcessed;
 
         int m_CarriedPhysicalBullets;
-        public float m_CurrentAmmo;
+        public float m_CurrentAmmoDirect;
+        public float m_CurrentAmmoOblique;
         float m_LastTimeShot = Mathf.NegativeInfinity;
         public float LastChargeTriggerTimestamp { get; private set; }
         Vector3 m_LastMuzzlePosition;
@@ -151,7 +153,8 @@ namespace Unity.FPS.Game
             (MaxAmmo * BulletsPerShot);
 
         public int GetCarriedPhysicalBullets() => m_CarriedPhysicalBullets;
-        public int GetCurrentAmmo() => Mathf.FloorToInt(m_CurrentAmmo);
+        public int GetCurrentAmmoDirect() => Mathf.FloorToInt(m_CurrentAmmoDirect);
+        public int GetCurrentAmmoOblique() => Mathf.FloorToInt(m_CurrentAmmoOblique);
 
         AudioSource m_ShootAudioSource;
 
@@ -178,7 +181,8 @@ namespace Unity.FPS.Game
             MaxAmmo = GameManager.Instance.MaxAmmo;
             BulletSpreadAngle = GameManager.Instance.BulletSpreadAngle;
             BulletsPerShot = 1;
-            m_CurrentAmmo = MaxAmmo;
+            m_CurrentAmmoDirect = MaxAmmo;
+            m_CurrentAmmoOblique = MaxAmmo;
             m_CarriedPhysicalBullets = HasPhysicalBullets ? ClipSize : 0;
             m_LastMuzzlePosition = WeaponMuzzle.position;
 
@@ -234,7 +238,8 @@ namespace Unity.FPS.Game
         {
             if (m_CarriedPhysicalBullets > 0)
             {
-                m_CurrentAmmo = Mathf.Min(m_CarriedPhysicalBullets, ClipSize);
+                m_CurrentAmmoDirect = Mathf.Min(m_CarriedPhysicalBullets, ClipSize);
+                m_CurrentAmmoOblique = Mathf.Min(m_CarriedPhysicalBullets, ClipSize);
             }
 
             IsReloading = false;
@@ -242,10 +247,22 @@ namespace Unity.FPS.Game
 
         public void StartReloadAnimation()
         {
-            if (m_CurrentAmmo < m_CarriedPhysicalBullets)
+            if (m_CurrentAmmoDirect < m_CarriedPhysicalBullets)
             {
                 //GetComponent<Animator>().SetTrigger("Reload");
                 Debug.Log("Reload");
+                if (WeaponAnimator)
+                {
+                    IsReloading = true;
+                    WeaponAnimator.SetTrigger("Reload");
+                }
+                else
+                {
+                    Reload();
+                }
+            }
+            if(m_CurrentAmmoOblique < m_CarriedPhysicalBullets)
+            {
                 if (WeaponAnimator)
                 {
                     IsReloading = true;
@@ -313,7 +330,7 @@ namespace Unity.FPS.Game
 
                     // See if we can actually add this charge
                     float ammoThisChargeWouldRequire = chargeAdded * AmmoUsageRateWhileCharging;
-                    if (ammoThisChargeWouldRequire <= m_CurrentAmmo)
+                    if (ammoThisChargeWouldRequire <= m_CurrentAmmoDirect)
                     {
                         // Use ammo based on charge added
                         UseAmmo(ammoThisChargeWouldRequire);
@@ -329,7 +346,7 @@ namespace Unity.FPS.Game
         {
             if (UseContinuousShootSound)
             {
-                if (m_WantsToShoot && m_CurrentAmmo >= 1f)
+                if (m_WantsToShoot && m_CurrentAmmoDirect >= 1f)
                 {
                     if (!m_ContinuousShootAudioSource.isPlaying)
                     {
@@ -360,39 +377,46 @@ namespace Unity.FPS.Game
 
         public void UseAmmo(float amount)
         {
-            m_CurrentAmmo = Mathf.Clamp(m_CurrentAmmo - amount, 0f, MaxAmmo);
+            m_CurrentAmmoDirect = Mathf.Clamp(m_CurrentAmmoDirect - amount, 0f, MaxAmmo);
             m_CarriedPhysicalBullets -= Mathf.RoundToInt(amount);
             m_CarriedPhysicalBullets = Mathf.Clamp(m_CarriedPhysicalBullets, 0, MaxAmmo);
             m_LastTimeShot = Time.time;
         }
 
-        public bool HandleShootInputs(bool inputDown, bool inputUp)
+        public bool HandleShootInputs(bool inputDown)
         {
             bool tryTir = false;
-            bool tryTirOblique = false;
             m_WantsToShoot = inputDown;
                     if (inputDown)
                     {
+                    Debug.Log("bob");
                         tryTir =  TryShoot();
                     }
-            if (inputUp)
-            {
-                tryTirOblique = TryShoot();
-            }
-            return tryTir||tryTirOblique;
+            return tryTir;
 
         }
 
         public bool TryShoot()
         {
-            if (m_CurrentAmmo >= 1f
+            if (m_CurrentAmmoDirect >= 1f || m_CurrentAmmoOblique >= 1f
                 && m_LastTimeShot + DelayBetweenShots < Time.time)
             {
-                NormalHandleShoot();
-                m_CurrentAmmo -= 1f;
+                if (Input.GetKeyDown(KeyCode.Mouse0) && m_CurrentAmmoDirect >= 1f)
+                {
+                    NormalHandleShoot();
+                    m_CurrentAmmoDirect -= 1f;
+                }
+                else if(Input.GetKeyDown(KeyCode.Mouse1) && m_CurrentAmmoOblique >= 1f)
+                {
+                    ObliqueHandleShoot();
+                    m_CurrentAmmoOblique -= 1; 
+                }
+               
 
                 return true;
             }
+
+            
 
             return false;
         }
@@ -454,7 +478,7 @@ namespace Unity.FPS.Game
             for (int i = 0; i < bulletsPerShotFinal; i++)
             {
                 Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
-                GameObject newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
+                GameObject newProjectile = Instantiate(ProjectilePrefabOblique, WeaponMuzzle.position,
                     Quaternion.LookRotation(shotDirection));
                 newProjectile.GetComponent<ProjectileBase>().Shoot(this);
             }

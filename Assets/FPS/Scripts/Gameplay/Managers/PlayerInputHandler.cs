@@ -136,11 +136,15 @@ namespace Unity.FPS.Gameplay {
 
         public bool GetTirInputDown()
         {
-            return GetTirInputHeld() && !m_TirInputWasHeld;
-        }
-        public bool GetTirObliqueInputDown()
-        {
-            return GetTirObliqueInputHeld() && !m_TirObliqueInputWasHeld;
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                return GetTirInputHeld() && !m_TirInputWasHeld;
+            }
+            else if(Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                return GetTirObliqueInputHeld() && !m_TirObliqueInputWasHeld;
+            }
+            return false;
         }
         public bool GetTirInputHeld()
         {
@@ -163,15 +167,16 @@ namespace Unity.FPS.Gameplay {
         {
             if (CanProcessInput())
             {
-               // bool isGamepad = Input.GetAxis(GameConstants.k_ButtonNameGamepadFire) != 0f;
-               /* if (isGamepad)
+                bool isGamepad = Input.GetAxis(GameConstants.k_ButtonNameGamepadAim) != 0f;
+                if (isGamepad)
                 {
-                    return Input.GetAxis(GameConstants.k_ButtonNameGamepadFire) >= TriggerAxisThreshold;
+                    return Input.GetAxis(GameConstants.k_ButtonNameGamepadAim) >= TriggerAxisThreshold;
                 }
+
                 else
-                {*/
-                    return Input.GetButton(GameConstants.k_ButtonNameTirOblique);
-               //}
+                {
+                    return Input.GetButton(GameConstants.k_ButtonNameAim);
+                }
             }
 
             return false;
@@ -179,14 +184,7 @@ namespace Unity.FPS.Gameplay {
 
         public bool GetAimInputHeld()
         {
-            if (CanProcessInput())
-            {
-                bool isGamepad = Input.GetAxis(GameConstants.k_ButtonNameGamepadAim) != 0f;
-                bool i = isGamepad
-                    ? (Input.GetAxis(GameConstants.k_ButtonNameGamepadAim) > 0f)
-                    : Input.GetButton(GameConstants.k_ButtonNameAim);
-                return i;
-            }
+            
 
             return false;
         }

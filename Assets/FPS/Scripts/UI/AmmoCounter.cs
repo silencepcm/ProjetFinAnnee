@@ -69,7 +69,7 @@ namespace Unity.FPS.UI
 
         void Update()
         {
-            float currenFillRatio = (float) m_Weapon.GetCurrentAmmo() / (float)m_Weapon.MaxAmmo;
+            float currenFillRatio = (float) m_Weapon.GetCurrentAmmoDirect() / (float)m_Weapon.MaxAmmo;
             AmmoFillImage.fillAmount = Mathf.Lerp(AmmoFillImage.fillAmount, currenFillRatio,
                 Time.deltaTime * AmmoFillMovementSharpness);
 
@@ -85,7 +85,7 @@ namespace Unity.FPS.UI
 
             FillBarColorChange.UpdateVisual(currenFillRatio);
 
-            Reload.gameObject.SetActive(m_Weapon.GetCarriedPhysicalBullets() > 0 && m_Weapon.GetCurrentAmmo() == 0 && m_Weapon.IsWeaponActive);
+            Reload.gameObject.SetActive(m_Weapon.GetCarriedPhysicalBullets() > 0 && m_Weapon.GetCurrentAmmoDirect() == 0 && m_Weapon.IsWeaponActive);
         }
 
     }

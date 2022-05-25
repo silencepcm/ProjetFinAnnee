@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
             NbRecette4 = 0;
             NbRecette5 = 0;
 
-            BulletGravity = 1;
+            BulletGravity = 10;
             BulletSpeed = 3;
         }
     }
