@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3182763651228131674}
   - component: {fileID: 8771465242247208752}
+  - component: {fileID: 2205180563300951592}
   m_Layer: 5
   m_Name: GameManager
   m_TagString: GameManager
@@ -43,24 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c547c7f171cbfd4f82edf1433420858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Movement: 0
-  Saut: 0
-  Tir: 0
-  Trampoplante: 0
   FallDamage: 0
-  Inventaire: 0
   MaxSpeedOnGround: 0
+  MaxSpeedInAir: 0
   JumpForce: 0
   GravityForce: 0
   MaxChargeDuration: 0
   MaxAmmo: 0
   BulletSpreadAngle: 0
-  BulletsPerShot: 0
   TrampoplanteForce: 0
   MinSpeedFallDamage: 0
   FallDamageValeurAtMinSpeed: 0
   MaxSpeedFallDamage: 0
   FallDamageValeurAtMaxSpeed: 0
+  MaxVie: 0
+  Vie: 0
   MaxSoif: 0
   MinSoif: 0
   MaxGourde: 0
@@ -73,3 +71,36 @@ MonoBehaviour:
   DelayNourriture: 0
   DegatsNourriture: 0
   DegatsSoif: 0
+  NbIngredientA: 0
+  NbIngredientB: 0
+  NbIngredientC: 0
+  NbIngredientD: 0
+  NbIngredientE: 0
+  NbIngredientF: 0
+  NbIngredientG: 0
+  NbRecette1: 0
+  NbRecette2: 0
+  NbRecette3: 0
+  NbRecette4: 0
+  NbRecette5: 0
+  BulletGravity: 0
+  BulletSpeed: 0
+--- !u!114 &2205180563300951592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182763651228131676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8baaad7e8ce95c042a46d6da7777afa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SliderNourriture: {fileID: 0}
+  SliderEau: {fileID: 0}
+  SliderGourde: {fileID: 0}
+  Vie: {fileID: 0}
+  perteEauSec: 0
+  perteNourritureSec: 0
+  perteVieSec: 0

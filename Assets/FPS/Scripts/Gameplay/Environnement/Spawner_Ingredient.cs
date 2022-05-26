@@ -26,9 +26,7 @@ public class Spawner_Ingredient : MonoBehaviour
     public IEnumerator RespawnWaiter(GameObject obj)
     {
         yield return new WaitForSeconds(timeToRespawn);
-        GameObject objet = Instantiate(prefabIngredient, obj.transform.position, obj.transform.rotation);
-        Debug.Log(objet);
-        objet.transform.SetParent(transform);
+        obj.SetActive(true);
     }
 
 }
