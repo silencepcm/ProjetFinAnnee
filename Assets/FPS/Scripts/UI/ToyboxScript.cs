@@ -121,19 +121,78 @@ namespace Unity.FPS.Gameplay
                     switch (element.name)
                     {
                         case "BruteWalkSpeed":
-                            text.text = GameManager.Instance.MaxChargeDuration.ToString();
+                            text.text = GameManager.Instance.BruteWalkSpeed.ToString();
                             break;
                         case "BruteRunSpeed":
-                            text.text = GameManager.Instance.MaxAmmo.ToString();
+                            text.text = GameManager.Instance.BruteRunSpeed.ToString();
                             break;
                         case "BruteAttackDistance":
-                            text.text = GameManager.Instance.BulletSpreadAngle.ToString();
+                            text.text = GameManager.Instance.BruteAttackDistance.ToString();
                             break;
                         case "BruteDetectDistance":
-                            text.text = GameManager.Instance.BulletGravity.ToString();
+                            text.text = GameManager.Instance.BruteDetectDistance.ToString();
                             break;
-                        case "BulletSpeed":
-                            text.text = GameManager.Instance.BulletSpeed.ToString();
+                        case "BruteAttackStopDistance":
+                            text.text = GameManager.Instance.BruteAttackStopDistance.ToString();
+                            break;
+                        case "BruteAngleSpeed":
+                            text.text = GameManager.Instance.BruteAngleSpeed.ToString();
+                            break;
+                    }
+                }
+            }
+            else if (BruteSettingsUI.activeSelf)
+            {
+                foreach (Transform element in BruteSettingsUI.transform)
+                {
+                    TMP_InputField text = element.GetComponent<TMP_InputField>();
+                    switch (element.name)
+                    {
+                        case "TourelleWalkSpeed":
+                            text.text = GameManager.Instance.TourelleWalkSpeed.ToString();
+                            break;
+                        case "TourelleRunSpeed":
+                            text.text = GameManager.Instance.TourelleRunSpeed.ToString();
+                            break;
+                        case "TourelleAttackDistance":
+                            text.text = GameManager.Instance.TourelleAttackDistance.ToString();
+                            break;
+                        case "TourelleDetectDistance":
+                            text.text = GameManager.Instance.TourelleDetectDistance.ToString();
+                            break;
+                        case "TourelleAttackStopDistance":
+                            text.text = GameManager.Instance.TourelleAttackStopDistance.ToString();
+                            break;
+                        case "TourelleAngleSpeed":
+                            text.text = GameManager.Instance.TourelleAngleSpeed.ToString();
+                            break;
+                    }
+                }
+            }
+            else if (FrondeSettingsUI.activeSelf)
+            {
+                foreach (Transform element in FrondeSettingsUI.transform)
+                {
+                    TMP_InputField text = element.GetComponent<TMP_InputField>();
+                    switch (element.name)
+                    {
+                        case "FrondeWalkSpeed":
+                            text.text = GameManager.Instance.FrondeWalkSpeed.ToString();
+                            break;
+                        case "FrondeRunSpeed":
+                            text.text = GameManager.Instance.FrondeRunSpeed.ToString();
+                            break;
+                        case "FrondeAttackDistance":
+                            text.text = GameManager.Instance.FrondeAttackDistance.ToString();
+                            break;
+                        case "FrondeDetectDistance":
+                            text.text = GameManager.Instance.FrondeDetectDistance.ToString();
+                            break;
+                        case "FrondeAttackStopDistance":
+                            text.text = GameManager.Instance.FrondeAttackStopDistance.ToString();
+                            break;
+                        case "FrondeAngleSpeed":
+                            text.text = GameManager.Instance.FrondeAngleSpeed.ToString();
                             break;
                     }
                 }

@@ -209,14 +209,14 @@ namespace Unity.FPS.Gameplay
             }
 
 
-            if ((collectObjects.Count>0)&&(m_InputHandler.GetCollectInputDown()))
+            if (collectObjects.Count>0)
             {
                 GameObject tempCollect = collectObjects[0];
                 collectObjects.RemoveAt(0);
-                if (collectObjects.Count == 0)
+                /*if (collectObjects.Count == 0)
                 {
                     OnCollectActivateUI(false);
-                }
+                }*/
                 tempCollect.GetComponent<Collect>().CollectEvent();
             }
 
@@ -235,16 +235,16 @@ namespace Unity.FPS.Gameplay
             if (entersCollider)
             {
                 collectObjects.Add(can);
-                if(collectObjects.Count == 1) {
+              /*  if(collectObjects.Count == 1) {
                     OnCollectActivateUI(true);
-                }
+                }*/
             }
             else
             {
                 collectObjects.RemoveAll(obj => obj == can);
-                if (collectObjects.Count == 0) {
+               /* if (collectObjects.Count == 0) {
                     OnCollectActivateUI(false);
-                }
+                }*/
 
             }
         }

@@ -145,7 +145,7 @@ MonoBehaviour:
   ImpactSfxClip: {fileID: 0}
   HittableLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294964223
   TrajectoryCorrectionDistance: -1
   InheritWeaponVelocity: 0
   Damage: 40
