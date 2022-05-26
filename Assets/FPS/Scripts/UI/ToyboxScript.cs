@@ -34,7 +34,6 @@ namespace Unity.FPS.Gameplay
             playerInput = FindObjectOfType<PlayerInputHandler>();
             playerCharacterController = FindObjectOfType<PlayerCharacterController>();
             playerWeaponsController = playerCharacterController.GetComponent<PlayerWeaponsManager>().Weapon;
-            LoadValues();
         }
         public void LoadValues()
         {

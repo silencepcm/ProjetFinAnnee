@@ -81,6 +81,29 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float BulletGravity;
     [HideInInspector] public float BulletSpeed;
 
+
+    [HideInInspector] public float BruteWalkSpeed;
+    [HideInInspector] public float BruteRunSpeed;
+    [HideInInspector] public float BruteAngleSpeed;
+    [HideInInspector] public float BruteAttackDistance;
+    [HideInInspector] public float BruteAttackStopDistance;
+    [HideInInspector] public float BruteDetectDistance;
+
+    [HideInInspector] public float TourelleWalkSpeed;
+    [HideInInspector] public float TourelleRunSpeed;
+    [HideInInspector] public float TourelleAngleSpeed;
+    [HideInInspector] public float TourelleAttackDistance;
+    [HideInInspector] public float TourelleAttackStopDistance;
+    [HideInInspector] public float TourelleDetectDistance;
+
+    [HideInInspector] public float FrondeWalkSpeed;
+    [HideInInspector] public float FrondeRunSpeed;
+    [HideInInspector] public float FrondeAngleSpeed;
+    [HideInInspector] public float FrondeAttackDistance;
+    [HideInInspector] public float FrondeAttackStopDistance;
+    [HideInInspector] public float FrondeDetectDistance;
+
+
     public void Start()
     {
         SaveData data = SaveToyboxScript.LoadData();
@@ -137,6 +160,29 @@ public class GameManager : MonoBehaviour
 
             BulletGravity = data.BulletGravity;
             BulletSpeed = data.BulletSpeed;
+
+
+
+            BruteWalkSpeed = data.BruteWalkSpeed;
+            BruteRunSpeed = data.BruteRunSpeed;
+            BruteAngleSpeed = data.BruteAngleSpeed;
+            BruteAttackDistance = data.BruteAttackDistance;
+            BruteAttackStopDistance = data.BruteAttackStopDistance;
+            BruteDetectDistance = data.BruteDetectDistance;
+
+            TourelleWalkSpeed = data.TourelleWalkSpeed;
+            TourelleRunSpeed = data.TourelleRunSpeed;
+            TourelleAngleSpeed = data.TourelleAngleSpeed;
+            TourelleAttackDistance = data.TourelleAttackDistance;
+            TourelleAttackStopDistance = data.TourelleAttackStopDistance;
+            TourelleDetectDistance = data.TourelleDetectDistance;
+
+            FrondeWalkSpeed = data.FrondeWalkSpeed;
+            FrondeRunSpeed = data.FrondeRunSpeed;
+            FrondeAngleSpeed = data.FrondeAngleSpeed;
+            FrondeAttackDistance = data.FrondeAttackDistance;
+            FrondeAttackStopDistance = data.FrondeAttackStopDistance;
+            FrondeDetectDistance = data.FrondeDetectDistance;
         }
         else
         {
@@ -186,6 +232,28 @@ public class GameManager : MonoBehaviour
 
             BulletGravity = 10;
             BulletSpeed = 3;
+
+
+            BruteWalkSpeed = 3f;
+            BruteRunSpeed = 4.5f;
+            BruteAngleSpeed = 120f;
+            BruteAttackDistance = 2f;
+            BruteAttackStopDistance = 2.3f;
+            BruteDetectDistance = 8f;
+
+            TourelleWalkSpeed = 3f;
+            TourelleRunSpeed = 4.5f;
+            TourelleAngleSpeed = 120f;
+            TourelleAttackDistance = 6f;
+            TourelleAttackStopDistance = 10f;
+            TourelleDetectDistance = 10f;
+
+            FrondeWalkSpeed = 3f;
+            FrondeRunSpeed = 4.5f;
+            FrondeAngleSpeed = 120f;
+            FrondeAttackDistance = 6f;
+            FrondeAttackStopDistance = 10f;
+            FrondeDetectDistance = 10f;
         }
     }
 }
