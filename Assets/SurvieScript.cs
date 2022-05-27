@@ -53,6 +53,7 @@ public class SurvieScript : MonoBehaviour
 
     private void Update()
     {
+       
         timer += 1;
         //mise a 0 de la barre de nourriture
         if (SliderNourriture.value <= minNourriture)
