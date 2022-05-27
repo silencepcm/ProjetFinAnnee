@@ -4,6 +4,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Unity.FPS.Game;
+
+using UnityEngine.Events;
+
+
 namespace Unity.FPS.Gameplay
 {
     public class ToyboxScript : MonoBehaviour
@@ -29,6 +33,8 @@ namespace Unity.FPS.Gameplay
         public GameObject BruteSettingsUI;
         public GameObject TourelleSettingsUI;
         public GameObject FrondeSettingsUI;
+        public UnityAction setEnemyParamsUpdate;
+        
         void Start()
         {
             playerInput = FindObjectOfType<PlayerInputHandler>();
@@ -120,22 +126,22 @@ namespace Unity.FPS.Gameplay
                     TMP_InputField text = element.GetComponent<TMP_InputField>();
                     switch (element.name)
                     {
-                        case "BruteWalkSpeed":
+                        case "WalkSpeed":
                             text.text = GameManager.Instance.BruteWalkSpeed.ToString();
                             break;
-                        case "BruteRunSpeed":
+                        case "RunSpeed":
                             text.text = GameManager.Instance.BruteRunSpeed.ToString();
                             break;
-                        case "BruteAttackDistance":
+                        case "AttackDistance":
                             text.text = GameManager.Instance.BruteAttackDistance.ToString();
                             break;
-                        case "BruteDetectDistance":
+                        case "DetectDistance":
                             text.text = GameManager.Instance.BruteDetectDistance.ToString();
                             break;
-                        case "BruteAttackStopDistance":
+                        case "AttackStopDistance":
                             text.text = GameManager.Instance.BruteAttackStopDistance.ToString();
                             break;
-                        case "BruteAngleSpeed":
+                        case "AngleSpeed":
                             text.text = GameManager.Instance.BruteAngleSpeed.ToString();
                             break;
                     }
@@ -148,22 +154,22 @@ namespace Unity.FPS.Gameplay
                     TMP_InputField text = element.GetComponent<TMP_InputField>();
                     switch (element.name)
                     {
-                        case "TourelleWalkSpeed":
+                        case "WalkSpeed":
                             text.text = GameManager.Instance.TourelleWalkSpeed.ToString();
                             break;
-                        case "TourelleRunSpeed":
+                        case "RunSpeed":
                             text.text = GameManager.Instance.TourelleRunSpeed.ToString();
                             break;
-                        case "TourelleAttackDistance":
+                        case "AttackDistance":
                             text.text = GameManager.Instance.TourelleAttackDistance.ToString();
                             break;
-                        case "TourelleDetectDistance":
+                        case "DetectDistance":
                             text.text = GameManager.Instance.TourelleDetectDistance.ToString();
                             break;
-                        case "TourelleAttackStopDistance":
+                        case "AttackStopDistance":
                             text.text = GameManager.Instance.TourelleAttackStopDistance.ToString();
                             break;
-                        case "TourelleAngleSpeed":
+                        case "AngleSpeed":
                             text.text = GameManager.Instance.TourelleAngleSpeed.ToString();
                             break;
                     }
@@ -176,22 +182,22 @@ namespace Unity.FPS.Gameplay
                     TMP_InputField text = element.GetComponent<TMP_InputField>();
                     switch (element.name)
                     {
-                        case "FrondeWalkSpeed":
+                        case "WalkSpeed":
                             text.text = GameManager.Instance.FrondeWalkSpeed.ToString();
                             break;
-                        case "FrondeRunSpeed":
+                        case "RunSpeed":
                             text.text = GameManager.Instance.FrondeRunSpeed.ToString();
                             break;
-                        case "FrondeAttackDistance":
+                        case "AttackDistance":
                             text.text = GameManager.Instance.FrondeAttackDistance.ToString();
                             break;
-                        case "FrondeDetectDistance":
+                        case "DetectDistance":
                             text.text = GameManager.Instance.FrondeDetectDistance.ToString();
                             break;
-                        case "FrondeAttackStopDistance":
+                        case "AttackStopDistance":
                             text.text = GameManager.Instance.FrondeAttackStopDistance.ToString();
                             break;
-                        case "FrondeAngleSpeed":
+                        case "AngleSpeed":
                             text.text = GameManager.Instance.FrondeAngleSpeed.ToString();
                             break;
                     }
@@ -401,6 +407,215 @@ namespace Unity.FPS.Gameplay
             }
         }
 
+
+
+
+
+
+        public void SetBruteWalkSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteWalkSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteRunSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteRunSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteAngularSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteAngleSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteDetectDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteDetectDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteAttackDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteAttackDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteAttackStopDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteAttackStopDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+
+
+
+        public void SetTourelleWalkSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleWalkSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleRunSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleRunSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleAngularSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleAngleSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleDetectDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleDetectDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleAttackDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleAttackDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleAttackStopDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleAttackStopDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+
+
+
+        public void SetFrondeWalkSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeWalkSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeRunSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeRunSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeAngularSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeAngleSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeDetectDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeDetectDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeAttackDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeAttackDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeAttackStopDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeAttackStopDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
         public void SaveChanges()
         {
             SaveToyboxScript.save_game();

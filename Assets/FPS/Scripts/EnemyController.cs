@@ -84,7 +84,6 @@ namespace Unity.FPS.AI
         float m_LastTimeWeaponSwapped = Mathf.NegativeInfinity;
         int m_CurrentWeaponIndex;
         public WeaponController CurrentWeapon;
-        NavigationModule m_NavigationModule;
         public Transform DetectionSourcePoint;
         [Tooltip("The max distance at which the enemy can see targets")]
         public float DetectionRange = 20f;
@@ -102,9 +101,18 @@ namespace Unity.FPS.AI
 
         const string k_AnimAttackTrigger = "Attack";
         const string k_AnimOnDamagedTrigger = "OnDamaged";
+        void importParams()
+        {
+
+            NavMeshAgent.speed = GameManager.Instance.Brute;
+            NavMeshAgent.angularSpeed = m_NavigationModule.AngularSpeed;
+            NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
+        }
         void Start()
         {
             Player = GameObject.FindGameObjectWithTag("Player");
+
+            FindObjectOfType<Unity.FPS.Gameplay.ToyboxScript>().setEnemyParamsUpdate += importParams;
             //m_EnemyManager = FindObjectOfType<EnemyManager>();
              
             //m_EnemyManager.RegisterEnemy(this);
@@ -127,17 +135,9 @@ namespace Unity.FPS.AI
             onDetectedTarget += OnDetectedTarget;
             
 
-            var navigationModules = GetComponentsInChildren<NavigationModule>();
-            DebugUtility.HandleWarningIfDuplicateObjects<DetectionModule, EnemyController>(detectionModules.Length,
-                this, gameObject);
-            // Override navmesh agent data
-            if (navigationModules.Length > 0)
-            {
-                m_NavigationModule = navigationModules[0];
                 NavMeshAgent.speed = m_NavigationModule.MoveSpeed;
                 NavMeshAgent.angularSpeed = m_NavigationModule.AngularSpeed;
                 NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
-            }
             
         }
 

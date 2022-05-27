@@ -32,7 +32,6 @@ namespace Unity.FPS.Game
             InitialDirection = ray.direction;
             InheritedMuzzleVelocity = controller.MuzzleWorldVelocity + ray.direction;
             rb.velocity = (ray.direction)*speed;
-            Debug.Log(ray.direction);
             OnShoot?.Invoke();
 
         }
