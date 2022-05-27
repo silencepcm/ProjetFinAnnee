@@ -101,12 +101,26 @@ namespace Unity.FPS.AI
 
         const string k_AnimAttackTrigger = "Attack";
         const string k_AnimOnDamagedTrigger = "OnDamaged";
+        public enum EnemyType { Brute, Tourelle, Fronde};
+        public EnemyType enemyType;
+        float WalkSpeed;
+        float RunSpeed;
         void importParams()
         {
+            switch (enemyType)
+            {
+                case EnemyType.Brute:
+                    WalkSpeed = GameManager.Instance.BruteWalkSpeed;
+                    RunSpeed = GameManager.Instance.BruteRunSpeed;
+                    NavMeshAgent.angularSpeed = GameManager.Instance.BruteAngleSpeed;
+                    //NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
+                    break;
+                case EnemyType.Tourelle:
+                    break;
+                case EnemyType.Fronde:
 
-            NavMeshAgent.speed = GameManager.Instance.Brute;
-            NavMeshAgent.angularSpeed = m_NavigationModule.AngularSpeed;
-            NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
+                    break;
+            }
         }
         void Start()
         {
@@ -135,9 +149,9 @@ namespace Unity.FPS.AI
             onDetectedTarget += OnDetectedTarget;
             
 
-                NavMeshAgent.speed = m_NavigationModule.MoveSpeed;
+             /*   NavMeshAgent.speed = m_NavigationModule.MoveSpeed;
                 NavMeshAgent.angularSpeed = m_NavigationModule.AngularSpeed;
-                NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
+                NavMeshAgent.acceleration = m_NavigationModule.Acceleration;*/
             
         }
 
