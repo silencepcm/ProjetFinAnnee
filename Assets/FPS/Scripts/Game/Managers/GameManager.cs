@@ -213,19 +213,18 @@ public class GameManager : MonoBehaviour
         if (InventairePanel.activeInHierarchy)
         {
             
-        
-            NbIngredient1.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().Munitite.ToString();
-            NbIngredient2.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().Directite.ToString();
-            //NbIngredient3.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().Clochite.ToString();
-            //NbIngredient4.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().Baie.ToString();
-            //NbIngredient5.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().Fruit.ToString();
-            //NbIngredient6.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().Poussite.ToString();
-            //NbIngredient7.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().Plontite1.ToString();
+            NbIngredient1.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Munitite.ToString();
+            NbIngredient2.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Directite.ToString();
+            //NbIngredient3.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Clochite.ToString();
+            //NbIngredient4.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Baie.ToString();
+            //NbIngredient5.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Fruit.ToString();
+            //NbIngredient6.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Poussite.ToString();
+            //NbIngredient7.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Plontite1.ToString();
 
-            //NbMunitionDirect.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
-            //NbMunitionOblique.GetComponent<TextMeshPro>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
+            //NbMunitionDirect.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
+            //NbMunitionOblique.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
 
-            if(Player.GetComponent<InventaireScript>().RecetteMunitionDirect > 0 && !Recette1.activeInHierarchy)
+            if (Player.GetComponent<InventaireScript>().RecetteMunitionDirect > 0 && !Recette1.activeInHierarchy)
             {
                 Recette1.SetActive(true);
             }
