@@ -26,6 +26,8 @@ namespace Unity.FPS.Game
     [RequireComponent(typeof(AudioSource))]
     public class WeaponController : MonoBehaviour
     {
+        public GameObject inventaire;
+
         [Header("Information")] [Tooltip("The name that will be displayed in the UI for this weapon")]
         public string WeaponName;
 
@@ -181,8 +183,8 @@ namespace Unity.FPS.Game
             MaxAmmo = GameManager.Instance.MaxAmmo;
             BulletSpreadAngle = GameManager.Instance.BulletSpreadAngle;
             BulletsPerShot = 1;
-            m_CurrentAmmoDirect = MaxAmmo;
-            m_CurrentAmmoOblique = MaxAmmo;
+           
+           
             m_CarriedPhysicalBullets = HasPhysicalBullets ? ClipSize : 0;
             m_LastMuzzlePosition = WeaponMuzzle.position;
 
@@ -234,7 +236,7 @@ namespace Unity.FPS.Game
         void PlaySFX(AudioClip sfx) => AudioUtility.CreateSFX(sfx, transform.position, AudioUtility.AudioGroups.WeaponShoot, 0.0f);
 
 
-        void Reload()
+        /*void Reload()
         {
             if (m_CarriedPhysicalBullets > 0)
             {
@@ -243,9 +245,9 @@ namespace Unity.FPS.Game
             }
 
             IsReloading = false;
-        }
+        }*/
 
-        public void StartReloadAnimation()
+        /*public void StartReloadAnimation()
         {
             if (m_CurrentAmmoDirect < m_CarriedPhysicalBullets)
             {
@@ -273,7 +275,7 @@ namespace Unity.FPS.Game
                     Reload();
                 }
             }
-        }
+        }*/
 
 
         float timerReload;
@@ -398,18 +400,18 @@ namespace Unity.FPS.Game
 
         public bool TryShoot()
         {
-            if (m_CurrentAmmoDirect >= 1f || m_CurrentAmmoOblique >= 1f
+            if (inventaire.GetComponent<InventaireScript>().NbMunitionDirect >= 1 || inventaire.GetComponent<InventaireScript>().NbMunitionOblique >= 1
                 && m_LastTimeShot + DelayBetweenShots < Time.time)
             {
-                if (Input.GetKeyDown(KeyCode.Mouse0) && m_CurrentAmmoDirect >= 1f)
+                if (Input.GetKeyDown(KeyCode.Mouse0) && inventaire.GetComponent<InventaireScript>().NbMunitionDirect >= 1)
                 {
                     NormalHandleShoot();
-                    m_CurrentAmmoDirect -= 1f;
+                    inventaire.GetComponent<InventaireScript>().NbMunitionDirect -= 1;
                 }
-                else if(Input.GetKeyDown(KeyCode.Mouse1) && m_CurrentAmmoOblique >= 1f)
+                else if(Input.GetKeyDown(KeyCode.Mouse1) && inventaire.GetComponent<InventaireScript>().NbMunitionOblique >= 1)
                 {
                     ObliqueHandleShoot();
-                    m_CurrentAmmoOblique -= 1; 
+                    inventaire.GetComponent<InventaireScript>().NbMunitionOblique -= 1; 
                 }
                
 

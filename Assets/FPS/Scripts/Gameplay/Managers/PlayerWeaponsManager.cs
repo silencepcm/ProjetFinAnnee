@@ -106,7 +106,7 @@ namespace Unity.FPS.Gameplay
                 if (m_InputHandler.GetReloadButtonDown() && Weapon.GetCurrentAmmoDirect()/Weapon.MaxAmmo < 1.0f)
                 {
                     IsAiming = false;
-                    Weapon.StartReloadAnimation();
+                    //Weapon.StartReloadAnimation();
                     return;
                 }
                 // handle shooting

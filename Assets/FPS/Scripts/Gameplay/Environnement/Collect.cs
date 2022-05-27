@@ -8,7 +8,20 @@ namespace Unity.FPS.Gameplay
 
         public AudioClip CollectSfx;
         public GameObject CollectVfxPrefab;
+        public GameObject Inventaire;
 
+        public enum TypeRessource
+        {
+            Munitite,
+            Directite,
+            Clochite,
+            Baie,
+            Fruit,
+            Poussite,
+            Plontite1
+        }
+
+        public TypeRessource Type;
 
         Collider m_Collider;
         Vector3 m_StartPosition;
@@ -68,6 +81,34 @@ namespace Unity.FPS.Gameplay
             gameObject.SetActive(false);
             if (name != "Sac")
             {
+                if(Type == TypeRessource.Munitite)
+                {
+                    Inventaire.GetComponent<InventaireScript>().Munitite += 1;
+                }
+                else if (Type == TypeRessource.Directite)
+                {
+                    Inventaire.GetComponent<InventaireScript>().Directite += 1;
+                }
+                else if (Type == TypeRessource.Clochite)
+                {
+                    Inventaire.GetComponent<InventaireScript>().Clochite += 1;
+                }
+                else if(Type == TypeRessource.Baie)
+                {
+                    Inventaire.GetComponent<InventaireScript>().Baie += 1;
+                }
+                else if (Type == TypeRessource.Fruit)
+                {
+                    Inventaire.GetComponent<InventaireScript>().Fruit += 1;
+                }
+                else if(Type == TypeRessource.Plontite1)
+                {
+                    Inventaire.GetComponent<InventaireScript>().Plontite1 += 1;
+                }
+                else
+                {
+                    Inventaire.GetComponent<InventaireScript>().Poussite += 1;
+                }
                 GetComponentInParent<Spawner_Ingredient>().RespawnWaiter(gameObject);
             }
         }
