@@ -140,7 +140,7 @@ namespace Unity.FPS.Gameplay
         PlayerStatsScript player;
         public delegate void CollectActivateUI(bool active);
         public event CollectActivateUI OnCollectActivateUI;
-
+        float ArchimedForce = 0f;
         void Start()
         {
 
@@ -273,15 +273,16 @@ namespace Unity.FPS.Gameplay
                     QueryTriggerInteraction.Ignore))
                 {
 
-                    /*if ((!IsDead) && (hit.collider.transform.tag == "Water"))
+                    if ((!WaterDeath)&&(!IsDead) && (hit.collider.transform.tag == "Water"))
                     {
+                        hit.collider.enabled = false;
                         player.Kill();
                         OnDie();
-                        CharacterVelocity /= 2;
-                        GravityDownForce /= 2;
+                        CharacterVelocity =new Vector3(CharacterVelocity.x, CharacterVelocity.y/4, CharacterVelocity.z);
+                        GravityDownForce /= 5;
                         WaterDeath = true;
                     }
-                    else if(!WaterDeath)*/
+                    else if(!WaterDeath)
                     {
                         // storing the upward direction for the surface found
                         m_GroundNormal = hit.normal;
@@ -427,7 +428,8 @@ namespace Unity.FPS.Gameplay
                     CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
                     // apply the gravity to the velocity
-                    CharacterVelocity += GravityDownForce * Time.deltaTime * Vector3.down;
+
+                    CharacterVelocity += (GravityDownForce-ArchimedForce) * Time.deltaTime * Vector3.down;
                 }
             }
 
