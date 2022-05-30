@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectSfx: {fileID: 8300000, guid: 507e834cf580ab1499f2dd5c2bc7af48, type: 3}
   CollectVfxPrefab: {fileID: 0}
-  Inventaire: {fileID: 6992749295894772108, guid: 3b0c364846ba0e4438108527033ffaaf,
+  Inventaire: {fileID: 5736911727876309262, guid: 2e80db6b4d73c2f418f802fef3917fdd,
     type: 3}
   Type: 4
 --- !u!1 &3130628598976367446

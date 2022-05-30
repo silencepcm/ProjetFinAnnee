@@ -20,9 +20,9 @@ public class SurvieScript : MonoBehaviour
     private float maxVie = 100f;
     private int timerCoolDown = 2;
     private int timer = 0;
-    public float perteEauSec;
-    public float perteNourritureSec;
-    public float perteVieSec;
+    private float perteEauSec = 0.01f;
+    private float perteNourritureSec = 0.01f;
+    private float perteVieSec = 0.01f;
 
 
     // Start is called before the first frame update
