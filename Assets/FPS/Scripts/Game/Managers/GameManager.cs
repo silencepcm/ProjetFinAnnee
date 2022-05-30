@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
     public GameObject NbIngredient3;
     public GameObject NbIngredient4;
     public GameObject NbIngredient5;
-    public GameObject NbIngredient6;
-    public GameObject NbIngredient7;
+    //public GameObject NbIngredient6;
+   // public GameObject NbIngredient7;
 
     public GameObject NbMunitionDirect;
     public GameObject NbMunitionOblique;
@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     public GameObject Recette2;
     public GameObject Recette3;
     public GameObject Recette4;
+
+    public GameObject NbPotionSanté;
+    public GameObject NbPotionTrampoplante;
 
     public GameObject AthMunitionDirect;
     public GameObject AthMunitionOblique;
@@ -213,8 +216,8 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        AthMunitionDirect.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
-        AthMunitionOblique.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
+        //AthMunitionDirect.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
+        //AthMunitionOblique.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
 
         if (InventairePanel.activeInHierarchy)
         {
@@ -224,31 +227,75 @@ public class GameManager : MonoBehaviour
             NbIngredient3.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Clochite.ToString();
             NbIngredient4.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Baie.ToString();
             NbIngredient5.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Fruit.ToString();
-            NbIngredient6.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Poussite.ToString();
-            NbIngredient7.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Plontite1.ToString();
+            //NbIngredient6.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Poussite.ToString();
+            //NbIngredient7.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Plontite1.ToString();
+            NbPotionSanté.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbPotionSanté.ToString();
+            NbPotionTrampoplante.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbTrampoplante.ToString();
 
-            NbMunitionDirect.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
-            NbMunitionOblique.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
+            //NbMunitionDirect.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
+            //NbMunitionOblique.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
 
-            if (Player.GetComponent<InventaireScript>().RecetteMunitionDirect > 0 && !Recette1.activeInHierarchy)
+            if (Player.GetComponent<InventaireScript>().RecetteMunitionDirect > 0 && Recette1.activeInHierarchy == false)
             {
                 Recette1.SetActive(true);
             }
+           
 
-            if (Player.GetComponent<InventaireScript>().RecetteMunitionOblique > 0 && !Recette2.activeInHierarchy)
+            if (Player.GetComponent<InventaireScript>().RecetteMunitionOblique > 0 && Recette2.activeInHierarchy == false)
             {
                 Recette2.SetActive(true);
             }
+           
 
-            if (Player.GetComponent<InventaireScript>().RecettePotionSanté > 0 && !Recette3.activeInHierarchy)
+            if (Player.GetComponent<InventaireScript>().RecettePotionSanté > 0 && Recette3.activeInHierarchy == false)
             {
                 Recette3.SetActive(true);
             }
+           
 
-            if (Player.GetComponent<InventaireScript>().RecetteTrampoplante > 0 && !Recette4.activeInHierarchy)
+            if (Player.GetComponent<InventaireScript>().RecetteTrampoplante > 0 && Recette4.activeInHierarchy == false)
             {
                 Recette4.SetActive(true);
             }
+            
+        }
+    }
+
+    public void OnClickRecetteMunitionDirect()
+    {
+        if (Player.GetComponent<InventaireScript>().Munitite >= 3 && Player.GetComponent<InventaireScript>().Directite >= 2 )
+        {
+            Player.GetComponent<InventaireScript>().Directite -= 2;
+            Player.GetComponent<InventaireScript>().Munitite -= 3;
+            Player.GetComponent<InventaireScript>().NbMunitionDirect += 1;
+        }
+    }
+    public void OnClickRecetteMunitionOblique()
+    {
+        if (Player.GetComponent<InventaireScript>().Munitite >= 3 && Player.GetComponent<InventaireScript>().Clochite >= 2)
+        {
+            Player.GetComponent<InventaireScript>().Clochite -= 2;
+            Player.GetComponent<InventaireScript>().Munitite -= 3;
+            Player.GetComponent<InventaireScript>().NbMunitionOblique += 1;
+        }
+    }
+    public void OnClickRecettePotionDeSanté()
+    {
+        if (Player.GetComponent<InventaireScript>().Baie >= 3 && Player.GetComponent<InventaireScript>().Fruit >= 1)
+        {
+            Player.GetComponent<InventaireScript>().Baie -= 3;
+            Player.GetComponent<InventaireScript>().Fruit -= 1;
+            Player.GetComponent<InventaireScript>().NbPotionSanté += 1;
+
+        }
+    }
+    public void OnClickRecetteDeTrampoplante()
+    {
+       if (Player.GetComponent<InventaireScript>().Fruit >= 2 && Player.GetComponent<InventaireScript>().Clochite >= 2)
+        {
+            Player.GetComponent<InventaireScript>().Clochite -= 2;
+            Player.GetComponent<InventaireScript>().Fruit -= 2;
+            Player.GetComponent<InventaireScript>().NbTrampoplante += 1;
         }
     }
 }
