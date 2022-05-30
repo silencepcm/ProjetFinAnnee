@@ -100,22 +100,22 @@ public class SurvieScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha2)&& timer > timerCoolDown)
         {
             SliderNourriture.value += 20f;
-            if(InventairePanel.GetComponent<InventaireScript>().Clochite > 0)
+            if(InventairePanel.GetComponent<InventaireScript>().Fruit > 0)
             {
-                InventairePanel.GetComponent<InventaireScript>().Clochite -= 1;
+                InventairePanel.GetComponent<InventaireScript>().Fruit -= 1;
             }else if(InventairePanel.GetComponent<InventaireScript>().Baie > 0)
             {
                 InventairePanel.GetComponent<InventaireScript>().Baie -= 1;
             }
             
 
-            if(Input.GetKeyDown(KeyCode.H) && timer > timerCoolDown && InventairePanel.GetComponent<InventaireScript>().NbPotionSanté > 0 && Vie.value < maxVie)
-            {
-                InventairePanel.GetComponent<InventaireScript>().NbPotionSanté -= 1;
-                Vie.value = maxVie;
-            }
+            
         }
-       
+        if (Input.GetKeyDown(KeyCode.H) && timer > timerCoolDown && InventairePanel.GetComponent<InventaireScript>().NbPotionSanté > 0 && Vie.value < maxVie)
+        {
+            InventairePanel.GetComponent<InventaireScript>().NbPotionSanté -= 1;
+            Vie.value = maxVie;
+        }
 
     }
 
