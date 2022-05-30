@@ -1,6 +1,6 @@
 ﻿using Unity.FPS.Game;
 using UnityEngine;
-
+using System.Collections;
 namespace Unity.FPS.AI
 {
     [RequireComponent(typeof(EnemyController))]
@@ -12,7 +12,7 @@ namespace Unity.FPS.AI
             Follow,
             Attack,
         }
-
+        int Vie = 3;
         public Animator Animator;
 
         [Tooltip("Fraction of the enemy's attack range at which it will stop moving towards target while attacking")]
@@ -36,6 +36,7 @@ namespace Unity.FPS.AI
         const string k_AnimAttackParameter = "Attack";
         const string k_AnimAlertedParameter = "Alerted";
         const string k_AnimOnDamagedParameter = "OnDamaged";
+        const string k_AnimOnDeathParameter = "Death";
 
         void Start()
         {
@@ -169,15 +170,32 @@ namespace Unity.FPS.AI
             Animator.SetBool(k_AnimAlertedParameter, false);
         }
 
-        void OnDamaged()
+        public void OnDamaged()
         {
+            Debug.Log(Vie);
+
+
             if (RandomHitSparks.Length > 0)
             {
                 int n = Random.Range(0, RandomHitSparks.Length - 1);
                 RandomHitSparks[n].Play();
             }
-
-            Animator.SetTrigger(k_AnimOnDamagedParameter);
+            Vie--;
+            if (Vie > 0)
+            {
+                Animator.SetTrigger(k_AnimOnDamagedParameter);
+            } else
+            {
+                Animator.SetTrigger(k_AnimOnDeathParameter);
+                StartCoroutine(DeathWait());
+            }
+            
         }
+        IEnumerator DeathWait()
+        {
+            yield return new WaitForSeconds(3f);
+            Destroy(gameObject);
+        }
+        
     }
 }

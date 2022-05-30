@@ -216,6 +216,10 @@ namespace Unity.FPS.Gameplay
             {
                 collider.GetComponent<Animator>().SetTrigger("start");
             }
+            else if (collider.gameObject.tag == "Enemy")
+            {
+                collider.GetComponent<FPS.AI.EnemyMobile>().OnDamaged();
+            }
             // impact vfx
             if (ImpactVfx)
             {

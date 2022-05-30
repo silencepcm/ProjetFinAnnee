@@ -218,9 +218,12 @@ namespace Unity.FPS.Gameplay
         if (collider.gameObject.tag == "InteractableEnv")
         {
             collider.GetComponent<Animator>().SetTrigger("start");
-        }
-        // impact vfx
-        if (ImpactVfx)
+        } else if (collider.gameObject.tag == "Enemy")
+            {
+                collider.GetComponent<FPS.AI.EnemyMobile>().OnDamaged();
+            }
+            // impact vfx
+            if (ImpactVfx)
         {
             GameObject impactVfxInstance = Instantiate(ImpactVfx, point + (normal * ImpactVfxSpawnOffset),
                 Quaternion.LookRotation(normal));
