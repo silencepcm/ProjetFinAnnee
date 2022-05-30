@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject AthMunitionDirect;
     public GameObject AthMunitionOblique;
+    public GameObject AthPotionVie;
+    public GameObject AthBaie;
+    public GameObject AthFruit;
 
     #region SINGLETON PATTERN
     private static GameManager _instance;
@@ -218,6 +221,9 @@ public class GameManager : MonoBehaviour
     {
         AthMunitionDirect.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
         AthMunitionOblique.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
+        AthPotionVie.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbPotionSanté.ToString();
+        AthBaie.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Baie.ToString();
+        AthFruit.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Fruit.ToString();
 
         if (InventairePanel.activeInHierarchy)
         {
