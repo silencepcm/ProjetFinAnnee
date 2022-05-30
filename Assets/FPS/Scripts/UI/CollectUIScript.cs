@@ -40,7 +40,7 @@ public class CollectUIScript : MonoBehaviour
             activated = active;
             if (active)
             {
-                TargetPos = new Vector3(CollectObjectUI.GetComponent<RectTransform>().localPosition.x, -200f, CollectObjectUI.GetComponent<RectTransform>().localPosition.z);
+                TargetPos = new Vector3(CollectObjectUI.GetComponent<RectTransform>().localPosition.x, 80f, CollectObjectUI.GetComponent<RectTransform>().localPosition.z);
             }
             else
             {

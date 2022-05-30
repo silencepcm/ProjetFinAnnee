@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
             MaxVie = 100;
             MaxSoif = 100f;
             MinSoif = 0f;
-            MaxGourde = 100f;
+            MaxGourde = 3f;
             MinGourde = 0f;
             MaxNourriture = 100f;
             MinNourriture = 0f;

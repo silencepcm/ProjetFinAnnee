@@ -127,7 +127,7 @@ public class PlayerStatsScript : Personnage
         if (Input.GetKey(KeyCode.Alpha2) /*&& verif == true*/)
         {
             Thirst += 20f;
-            Gourde -= 20f;
+            Gourde -= 1f;
             timer = 0f;
             //verif = false;
         }
