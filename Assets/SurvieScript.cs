@@ -20,9 +20,9 @@ public class SurvieScript : MonoBehaviour
     private float maxVie = 100f;
     private int timerCoolDown = 2;
     private int timer = 0;
-    public float perteEauSec;
-    public float perteNourritureSec;
-    public float perteVieSec;
+    private float perteEauSec = 0.01f;
+    private float perteNourritureSec = 0.01f;
+    private float perteVieSec = 0.01f;
 
 
     // Start is called before the first frame update
@@ -37,12 +37,13 @@ public class SurvieScript : MonoBehaviour
     public void FixedUpdate()
     {
         //perte d'eau et de nourriture
-        SliderNourriture.value = 1f - perteNourritureSec;
+        SliderNourriture.value -= perteNourritureSec;
         SliderEau.value -= perteEauSec;
 
         //perte de vie si l'une des 2 barres est a 0
         if (SliderEau.value <= 0f || SliderNourriture.value <= 0f)
         {
+            Debug.Log(Vie.value);
             Vie.value -= perteVieSec;
             if (Vie.value <= 0f)
             {
@@ -99,22 +100,22 @@ public class SurvieScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha2)&& timer > timerCoolDown)
         {
             SliderNourriture.value += 20f;
-            if(InventairePanel.GetComponent<InventaireScript>().Clochite > 0)
+            if(InventairePanel.GetComponent<InventaireScript>().Fruit > 0)
             {
-                InventairePanel.GetComponent<InventaireScript>().Clochite -= 1;
+                InventairePanel.GetComponent<InventaireScript>().Fruit -= 1;
             }else if(InventairePanel.GetComponent<InventaireScript>().Baie > 0)
             {
                 InventairePanel.GetComponent<InventaireScript>().Baie -= 1;
             }
             
 
-            if(Input.GetKeyDown(KeyCode.H) && timer > timerCoolDown && InventairePanel.GetComponent<InventaireScript>().NbPotionSanté > 0 && Vie.value < maxVie)
-            {
-                InventairePanel.GetComponent<InventaireScript>().NbPotionSanté -= 1;
-                Vie.value = maxVie;
-            }
+            
         }
-       
+        if (Input.GetKeyDown(KeyCode.H) && timer > timerCoolDown && InventairePanel.GetComponent<InventaireScript>().NbPotionSanté > 0 && Vie.value < maxVie)
+        {
+            InventairePanel.GetComponent<InventaireScript>().NbPotionSanté -= 1;
+            Vie.value = maxVie;
+        }
 
     }
 
