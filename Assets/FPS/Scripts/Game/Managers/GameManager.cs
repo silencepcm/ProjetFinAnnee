@@ -2,8 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.FPS.Game;
+using UnityEngine.UI;
+using TMPro;
 public class GameManager : MonoBehaviour
 {
+    public GameObject Player;
+    public GameObject InventairePanel;
+
+    public GameObject NbIngredient1;
+    public GameObject NbIngredient2;
+    public GameObject NbIngredient3;
+    public GameObject NbIngredient4;
+    public GameObject NbIngredient5;
+    //public GameObject NbIngredient6;
+    // public GameObject NbIngredient7;
+
+    public GameObject NbMunitionDirect;
+    public GameObject NbMunitionOblique;
+
+    public GameObject Recette1;
+    public GameObject Recette2;
+    public GameObject Recette3;
+    public GameObject Recette4;
+
+    public GameObject NbPotionSanté;
+    public GameObject NbPotionTrampoplante;
+
+    public GameObject AthMunitionDirect;
+    public GameObject AthMunitionOblique;
 
     #region SINGLETON PATTERN
     private static GameManager _instance;
@@ -81,6 +107,32 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float BulletGravity;
     [HideInInspector] public float BulletSpeed;
 
+
+    [HideInInspector] public float BruteWalkSpeed;
+    [HideInInspector] public float BruteRunSpeed;
+    [HideInInspector] public float BruteAngleSpeed;
+    [HideInInspector] public float BruteAttackDistance;
+    [HideInInspector] public float BruteAttackStopDistance;
+    [HideInInspector] public float BruteDetectDistance;
+    [HideInInspector] public float BruteAcceleration;
+
+    [HideInInspector] public float TourelleWalkSpeed;
+    [HideInInspector] public float TourelleRunSpeed;
+    [HideInInspector] public float TourelleAngleSpeed;
+    [HideInInspector] public float TourelleAttackDistance;
+    [HideInInspector] public float TourelleAttackStopDistance;
+    [HideInInspector] public float TourelleDetectDistance;
+    [HideInInspector] public float TourelleAcceleration;
+
+    [HideInInspector] public float FrondeWalkSpeed;
+    [HideInInspector] public float FrondeRunSpeed;
+    [HideInInspector] public float FrondeAngleSpeed;
+    [HideInInspector] public float FrondeAttackDistance;
+    [HideInInspector] public float FrondeAttackStopDistance;
+    [HideInInspector] public float FrondeDetectDistance;
+    [HideInInspector] public float FrondeAcceleration;
+
+
     public void Start()
     {
         SaveData data = SaveToyboxScript.LoadData();
@@ -137,6 +189,33 @@ public class GameManager : MonoBehaviour
 
             BulletGravity = data.BulletGravity;
             BulletSpeed = data.BulletSpeed;
+
+
+
+            BruteWalkSpeed = data.BruteWalkSpeed;
+            BruteRunSpeed = data.BruteRunSpeed;
+            BruteAngleSpeed = data.BruteAngleSpeed;
+            BruteAttackDistance = data.BruteAttackDistance;
+            BruteAttackStopDistance = data.BruteAttackStopDistance;
+            BruteDetectDistance = data.BruteDetectDistance;
+            BruteAcceleration = data.BruteAcceleration;
+
+            TourelleWalkSpeed = data.TourelleWalkSpeed;
+            TourelleRunSpeed = data.TourelleRunSpeed;
+            TourelleAngleSpeed = data.TourelleAngleSpeed;
+            TourelleAttackDistance = data.TourelleAttackDistance;
+            TourelleAttackStopDistance = data.TourelleAttackStopDistance;
+            TourelleDetectDistance = data.TourelleDetectDistance;
+            TourelleAcceleration = data.TourelleAcceleration;
+
+            FrondeWalkSpeed = data.FrondeWalkSpeed;
+            FrondeRunSpeed = data.FrondeRunSpeed;
+            FrondeAngleSpeed = data.FrondeAngleSpeed;
+            FrondeAttackDistance = data.FrondeAttackDistance;
+            FrondeAttackStopDistance = data.FrondeAttackStopDistance;
+            FrondeDetectDistance = data.FrondeDetectDistance;
+            FrondeAcceleration = data.FrondeAcceleration;
+
         }
         else
         {
@@ -186,6 +265,113 @@ public class GameManager : MonoBehaviour
 
             BulletGravity = 10;
             BulletSpeed = 3;
+
+
+            BruteWalkSpeed = 3f;
+            BruteRunSpeed = 4.5f;
+            BruteAngleSpeed = 120f;
+            BruteAttackDistance = 2f;
+            BruteAttackStopDistance = 2.3f;
+            BruteDetectDistance = 8f;
+            BruteAcceleration = 8f;
+
+            TourelleWalkSpeed = 3f;
+            TourelleRunSpeed = 4.5f;
+            TourelleAngleSpeed = 120f;
+            TourelleAttackDistance = 6f;
+            TourelleAttackStopDistance = 10f;
+            TourelleDetectDistance = 10f;
+
+            FrondeWalkSpeed = 3f;
+            FrondeRunSpeed = 4.5f;
+            FrondeAngleSpeed = 120f;
+            FrondeAttackDistance = 6f;
+            FrondeAttackStopDistance = 10f;
+            FrondeDetectDistance = 10f;
+        }
+    }
+    private void Update()
+    {
+        AthMunitionDirect.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
+        AthMunitionOblique.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
+
+        if (InventairePanel.activeInHierarchy)
+        {
+
+            NbIngredient1.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Munitite.ToString();
+            NbIngredient2.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Directite.ToString();
+            NbIngredient3.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Clochite.ToString();
+            NbIngredient4.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Baie.ToString();
+            NbIngredient5.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Fruit.ToString();
+            //NbIngredient6.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Poussite.ToString();
+            //NbIngredient7.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().Plontite1.ToString();
+            NbPotionSanté.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbPotionSanté.ToString();
+            NbPotionTrampoplante.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbTrampoplante.ToString();
+
+            //NbMunitionDirect.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionDirect.ToString();
+            //NbMunitionOblique.GetComponent<TextMeshProUGUI>().text = Player.GetComponent<InventaireScript>().NbMunitionOblique.ToString();
+
+            if (Player.GetComponent<InventaireScript>().RecetteMunitionDirect > 0 && Recette1.activeInHierarchy == false)
+            {
+                Recette1.SetActive(true);
+            }
+
+
+            if (Player.GetComponent<InventaireScript>().RecetteMunitionOblique > 0 && Recette2.activeInHierarchy == false)
+            {
+                Recette2.SetActive(true);
+            }
+
+
+            if (Player.GetComponent<InventaireScript>().RecettePotionSanté > 0 && Recette3.activeInHierarchy == false)
+            {
+                Recette3.SetActive(true);
+            }
+
+
+            if (Player.GetComponent<InventaireScript>().RecetteTrampoplante > 0 && Recette4.activeInHierarchy == false)
+            {
+                Recette4.SetActive(true);
+            }
+
+        }
+    }
+
+    public void OnClickRecetteMunitionDirect()
+    {
+        if (Player.GetComponent<InventaireScript>().Munitite >= 3 && Player.GetComponent<InventaireScript>().Directite >= 2)
+        {
+            Player.GetComponent<InventaireScript>().Directite -= 2;
+            Player.GetComponent<InventaireScript>().Munitite -= 3;
+            Player.GetComponent<InventaireScript>().NbMunitionDirect += 1;
+        }
+    }
+    public void OnClickRecetteMunitionOblique()
+    {
+        if (Player.GetComponent<InventaireScript>().Munitite >= 3 && Player.GetComponent<InventaireScript>().Clochite >= 2)
+        {
+            Player.GetComponent<InventaireScript>().Clochite -= 2;
+            Player.GetComponent<InventaireScript>().Munitite -= 3;
+            Player.GetComponent<InventaireScript>().NbMunitionOblique += 1;
+        }
+    }
+    public void OnClickRecettePotionDeSanté()
+    {
+        if (Player.GetComponent<InventaireScript>().Baie >= 3 && Player.GetComponent<InventaireScript>().Fruit >= 1)
+        {
+            Player.GetComponent<InventaireScript>().Baie -= 3;
+            Player.GetComponent<InventaireScript>().Fruit -= 1;
+            Player.GetComponent<InventaireScript>().NbPotionSanté += 1;
+
+        }
+    }
+    public void OnClickRecetteDeTrampoplante()
+    {
+        if (Player.GetComponent<InventaireScript>().Fruit >= 2 && Player.GetComponent<InventaireScript>().Clochite >= 2)
+        {
+            Player.GetComponent<InventaireScript>().Clochite -= 2;
+            Player.GetComponent<InventaireScript>().Fruit -= 2;
+            Player.GetComponent<InventaireScript>().NbTrampoplante += 1;
         }
     }
 }

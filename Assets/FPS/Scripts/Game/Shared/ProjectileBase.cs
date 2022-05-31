@@ -23,11 +23,15 @@ namespace Unity.FPS.Game
         {
             Owner = controller.Owner;
             InitialPosition = transform.position;
-            InitialDirection = transform.forward;
-            InheritedMuzzleVelocity = controller.MuzzleWorldVelocity;
             InitialCharge = controller.CurrentCharge;
             rb = GetComponent<Rigidbody>();
-            rb.velocity = transform.forward*speed;
+
+            float x = Screen.width / 2;
+            float y = Screen.height / 2;
+            var ray = Camera.main.ScreenPointToRay(new Vector3(x, y, 0));
+            InitialDirection = ray.direction;
+            InheritedMuzzleVelocity = controller.MuzzleWorldVelocity + ray.direction;
+            rb.velocity = (ray.direction)*speed;
             OnShoot?.Invoke();
 
         }

@@ -175,7 +175,7 @@ public class PlayerStatsScript : Personnage
         if (Nourriture < minNourriture)
         {
             Nourriture = minNourriture;
-            hpDegats(1);
+            //hpDegats(1);
             //perte de vie
         }
 

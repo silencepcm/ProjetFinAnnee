@@ -63,6 +63,28 @@ namespace Unity.FPS.Game
             data.BulletSpeed = GameManager.Instance.BulletSpeed;
 
 
+            data.BruteWalkSpeed = GameManager.Instance.BruteWalkSpeed;
+            data.BruteRunSpeed = GameManager.Instance.BruteRunSpeed;
+            data.BruteAngleSpeed = GameManager.Instance.BruteAngleSpeed;
+            data.BruteAttackDistance = GameManager.Instance.BruteAttackDistance;
+            data.BruteAttackStopDistance = GameManager.Instance.BruteAttackStopDistance;
+            data.BruteDetectDistance = GameManager.Instance.BruteDetectDistance;
+
+            data.TourelleWalkSpeed = GameManager.Instance.TourelleWalkSpeed;
+            data.TourelleRunSpeed = GameManager.Instance.TourelleRunSpeed;
+            data.TourelleAngleSpeed = GameManager.Instance.TourelleAngleSpeed;
+            data.TourelleAttackDistance = GameManager.Instance.TourelleAttackDistance;
+            data.TourelleAttackStopDistance = GameManager.Instance.TourelleAttackStopDistance;
+            data.TourelleDetectDistance = GameManager.Instance.TourelleDetectDistance;
+
+            data.FrondeWalkSpeed = GameManager.Instance.FrondeWalkSpeed;
+            data.FrondeRunSpeed = GameManager.Instance.FrondeRunSpeed;
+            data.FrondeAngleSpeed = GameManager.Instance.FrondeAngleSpeed;
+            data.FrondeAttackDistance = GameManager.Instance.FrondeAttackDistance;
+            data.FrondeAttackStopDistance = GameManager.Instance.FrondeAttackStopDistance;
+            data.FrondeDetectDistance = GameManager.Instance.FrondeDetectDistance;
+
+
             string json_data = JsonUtility.ToJson(data);
             File.WriteAllText(file_path(), json_data);
         }

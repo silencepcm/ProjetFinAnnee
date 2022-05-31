@@ -56,8 +56,7 @@ namespace Unity.FPS.UI
             {
                 VignetteCanvasGroup.gameObject.SetActive(true);
                 float vignetteAlpha =
-                    (1 - (PlayerStatsScript.Instance.Vie/ PlayerStatsScript.Instance.Vie /
-                          PlayerStatsScript.Instance.CriticalVie)) * CriticaHealthVignetteMaxAlpha;
+                    (1 - (PlayerStatsScript.Instance.Vie / PlayerStatsScript.Instance.CriticalVie)) * CriticaHealthVignetteMaxAlpha;
 
                 if (m_GameFlowManager.GameIsEnding)
                     VignetteCanvasGroup.alpha = vignetteAlpha;

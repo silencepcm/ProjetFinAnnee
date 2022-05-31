@@ -9,6 +9,18 @@ namespace Unity.FPS.Gameplay
         public AudioClip CollectSfx;
         public GameObject CollectVfxPrefab;
 
+        public enum TypeRessource
+        {
+            Munitite,
+            Directite,
+            Clochite,
+            Baie,
+            Fruit,
+            Poussite,
+            Plontite1
+        }
+
+        public TypeRessource Type;
 
         Collider m_Collider;
         Vector3 m_StartPosition;
@@ -64,12 +76,45 @@ namespace Unity.FPS.Gameplay
         }
         public void CollectEvent()
         {
+            
+            if (Type == TypeRessource.Munitite)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Munitite += 1;
+            }
+            else if (Type == TypeRessource.Directite)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Directite += 1;
+            }
+            else if (Type == TypeRessource.Clochite)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Clochite += 1;
+            }
+            else if (Type == TypeRessource.Baie)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Baie += 1;
+            }
+            else if (Type == TypeRessource.Fruit)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Fruit += 1;
+            }
+            else if (Type == TypeRessource.Plontite1)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Plontite1 += 1;
+            }
+            else
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Poussite += 1;
+            }
+
             PlayPickupFeedback();
             gameObject.SetActive(false);
             if (name != "Sac")
             {
+                
                 GetComponentInParent<Spawner_Ingredient>().RespawnWaiter(gameObject);
             }
+
+           
         }
     }
 }

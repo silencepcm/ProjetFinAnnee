@@ -4,6 +4,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Unity.FPS.Game;
+
+using UnityEngine.Events;
+
+
 namespace Unity.FPS.Gameplay
 {
     public class ToyboxScript : MonoBehaviour
@@ -14,8 +18,6 @@ namespace Unity.FPS.Gameplay
         public List<GameObject> tirUIObjects;
         public List<GameObject> trampolantes;
         public List<GameObject> trampolanteUIParams;
-        public GameObject movementUISpeedOnGround;
-        public GameObject movementUISpeedInAir;
         public GameObject MinSpeedFallDamage;
         public GameObject MaxSpeedFallDamage;
         public GameObject FallDamageVALEURatMinSpeed;
@@ -25,79 +27,239 @@ namespace Unity.FPS.Gameplay
         public GameObject InnerPanel;
         WeaponController playerWeaponsController;
         public List<Transform> toggleUI;
-        public List<Transform> valeurUI;
+        int activeSetting = 0;
+        public GameObject TirSettingsUI;
+        public GameObject PlayerSettingsUI;
+        public GameObject BruteSettingsUI;
+        public GameObject TourelleSettingsUI;
+        public GameObject FrondeSettingsUI;
+        public UnityAction setEnemyParamsUpdate;
+        
         void Start()
         {
             playerInput = FindObjectOfType<PlayerInputHandler>();
             playerCharacterController = FindObjectOfType<PlayerCharacterController>();
             playerWeaponsController = playerCharacterController.GetComponent<PlayerWeaponsManager>().Weapon;
-            LoadValues();
         }
         public void LoadValues()
         {
+            if (PlayerSettingsUI.activeSelf)
+            {
+                foreach (Transform element in toggleUI)
+                {
+                    Toggle toggle = element.GetComponent<Toggle>();
+                    if (element.name == "FallDamage")
+                    {
+                        toggle.isOn = GameManager.Instance.FallDamage;
+                        playerCharacterController.RecievesFallDamage = GameManager.Instance.FallDamage;
+                        MinSpeedFallDamage.SetActive(GameManager.Instance.FallDamage);
+                        MaxSpeedFallDamage.SetActive(GameManager.Instance.FallDamage);
+                        FallDamageVALEURatMinSpeed.SetActive(GameManager.Instance.FallDamage);
+                        FallDamageVALEURatMaxSpeed.SetActive(GameManager.Instance.FallDamage);
+                    }
+                }
+                foreach (Transform element in PlayerSettingsUI.transform)
+                {
+                    TMP_InputField text = element.GetComponent<TMP_InputField>();
+                    switch (element.name)
+                    {
+                        case "MovementSpeedOnGround":
+                            text.text = GameManager.Instance.MaxSpeedOnGround.ToString();
+                            break;
+                        case "MovementSpeedInAir":
+                            text.text = GameManager.Instance.MaxSpeedInAir.ToString();
+                            break;
+                        case "JumpForce":
+                            text.text = GameManager.Instance.JumpForce.ToString();
+                            break;
+                        case "GravityForce":
+                            text.text = GameManager.Instance.GravityForce.ToString();
+                            break;
+                        case "TrampoplanteForce":
+                            text.text = GameManager.Instance.TrampoplanteForce.ToString();
+                            break;
+                        case "MinSpeedFallDamage":
+                            text.text = GameManager.Instance.MinSpeedFallDamage.ToString();
+                            break;
+                        case "FallDamageValeurAtMinSpeed":
+                            text.text = GameManager.Instance.FallDamageValeurAtMinSpeed.ToString();
+                            break;
+                        case "MaxSpeedFallDamage":
+                            text.text = GameManager.Instance.MaxSpeedFallDamage.ToString();
+                            break;
+                        case "FallDamageValeurAtMaxSpeed":
+                            text.text = GameManager.Instance.FallDamageValeurAtMaxSpeed.ToString();
+                            break;
+                    }
+                }
 
-            foreach (Transform element in toggleUI)
+            }
+            else if (TirSettingsUI.activeSelf)
             {
-                Toggle toggle = element.GetComponent<Toggle>();
-                if (element.name == "FallDamage")
+                foreach (Transform element in TirSettingsUI.transform)
                 {
-                    toggle.isOn = GameManager.Instance.FallDamage;
-                    playerCharacterController.RecievesFallDamage = GameManager.Instance.FallDamage;
-                    MinSpeedFallDamage.SetActive(GameManager.Instance.FallDamage);
-                    MaxSpeedFallDamage.SetActive(GameManager.Instance.FallDamage);
-                    FallDamageVALEURatMinSpeed.SetActive(GameManager.Instance.FallDamage);
-                    FallDamageVALEURatMaxSpeed.SetActive(GameManager.Instance.FallDamage);
+                    TMP_InputField text = element.GetComponent<TMP_InputField>();
+                    switch (element.name)
+                    {
+                        case "MaxChargeDuration":
+                            text.text = GameManager.Instance.MaxChargeDuration.ToString();
+                            break;
+                        case "MaxAmmo":
+                            text.text = GameManager.Instance.MaxAmmo.ToString();
+                            break;
+                        case "BulletSpreadAngle":
+                            text.text = GameManager.Instance.BulletSpreadAngle.ToString();
+                            break;
+                        case "BulletGravity":
+                            text.text = GameManager.Instance.BulletGravity.ToString();
+                            break;
+                        case "BulletSpeed":
+                            text.text = GameManager.Instance.BulletSpeed.ToString();
+                            break;
+                    }
                 }
             }
-            foreach (Transform element in valeurUI)
+            else if (BruteSettingsUI.activeSelf)
             {
-                TMP_InputField text = element.GetComponent<TMP_InputField>();
-                switch (element.name)
+                foreach (Transform element in BruteSettingsUI.transform)
                 {
-                    case "MovementSpeedOnGround":
-                        text.text = GameManager.Instance.MaxSpeedOnGround.ToString();
-                        break;
-                    case "MovementSpeedInAir":
-                        text.text = GameManager.Instance.MaxSpeedInAir.ToString();
-                        break;
-                    case "JumpForce":
-                        text.text  = GameManager.Instance.JumpForce.ToString();
-                        break;
-                    case "GravityForce":
-                        text.text = GameManager.Instance.GravityForce.ToString();
-                        break;
-                    case "MaxChargeDuration":
-                        text.text = GameManager.Instance.MaxChargeDuration.ToString();
-                        break;
-                    case "MaxAmmo":
-                        text.text = GameManager.Instance.MaxAmmo.ToString();
-                        break;
-                    case "BulletSpreadAngle":
-                        text.text = GameManager.Instance.BulletSpreadAngle.ToString();
-                        break;
-                    case "TrampoplanteForce":
-                        text.text = GameManager.Instance.TrampoplanteForce.ToString();
-                        break;
-                    case "MinSpeedFallDamage":
-                        text.text = GameManager.Instance.MinSpeedFallDamage.ToString();
-                        break;
-                    case "FallDamageValeurAtMinSpeed":
-                        text.text = GameManager.Instance.FallDamageValeurAtMinSpeed.ToString();
-                        break;
-                    case "MaxSpeedFallDamage":
-                        text.text = GameManager.Instance.MaxSpeedFallDamage.ToString();
-                        break;
-                    case "FallDamageValeurAtMaxSpeed":
-                        text.text = GameManager.Instance.FallDamageValeurAtMaxSpeed.ToString();
-                        break;
-                    case "BulletGravity":
-                        text.text = GameManager.Instance.BulletGravity.ToString();
-                        break;
-                    case "BulletSpeed":
-                        text.text = GameManager.Instance.BulletSpeed.ToString();
-                        break;
+                    TMP_InputField text = element.GetComponent<TMP_InputField>();
+                    switch (element.name)
+                    {
+                        case "WalkSpeed":
+                            text.text = GameManager.Instance.BruteWalkSpeed.ToString();
+                            break;
+                        case "RunSpeed":
+                            text.text = GameManager.Instance.BruteRunSpeed.ToString();
+                            break;
+                        case "AttackDistance":
+                            text.text = GameManager.Instance.BruteAttackDistance.ToString();
+                            break;
+                        case "DetectDistance":
+                            text.text = GameManager.Instance.BruteDetectDistance.ToString();
+                            break;
+                        case "AttackStopDistance":
+                            text.text = GameManager.Instance.BruteAttackStopDistance.ToString();
+                            break;
+                        case "AngleSpeed":
+                            text.text = GameManager.Instance.BruteAngleSpeed.ToString();
+                            break;
+                    }
                 }
             }
+            else if (BruteSettingsUI.activeSelf)
+            {
+                foreach (Transform element in BruteSettingsUI.transform)
+                {
+                    TMP_InputField text = element.GetComponent<TMP_InputField>();
+                    switch (element.name)
+                    {
+                        case "WalkSpeed":
+                            text.text = GameManager.Instance.TourelleWalkSpeed.ToString();
+                            break;
+                        case "RunSpeed":
+                            text.text = GameManager.Instance.TourelleRunSpeed.ToString();
+                            break;
+                        case "AttackDistance":
+                            text.text = GameManager.Instance.TourelleAttackDistance.ToString();
+                            break;
+                        case "DetectDistance":
+                            text.text = GameManager.Instance.TourelleDetectDistance.ToString();
+                            break;
+                        case "AttackStopDistance":
+                            text.text = GameManager.Instance.TourelleAttackStopDistance.ToString();
+                            break;
+                        case "AngleSpeed":
+                            text.text = GameManager.Instance.TourelleAngleSpeed.ToString();
+                            break;
+                    }
+                }
+            }
+            else if (FrondeSettingsUI.activeSelf)
+            {
+                foreach (Transform element in FrondeSettingsUI.transform)
+                {
+                    TMP_InputField text = element.GetComponent<TMP_InputField>();
+                    switch (element.name)
+                    {
+                        case "WalkSpeed":
+                            text.text = GameManager.Instance.FrondeWalkSpeed.ToString();
+                            break;
+                        case "RunSpeed":
+                            text.text = GameManager.Instance.FrondeRunSpeed.ToString();
+                            break;
+                        case "AttackDistance":
+                            text.text = GameManager.Instance.FrondeAttackDistance.ToString();
+                            break;
+                        case "DetectDistance":
+                            text.text = GameManager.Instance.FrondeDetectDistance.ToString();
+                            break;
+                        case "AttackStopDistance":
+                            text.text = GameManager.Instance.FrondeAttackStopDistance.ToString();
+                            break;
+                        case "AngleSpeed":
+                            text.text = GameManager.Instance.FrondeAngleSpeed.ToString();
+                            break;
+                    }
+                }
+            }
+        }
+        public void RightSettingButton()
+        {
+            switch(activeSetting)
+            {
+                case 0:
+                    PlayerSettingsUI.SetActive(false);
+                    TirSettingsUI.SetActive(true);
+                    break;
+                case 1:
+                    TirSettingsUI.SetActive(false);
+                    BruteSettingsUI.SetActive(true);
+                    break;
+                case 2:
+                    BruteSettingsUI.SetActive(false);
+                    TourelleSettingsUI.SetActive(true);
+                    break;
+                case 3:
+                    TourelleSettingsUI.SetActive(false);
+                    FrondeSettingsUI.SetActive(true);
+                    break;
+                case 4:
+                    FrondeSettingsUI.SetActive(false);
+                    PlayerSettingsUI.SetActive(true);
+                    break;
+            }
+            activeSetting = (activeSetting + 1) % 5;
+            LoadValues();
+        }
+        public void LeftSettingButton()
+        {
+            activeSetting = (activeSetting - 1) % 5;
+
+            switch (activeSetting)
+            {
+                case 0:
+                    PlayerSettingsUI.SetActive(true);
+                    TirSettingsUI.SetActive(false);
+                    break;
+                case 1:
+                    TirSettingsUI.SetActive(true);
+                    BruteSettingsUI.SetActive(false);
+                    break;
+                case 2:
+                    BruteSettingsUI.SetActive(true);
+                    TourelleSettingsUI.SetActive(false);
+                    break;
+                case 3:
+                    TourelleSettingsUI.SetActive(true);
+                    FrondeSettingsUI.SetActive(false);
+                    break;
+                case 4:
+                    FrondeSettingsUI.SetActive(true);
+                    PlayerSettingsUI.SetActive(false);
+                    break;
+            }
+            LoadValues();
         }
         public void FallDamageActivate(Toggle toggle)
         {
@@ -245,6 +407,215 @@ namespace Unity.FPS.Gameplay
             }
         }
 
+
+
+
+
+
+        public void SetBruteWalkSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteWalkSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteRunSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteRunSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteAngularSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteAngleSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteDetectDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteDetectDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteAttackDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteAttackDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetBruteAttackStopDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.BruteAttackStopDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+
+
+
+        public void SetTourelleWalkSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleWalkSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleRunSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleRunSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleAngularSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleAngleSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleDetectDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleDetectDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleAttackDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleAttackDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetTourelleAttackStopDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.TourelleAttackStopDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+
+
+
+        public void SetFrondeWalkSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeWalkSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeRunSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeRunSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeAngularSpeed(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeAngleSpeed = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeDetectDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeDetectDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeAttackDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeAttackDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
+        public void SetFrondeAttackStopDistance(TMP_InputField textObj)
+        {
+            if (float.TryParse(textObj.text, out float f))
+            {
+                GameManager.Instance.FrondeAttackStopDistance = f;
+                if (setEnemyParamsUpdate != null)
+                {
+                    setEnemyParamsUpdate.Invoke();
+                }
+            }
+        }
         public void SaveChanges()
         {
             SaveToyboxScript.save_game();

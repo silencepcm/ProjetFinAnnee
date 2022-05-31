@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Personnage : MonoBehaviour
 {
-    public int Vie { get; set; }
-    public int MaxVie { get; set; }
+    public int Vie = 100;
+    public int MaxVie = 100;
     public bool alive;
 
 

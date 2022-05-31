@@ -5,6 +5,7 @@ using UnityEngine.UI;
 //Script en construction : OBJECTIF : GEstion des barres d'eau/de Nourriture/de Gourde/de vie + lancement de la mort lier a la barre de vie
 public class SurvieScript : MonoBehaviour
 {
+    public GameObject InventairePanel;
     public Slider SliderNourriture;
     public Slider SliderEau;
     public Slider SliderGourde;
@@ -19,9 +20,9 @@ public class SurvieScript : MonoBehaviour
     private float maxVie = 100f;
     private int timerCoolDown = 2;
     private int timer = 0;
-    public float perteEauSec;
-    public float perteNourritureSec;
-    public float perteVieSec;
+    private float perteEauSec = 0.01f;
+    private float perteNourritureSec = 0.01f;
+    private float perteVieSec = 0.01f;
 
 
     // Start is called before the first frame update
@@ -42,6 +43,7 @@ public class SurvieScript : MonoBehaviour
         //perte de vie si l'une des 2 barres est a 0
         if (SliderEau.value <= 0f || SliderNourriture.value <= 0f)
         {
+            Debug.Log(Vie.value);
             Vie.value -= perteVieSec;
             if (Vie.value <= 0f)
             {
@@ -52,17 +54,40 @@ public class SurvieScript : MonoBehaviour
 
     private void Update()
     {
+       
         timer += 1;
         //mise a 0 de la barre de nourriture
-        if (SliderNourriture.value <= 0f)
+        if (SliderNourriture.value <= minNourriture)
         {
-            SliderNourriture.value = 0f;
+            SliderNourriture.value = minNourriture;
+        }
+        if (SliderNourriture.value >= maxNourriture)
+        {
+            SliderNourriture.value = maxNourriture;
+        }
+
+        if(Vie.value >= maxVie)
+        {
+           Vie.value = maxVie;
         }
 
         //mise a 0 de la barre d'eau
-        if (SliderEau.value <= 0f)
+        if (SliderEau.value <= minEau)
         {
-            SliderEau.value = 0f;
+            SliderEau.value = minEau;
+        }
+        if(SliderEau.value >= maxEau)
+        {
+            SliderEau.value = maxEau;
+        }
+
+        if(SliderGourde.value <= minGourde)
+        {
+            SliderGourde.value = minGourde;
+        }
+        if(SliderGourde.value >= maxGourde)
+        {
+            SliderGourde.value = maxGourde;
         }
 
         //Boit dans la gourde si touche alpha3 enfoncer
@@ -75,8 +100,22 @@ public class SurvieScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha2)&& timer > timerCoolDown)
         {
             SliderNourriture.value += 20f;
+            if(InventairePanel.GetComponent<InventaireScript>().Fruit > 0)
+            {
+                InventairePanel.GetComponent<InventaireScript>().Fruit -= 1;
+            }else if(InventairePanel.GetComponent<InventaireScript>().Baie > 0)
+            {
+                InventairePanel.GetComponent<InventaireScript>().Baie -= 1;
+            }
+            
+
+            
         }
-       
+        if (Input.GetKeyDown(KeyCode.H) && timer > timerCoolDown && InventairePanel.GetComponent<InventaireScript>().NbPotionSanté > 0 && Vie.value < maxVie)
+        {
+            InventairePanel.GetComponent<InventaireScript>().NbPotionSanté -= 1;
+            Vie.value = maxVie;
+        }
 
     }
 

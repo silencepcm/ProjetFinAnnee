@@ -11,6 +11,7 @@ TagManager:
   - Drinker
   - InteractableEnv
   - Water
+  - Enemy
   layers:
   - Default
   - TransparentFX
