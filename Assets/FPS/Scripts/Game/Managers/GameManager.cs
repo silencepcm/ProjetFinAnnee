@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float BruteAttackDistance;
     [HideInInspector] public float BruteAttackStopDistance;
     [HideInInspector] public float BruteDetectDistance;
+    [HideInInspector] public float BruteAcceleration;
 
     [HideInInspector] public float TourelleWalkSpeed;
     [HideInInspector] public float TourelleRunSpeed;
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float TourelleAttackDistance;
     [HideInInspector] public float TourelleAttackStopDistance;
     [HideInInspector] public float TourelleDetectDistance;
+    [HideInInspector] public float TourelleAcceleration;
 
     [HideInInspector] public float FrondeWalkSpeed;
     [HideInInspector] public float FrondeRunSpeed;
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float FrondeAttackDistance;
     [HideInInspector] public float FrondeAttackStopDistance;
     [HideInInspector] public float FrondeDetectDistance;
+    [HideInInspector] public float FrondeAcceleration;
 
 
     public void Start()
@@ -169,6 +172,7 @@ public class GameManager : MonoBehaviour
             BruteAttackDistance = data.BruteAttackDistance;
             BruteAttackStopDistance = data.BruteAttackStopDistance;
             BruteDetectDistance = data.BruteDetectDistance;
+            BruteAcceleration = data.BruteAcceleration;
 
             TourelleWalkSpeed = data.TourelleWalkSpeed;
             TourelleRunSpeed = data.TourelleRunSpeed;
@@ -176,6 +180,7 @@ public class GameManager : MonoBehaviour
             TourelleAttackDistance = data.TourelleAttackDistance;
             TourelleAttackStopDistance = data.TourelleAttackStopDistance;
             TourelleDetectDistance = data.TourelleDetectDistance;
+            TourelleAcceleration = data.TourelleAcceleration;
 
             FrondeWalkSpeed = data.FrondeWalkSpeed;
             FrondeRunSpeed = data.FrondeRunSpeed;
@@ -183,6 +188,8 @@ public class GameManager : MonoBehaviour
             FrondeAttackDistance = data.FrondeAttackDistance;
             FrondeAttackStopDistance = data.FrondeAttackStopDistance;
             FrondeDetectDistance = data.FrondeDetectDistance;
+            FrondeAcceleration = data.FrondeAcceleration;
+
         }
         else
         {
@@ -240,6 +247,7 @@ public class GameManager : MonoBehaviour
             BruteAttackDistance = 2f;
             BruteAttackStopDistance = 2.3f;
             BruteDetectDistance = 8f;
+            BruteAcceleration = 8f;
 
             TourelleWalkSpeed = 3f;
             TourelleRunSpeed = 4.5f;

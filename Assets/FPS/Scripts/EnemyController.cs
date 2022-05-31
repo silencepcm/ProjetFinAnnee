@@ -74,15 +74,12 @@ namespace Unity.FPS.AI
         public DetectionModule DetectionModule { get; private set; }
 
         int m_PathDestinationNodeIndex;
-        EnemyManager m_EnemyManager;
         //ActorsManager m_ActorsManager;
         //Health m_Health;
         //Actor m_Actor;
         Collider[] m_SelfColliders;
         GameFlowManager m_GameFlowManager;
         bool m_WasDamagedThisFrame;
-        float m_LastTimeWeaponSwapped = Mathf.NegativeInfinity;
-        int m_CurrentWeaponIndex;
         public WeaponController CurrentWeapon;
         public Transform DetectionSourcePoint;
         [Tooltip("The max distance at which the enemy can see targets")]
@@ -105,7 +102,7 @@ namespace Unity.FPS.AI
         public EnemyType enemyType;
         float WalkSpeed;
         float RunSpeed;
-        void importParams()
+        void ImportParams()
         {
             switch (enemyType)
             {
@@ -113,7 +110,8 @@ namespace Unity.FPS.AI
                     WalkSpeed = GameManager.Instance.BruteWalkSpeed;
                     RunSpeed = GameManager.Instance.BruteRunSpeed;
                     NavMeshAgent.angularSpeed = GameManager.Instance.BruteAngleSpeed;
-                    //NavMeshAgent.acceleration = m_NavigationModule.Acceleration;
+                    NavMeshAgent.speed = GameManager.Instance.BruteWalkSpeed;
+                    NavMeshAgent.acceleration = GameManager.Instance.BruteAcceleration;
                     break;
                 case EnemyType.Tourelle:
                     break;
@@ -126,7 +124,7 @@ namespace Unity.FPS.AI
         {
             Player = GameObject.FindGameObjectWithTag("Player");
 
-            FindObjectOfType<Unity.FPS.Gameplay.ToyboxScript>().setEnemyParamsUpdate += importParams;
+            FindObjectOfType<Unity.FPS.Gameplay.ToyboxScript>().setEnemyParamsUpdate += ImportParams;
             //m_EnemyManager = FindObjectOfType<EnemyManager>();
              
             //m_EnemyManager.RegisterEnemy(this);
@@ -147,7 +145,7 @@ namespace Unity.FPS.AI
             DetectionModule = detectionModules[0];
             onAttack += OnAttack;
             onDetectedTarget += OnDetectedTarget;
-            
+            ImportParams();
 
              /*   NavMeshAgent.speed = m_NavigationModule.MoveSpeed;
                 NavMeshAgent.angularSpeed = m_NavigationModule.AngularSpeed;

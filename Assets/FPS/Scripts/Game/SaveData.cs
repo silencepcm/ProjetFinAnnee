@@ -63,6 +63,7 @@ namespace Unity.FPS.Game
         public float BruteAttackDistance;
         public float BruteAttackStopDistance;
         public float BruteDetectDistance;
+        public float BruteAcceleration;
 
         public float TourelleWalkSpeed;
         public float TourelleRunSpeed;
@@ -70,6 +71,7 @@ namespace Unity.FPS.Game
         public float TourelleAttackDistance;
         public float TourelleAttackStopDistance;
         public float TourelleDetectDistance;
+        public float TourelleAcceleration;
 
         public float FrondeWalkSpeed;
         public float FrondeRunSpeed;
@@ -77,5 +79,6 @@ namespace Unity.FPS.Game
         public float FrondeAttackDistance;
         public float FrondeAttackStopDistance;
         public float FrondeDetectDistance;
+        public float FrondeAcceleration;
     }
 }

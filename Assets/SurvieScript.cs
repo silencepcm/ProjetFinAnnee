@@ -37,7 +37,7 @@ public class SurvieScript : MonoBehaviour
     public void FixedUpdate()
     {
         //perte d'eau et de nourriture
-        SliderNourriture.value -= perteNourritureSec;
+        SliderNourriture.value = 1f - perteNourritureSec;
         SliderEau.value -= perteEauSec;
 
         //perte de vie si l'une des 2 barres est a 0
