@@ -81,7 +81,7 @@ public class PlayerStatsScript : Personnage
         DegatsNourriture = GameManager.Instance.DegatsNourriture;
         DegatsSoif = GameManager.Instance.DegatsSoif;
         Vie = GameManager.Instance.Vie;
-        MaxVie = GameManager.Instance.MaxVie;
+        MaxVie = 100;
         maxSoif = GameManager.Instance.MaxSoif;
         minSoif = GameManager.Instance.MinSoif;
 
