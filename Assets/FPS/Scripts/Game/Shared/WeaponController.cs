@@ -181,8 +181,8 @@ namespace Unity.FPS.Game
             MaxAmmo = GameManager.Instance.MaxAmmo;
             BulletSpreadAngle = GameManager.Instance.BulletSpreadAngle;
             BulletsPerShot = 1;
-            m_CurrentAmmoDirect = MaxAmmo;
-            m_CurrentAmmoOblique = MaxAmmo;
+            m_CurrentAmmoDirect = GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().NbMunitionDirect += 1;
+            m_CurrentAmmoOblique = GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().NbMunitionOblique += 1;
             m_CarriedPhysicalBullets = HasPhysicalBullets ? ClipSize : 0;
             m_LastMuzzlePosition = WeaponMuzzle.position;
 
@@ -234,7 +234,7 @@ namespace Unity.FPS.Game
         void PlaySFX(AudioClip sfx) => AudioUtility.CreateSFX(sfx, transform.position, AudioUtility.AudioGroups.WeaponShoot, 0.0f);
 
 
-        void Reload()
+        /*void Reload()
         {
             if (m_CarriedPhysicalBullets > 0)
             {
@@ -243,7 +243,7 @@ namespace Unity.FPS.Game
             }
 
             IsReloading = false;
-        }
+        }*/
 
         public void StartReloadAnimation()
         {
@@ -258,7 +258,7 @@ namespace Unity.FPS.Game
                 }
                 else
                 {
-                    Reload();
+                    //Reload();
                 }
             }
             if(m_CurrentAmmoOblique < m_CarriedPhysicalBullets)
@@ -270,7 +270,7 @@ namespace Unity.FPS.Game
                 }
                 else
                 {
-                    Reload();
+                    //Reload();
                 }
             }
         }
@@ -398,18 +398,18 @@ namespace Unity.FPS.Game
 
         public bool TryShoot()
         {
-            if (m_CurrentAmmoDirect >= 1f || m_CurrentAmmoOblique >= 1f
+            if (GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().NbMunitionDirect >= 1 || GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().NbMunitionOblique >= 1
                 && m_LastTimeShot + DelayBetweenShots < Time.time)
             {
-                if (Input.GetKeyDown(KeyCode.Mouse0) && m_CurrentAmmoDirect >= 1f)
+                if (Input.GetKeyDown(KeyCode.Mouse0) && GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().NbMunitionDirect >= 1)
                 {
                     NormalHandleShoot();
-                    m_CurrentAmmoDirect -= 1f;
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().NbMunitionDirect -= 1;
                 }
-                else if(Input.GetKeyDown(KeyCode.Mouse1) && m_CurrentAmmoOblique >= 1f)
+                else if(Input.GetKeyDown(KeyCode.Mouse1) && GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().NbMunitionOblique >= 1)
                 {
                     ObliqueHandleShoot();
-                    m_CurrentAmmoOblique -= 1; 
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().NbMunitionOblique -= 1;
                 }
                
 

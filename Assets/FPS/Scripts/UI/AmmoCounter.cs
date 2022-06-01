@@ -22,8 +22,8 @@ namespace Unity.FPS.UI
 
         void Update()
         {
-            m_textdroit.text = _weaponController.GetCurrentAmmoDirect().ToString();
-            m_textoblique.text = _weaponController.GetCurrentAmmoOblique().ToString();
+           // m_textdroit.text = _weaponController.GetCurrentAmmoDirect().ToString();
+           // m_textoblique.text = _weaponController.GetCurrentAmmoOblique().ToString();
         }
 
     }

@@ -117,6 +117,7 @@ public class SurvieScript : MonoBehaviour
             Vie.value = maxVie;
         }
 
+
     }
 
     public void Dead()
