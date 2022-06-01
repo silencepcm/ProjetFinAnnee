@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 //Script en construction : OBJECTIF : GEstion des barres d'eau/de Nourriture/de Gourde/de vie + lancement de la mort lier a la barre de vie
 public class SurvieScript : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class SurvieScript : MonoBehaviour
     public Slider SliderEau;
     public Slider SliderGourde;
     public Slider Vie;
+    public GameObject activeImageConsom;
+    public GameObject passiveImageConsom;
+    public GameObject activeTextConsom;
+    public GameObject passiveTextConsom;
     private float minNourriture = 0f;
     private float maxNourriture = 100f;
     private float minEau = 0f;
@@ -23,6 +28,8 @@ public class SurvieScript : MonoBehaviour
     public float perteEauSec;
     public float perteNourritureSec;
     public float perteVieSec;
+    private bool baieActive = true;
+    private float timerHoldButton = 0f;
 
 
     // Start is called before the first frame update
@@ -96,25 +103,61 @@ public class SurvieScript : MonoBehaviour
             SliderEau.value += 20f;
         }
         //Mange un fruit si touche alpha2 enfoncer ATTENTION!!!!  A FAIRE : lier a l'inventaire pour detruire un obj nourriture dedans 
-        if(Input.GetKeyDown(KeyCode.Alpha2)&& timer > timerCoolDown)
+        if (Input.GetKey(KeyCode.Alpha2) && timer > timerCoolDown)
         {
-            SliderNourriture.value += 20f;
-            if(InventairePanel.GetComponent<InventaireScript>().Clochite > 0)
+            timerHoldButton++;
+            if (timerHoldButton == 200f)
             {
-                InventairePanel.GetComponent<InventaireScript>().Clochite -= 1;
-            }else if(InventairePanel.GetComponent<InventaireScript>().Baie > 0)
-            {
-                InventairePanel.GetComponent<InventaireScript>().Baie -= 1;
-            }
-            
+                Sprite spriteTemp;
+                spriteTemp = activeImageConsom.GetComponent<Image>().sprite;
+                activeImageConsom.GetComponent<Image>().sprite = passiveImageConsom.GetComponent<Image>().sprite;
+                passiveImageConsom.GetComponent<Image>().sprite = spriteTemp;
 
-            if(Input.GetKeyDown(KeyCode.H) && timer > timerCoolDown && InventairePanel.GetComponent<InventaireScript>().NbPotionSanté > 0 && Vie.value < maxVie)
-            {
-                InventairePanel.GetComponent<InventaireScript>().NbPotionSanté -= 1;
-                Vie.value = maxVie;
+                baieActive = !baieActive;
+                Debug.Log("Changement");
             }
         }
-       
+        else if (!Input.GetKeyDown(KeyCode.Alpha2) && timerHoldButton > 0)
+        {
+            if (timerHoldButton < 200)
+            {
+                Debug.Log("Manger");
+                if (baieActive)
+                {
+                    if (InventairePanel.GetComponent<InventaireScript>().Baie > 0)
+                    {
+                        SliderNourriture.value += 20f;
+                        InventairePanel.GetComponent<InventaireScript>().Baie -= 1;
+                    }
+                }
+                else
+                {
+                    if (InventairePanel.GetComponent<InventaireScript>().Fruit > 0)
+                    {
+                        SliderNourriture.value += 20f;
+                        InventairePanel.GetComponent<InventaireScript>().Fruit -= 1;
+                    }
+                }
+            }
+            timerHoldButton = 0;
+        }
+
+        if (baieActive)
+        {
+            activeTextConsom.GetComponent<TextMeshProUGUI>().text = InventairePanel.GetComponent<InventaireScript>().Baie.ToString();
+            passiveTextConsom.GetComponent<TextMeshProUGUI>().text = InventairePanel.GetComponent<InventaireScript>().Fruit.ToString();
+        }
+        else
+        {
+            activeTextConsom.GetComponent<TextMeshProUGUI>().text = InventairePanel.GetComponent<InventaireScript>().Fruit.ToString();
+            passiveTextConsom.GetComponent<TextMeshProUGUI>().text = InventairePanel.GetComponent<InventaireScript>().Baie.ToString();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H) && timer > timerCoolDown && InventairePanel.GetComponent<InventaireScript>().NbPotionSanté > 0 && Vie.value < maxVie)
+        {
+            InventairePanel.GetComponent<InventaireScript>().NbPotionSanté -= 1;
+            Vie.value = maxVie;
+        }
 
     }
 
