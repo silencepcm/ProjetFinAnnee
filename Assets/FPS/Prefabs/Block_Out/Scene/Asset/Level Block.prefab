@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &190047767697591053
 Transform:
@@ -1049,6 +1049,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dessous_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8218229375249243728, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1093,6 +1098,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -47.453
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738906046864098538, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78cf8bc03c7bf0a4296bc1832da9388b, type: 3}
@@ -1183,6 +1193,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Dessous_02 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738906046864098538, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78cf8bc03c7bf0a4296bc1832da9388b, type: 3}
@@ -1363,6 +1383,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Dessous_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: 089fd373c394fe346b5aac2a46a7251f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232147011423370961, guid: 089fd373c394fe346b5aac2a46a7251f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 089fd373c394fe346b5aac2a46a7251f, type: 3}
@@ -1734,6 +1764,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Falaise_03 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1278155925078280390, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750870503816177110, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
         type: 3}
       propertyPath: m_RootOrder
@@ -1824,6 +1864,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Falaise_03 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1278155925078280390, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750870503816177110, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
         type: 3}
       propertyPath: m_RootOrder
@@ -1908,6 +1958,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Falaise_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278155925078280390, guid: 2900c761f9028f94080bc39488e288c0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2458651489215537529, guid: 2900c761f9028f94080bc39488e288c0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: 2900c761f9028f94080bc39488e288c0,
         type: 3}
@@ -3059,6 +3119,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Falaise_02
       objectReference: {fileID: 0}
+    - target: {fileID: 5853062394182028440, guid: cdaa27544de230c4cbff12845ad3f7a9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: cdaa27544de230c4cbff12845ad3f7a9,
         type: 3}
       propertyPath: m_RootOrder
@@ -3299,6 +3364,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dessous_02 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8218229375249243728, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3348,6 +3418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738906046864098538, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78cf8bc03c7bf0a4296bc1832da9388b, type: 3}
@@ -3524,6 +3599,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dessous_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8218229375249243728, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3573,6 +3653,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738906046864098538, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78cf8bc03c7bf0a4296bc1832da9388b, type: 3}
@@ -4489,6 +4574,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Falaise_03 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1278155925078280390, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750870503816177110, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
         type: 3}
       propertyPath: m_RootOrder
@@ -4959,6 +5054,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Falaise_03 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1278155925078280390, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750870503816177110, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
         type: 3}
       propertyPath: m_RootOrder
@@ -5258,6 +5363,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Dessous_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738906046864098538, guid: 78cf8bc03c7bf0a4296bc1832da9388b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78cf8bc03c7bf0a4296bc1832da9388b, type: 3}
@@ -5719,6 +5834,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Falaise_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5853062394182028440, guid: cdaa27544de230c4cbff12845ad3f7a9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: cdaa27544de230c4cbff12845ad3f7a9,
         type: 3}
       propertyPath: m_RootOrder
@@ -5873,6 +5993,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Dessous_03 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: 089fd373c394fe346b5aac2a46a7251f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232147011423370961, guid: 089fd373c394fe346b5aac2a46a7251f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 089fd373c394fe346b5aac2a46a7251f, type: 3}
@@ -6344,6 +6474,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dessous_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: f1784c53bd601e94c9b3c5fdc0399a92,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332926988414114825, guid: f1784c53bd601e94c9b3c5fdc0399a92,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1784c53bd601e94c9b3c5fdc0399a92, type: 3}
 --- !u!4 &2337183522218530430 stripped
@@ -6629,6 +6769,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Falaise_03 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1278155925078280390, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750870503816177110, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
         type: 3}
       propertyPath: m_RootOrder
@@ -6708,6 +6858,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Falaise_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278155925078280390, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750870503816177110, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
         type: 3}
@@ -7209,6 +7369,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dessous_03 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: 089fd373c394fe346b5aac2a46a7251f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232147011423370961, guid: 089fd373c394fe346b5aac2a46a7251f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 089fd373c394fe346b5aac2a46a7251f, type: 3}
 --- !u!4 &2337183522494617400 stripped
@@ -7318,6 +7488,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Falaise_03 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278155925078280390, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750870503816177110, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8825032250060378602, guid: 4f56d6983b7b9374dad0c333fdde0ab3,
         type: 3}
@@ -8943,6 +9123,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Dessous_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221559991562926231, guid: f1784c53bd601e94c9b3c5fdc0399a92,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332926988414114825, guid: f1784c53bd601e94c9b3c5fdc0399a92,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1784c53bd601e94c9b3c5fdc0399a92, type: 3}
