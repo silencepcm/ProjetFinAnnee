@@ -8,8 +8,17 @@ namespace Unity.FPS.Gameplay
 
         public AudioClip CollectSfx;
         public GameObject CollectVfxPrefab;
-
-
+        public enum TypeRessource
+        {
+            Munitite,
+            Directite,
+            Clochite,
+            Baie,
+            Fruit,
+            Poussite,
+            Plontite1
+        }
+        public TypeRessource Type;
         Collider m_Collider;
         Vector3 m_StartPosition;
         bool m_HasPlayedFeedback;
@@ -64,27 +73,27 @@ namespace Unity.FPS.Gameplay
         }
         public void CollectEvent()
         {
-            switch (name)
+            switch (Type)
             {
-                case "Sac":
-                    break;
-                case "Munitite":
+                case TypeRessource.Munitite:
                     GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Munitite++;
                     break;
-                case "Directite":
+                case TypeRessource.Directite:
                     GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Directite++;
                     break;
-                case "Clochite":
+                case TypeRessource.Clochite:
                     GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Clochite++;
                     break;
-                case "Fruit":
+                case TypeRessource.Fruit:
                     GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Fruit++;
                     break;
-                case "Baie":
+                case TypeRessource.Baie:
                     GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Baie++;
                     break;
-                case "Poussite":
+                case TypeRessource.Poussite:
                     GameObject.FindGameObjectWithTag("Player").GetComponent<InventaireScript>().Poussite++;
+                    break;
+                default:
                     break;
 
             }
